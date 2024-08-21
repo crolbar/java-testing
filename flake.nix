@@ -42,7 +42,6 @@
             javac Hello.java
           '';
 
-          # The installPhase installs the compiled class into $out
           installPhase = ''
             mkdir -p $out/bin
             mv Hello.class $out/bin

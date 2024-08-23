@@ -13,10 +13,20 @@
     devShells = eachSystem (
       system: let
         pkgs = pkgsFor.${system};
+
+        runScript = ''
+          ${pkgs.jdk}/bin/javac Hello.java && ${pkgs.jdk}/bin/java Hello
+        '';
       in {
         default = pkgs.mkShell {
           packages = with pkgs; [
             jdk
+            (pkgs.writeTextFile {
+              name = "run";
+              destination = "/bin/run";
+              executable = true;
+              text = runScript;
+            })
           ];
         };
       }

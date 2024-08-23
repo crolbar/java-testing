@@ -2,3 +2,4 @@ Idea
 .idea
 out
 testing.iml
+*.class

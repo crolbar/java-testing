@@ -15,7 +15,7 @@
         pkgs = pkgsFor.${system};
 
         runScript = ''
-          ${pkgs.jdk}/bin/javac Hello.java && ${pkgs.jdk}/bin/java Hello
+          ${pkgs.jdk}/bin/javac $1.java && ${pkgs.jdk}/bin/java $1
         '';
       in {
         default = pkgs.mkShell {

@@ -15,7 +15,7 @@
         pkgs = pkgsFor.${system};
 
         runScript = ''
-          ${pkgs.jdk}/bin/javac $1.java && ${pkgs.jdk}/bin/java $1
+          ${pkgs.jdk}/bin/javac $1.java && ${pkgs.jdk}/bin/java -ea $1
         '';
       in {
         default = pkgs.mkShell {
@@ -49,15 +49,18 @@
           dontConfigure = true;
 
           buildPhase = ''
-            javac Hello.java
+            javac m.java
           '';
 
           installPhase = ''
             mkdir -p $out/bin
-            mv Hello.class $out/bin
+            mv m.class $out/bin
+
+            mkdir $out/bin/pkgs
+            cp pkgs/*.class $out/bin/pkgs
 
             echo "#!/bin/sh" > $out/bin/${pname}
-            echo "${pkgs.jdk}/bin/java -cp $out/bin Hello" >> $out/bin/${pname}
+            echo "${pkgs.jdk}/bin/java -cp $out/bin m" >> $out/bin/${pname}
             chmod +x $out/bin/${pname}
           '';
         };

@@ -3,3 +3,4 @@ Idea
 out
 testing.iml
 *.class
+tmp*

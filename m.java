@@ -5,7 +5,8 @@ import pkgs.Recursion.*;
 
 public class m {
     public static void main(String[] args) {
-        Sort.call(SortType.Bubble);
-        //Recursion.call(RecursionType.PathFind);
+        //Search.call(SearchType.Binary);
+        //Sort.call(SortType.Bubble);
+        Recursion.call(RecursionType.PathFind);
     }
 }

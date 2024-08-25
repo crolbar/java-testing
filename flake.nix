@@ -20,7 +20,7 @@
       in {
         default = pkgs.mkShell {
           packages = with pkgs; [
-            jdk
+            jdk jdt-language-server
             (pkgs.writeTextFile {
               name = "run";
               destination = "/bin/run";

@@ -104,6 +104,13 @@ class PathFind {
         assert Arrays.equals(path, mazeTestCase);
     }
 
+    static int[][] dirs = {
+        {1, 0},
+        {-1, 0},
+        {0, -1},
+        {0, 1}
+    };
+
     public static boolean walk(
             String[] maze,
             char wall,
@@ -111,6 +118,29 @@ class PathFind {
             Point end,
             ArrayList<ArrayList<Boolean>> seen,
             ArrayList<Point> path) {
+
+        if (curr.x == end.x && curr.y == end.y) {
+            path.add(curr);
+            return true;
+        }
+
+        seen.get(curr.y).set(curr.x, true);
+        path.add(curr);
+
+        for (int[] d : dirs) {
+            int x = curr.x + d[0];
+            int y = curr.y + d[1];
+
+            if (!(x < 0 || x >= maze[0].length() || y < 0 || y >= maze.length)
+                    && maze[y].charAt(x) != wall
+                    && !seen.get(y).get(x)) {
+
+                if (walk(maze, wall, new Point(x, y), end, seen, path)) return true;
+            }
+        }
+
+        path.removeLast();
+
         return false;
     }
 }

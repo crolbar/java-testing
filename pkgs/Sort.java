@@ -22,8 +22,8 @@ public class Sort {
             public static int partiton(int[] nums, int li, int hi) {
                 int pivot = nums[hi];
 
-                System.out.printf("\n\nStarting partition with pivot: %d\n\n", pivot);
-                System.out.println(Arrays.toString(nums));
+                //System.out.printf("\n\nStarting partition with pivot: %d\n\n", pivot);
+                //System.out.println(Arrays.toString(nums));
 
                 int i = li - 1;
 
@@ -32,7 +32,7 @@ public class Sort {
                         i++;
                         int tmp = nums[j];
 
-                        System.out.printf("Swaping: %d at %d with %d ad idx: %d\n", tmp, j, nums[i], i);
+                        //System.out.printf("Swaping: %d at %d with %d ad idx: %d\n", tmp, j, nums[i], i);
 
                         nums[j] = nums[i];
                         nums[i] = tmp;
@@ -40,7 +40,7 @@ public class Sort {
                 }
 
                 i++;
-                System.out.printf("Swaping: %d ad %d with pivot: %d at %d\n", nums[i], i, pivot, hi);
+                //System.out.printf("Swaping: %d ad %d with pivot: %d at %d\n", nums[i], i, pivot, hi);
                 nums[hi] = nums[i];
                 nums[i] = pivot;
 
@@ -73,7 +73,7 @@ public class Sort {
         //    25047, 37, 25046, 39, 25045, 41, 25044, 43, 25043, 45, 25042, 47, 25041, 49, 25040, 51,
         //    25039, 53, 25038, 55, 25037, 57, 25036, 59, 25035, 61, 25034, 63, 25033, 64, 65
         //};
-        int[] nums = {5,2,3,1, 3, 4, 1, -1, -20, 20, -14, 30, 1523};
+        int[] nums = {9, 1, 4, 7, 3, -1, 0, 5, 8, -1, 6};
 
         if (st == SortType.Bubble) {
             System.out.println(Arrays.toString(bubble(nums)));

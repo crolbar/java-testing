@@ -2,13 +2,13 @@ import pkgs.*;
 import pkgs.Search.*;
 import pkgs.Sort.*;
 import pkgs.Recursion.*;
-import pkgs.clean.*;
+import pkgs.leet.*;
 
 public class m {
     public static void main(String[] args) {
         //Search.call(SearchType.Binary);
-        Sort.call(SortType.Quick);
+        //Sort.call(SortType.Quick);
         //Recursion.call(RecursionType.PathFind);
-        clean.main();
+        leet.main();
     }
 }

@@ -8,6 +8,7 @@ import java.util.HashMap;
 public class Tree {
     public static void main() {
         BinaryTree bt = new BinaryTree(-1);
+
         TreeNode node = bt.root;
 
         for (int i = 20; i < 60; i += 2) {
@@ -27,17 +28,15 @@ public class Tree {
             }
         }
 
-        ArrayList<TreeNode> list = new ArrayList<>();
-
-        BinaryTree.getPreTree(list, bt.root);
-
-        for (int i = 0; i < list.size(); i++) {
-            System.out.printf("%d,", list.get(i).val);
-        }
-
+        ArrayList<TreeNode> list = BinaryTree.getDFSTree(new ArrayList<>(), bt.root);
+        for (int i = 0; i < list.size(); i++) System.out.printf("%d,", list.get(i).val);
         System.out.println();
-
         bt.printTree(list);
+
+        ArrayList<TreeNode> queue = new ArrayList<>();
+        queue.add(bt.root);
+        list = BinaryTree.getBFSTree(new ArrayList<>(), queue);
+        for (int i = 0; i < list.size(); i++) System.out.printf("%d,", list.get(i).val);
     }
 
     public static class BinaryTree {
@@ -47,14 +46,36 @@ public class Tree {
             root = new TreeNode(val);
         }
 
-        static ArrayList<TreeNode> getPreTree(ArrayList<TreeNode> list, TreeNode node) {
+        static ArrayList<TreeNode> getBFSTree(ArrayList<TreeNode> list, ArrayList<TreeNode> queue) {
+            if (queue.isEmpty()) {
+                return list;
+            }
+
+            TreeNode node = queue.removeFirst();
+
+            if (node == null) {
+                getBFSTree(list, queue);
+                return list;
+            }
+
+            list.add(node);
+
+            queue.add(node.left);
+            queue.add(node.right);
+
+            getBFSTree(list, queue);
+
+            return list;
+        }
+
+        static ArrayList<TreeNode> getDFSTree(ArrayList<TreeNode> list, TreeNode node) {
             if (node == null) {
                 return list;
             }
 
-            getPreTree(list, node.left);
-            getPreTree(list, node.right);
             list.add(node);
+            getDFSTree(list, node.left);
+            getDFSTree(list, node.right);
 
             return list;
         }

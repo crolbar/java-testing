@@ -11,6 +11,6 @@ public class m {
         // Sort.call(SortType.Quick);
         // Recursion.call(RecursionType.PathFind);
         // leet.main();
-         Tree.main();
+        Tree.main();
     }
 }

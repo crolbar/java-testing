@@ -28,15 +28,45 @@ public class Tree {
             }
         }
 
+        BinaryTree bt2 = new BinaryTree(-1);
+
+        node = bt2.root;
+
+        for (int i = 20; i < 60; i += 2) {
+            node.left = new TreeNode(i);
+            node.left.parrent = node;
+            node.right = new TreeNode(i + 1);
+            node.right.parrent = node;
+
+            if (i == 28 || i == 30 || i == 32) {
+                node = node.left;
+            } else if (i < 40) {
+                node = node.right;
+            } else if (i < 50) {
+                node = node.left;
+            } else {
+                node = node.right;
+            }
+        }
+
         ArrayList<TreeNode> list = BinaryTree.getDFSTree(new ArrayList<>(), bt.root);
         for (int i = 0; i < list.size(); i++) System.out.printf("%d,", list.get(i).val);
         System.out.println();
         bt.printTree(list);
 
+        list = BinaryTree.getDFSTree(new ArrayList<>(), bt2.root);
+        System.out.println("bt2");
+        for (int i = 0; i < list.size(); i++) System.out.printf("%d,", list.get(i).val);
+        System.out.println();
+        bt2.printTree(list);
+
         ArrayList<TreeNode> queue = new ArrayList<>();
         queue.add(bt.root);
         list = BinaryTree.getBFSTree(new ArrayList<>(), queue);
         for (int i = 0; i < list.size(); i++) System.out.printf("%d,", list.get(i).val);
+        System.out.println();
+
+        System.out.println(BinaryTree.compare(bt.root, bt2.root));
     }
 
     public static class BinaryTree {
@@ -44,6 +74,23 @@ public class Tree {
 
         BinaryTree(int val) {
             root = new TreeNode(val);
+        }
+
+
+        static boolean compare(TreeNode a, TreeNode b) {
+            if (a == null && b == null) {
+                return true;
+            }
+
+            if (a == null || b == null) {
+                return false;
+            }
+
+            if (a.val != b.val) {
+                return false;
+            }
+
+            return compare(a.left, b.left) && compare(a.right, b.right);
         }
 
         static ArrayList<TreeNode> getBFSTree(ArrayList<TreeNode> list, ArrayList<TreeNode> queue) {

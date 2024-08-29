@@ -27,7 +27,6 @@ public class Tree {
             }
         }
 
-
         ArrayList<TreeNode> list = new ArrayList<>();
 
         BinaryTree.getPreTree(list, bt.root);
@@ -53,10 +52,9 @@ public class Tree {
                 return list;
             }
 
-
-            list.add(node);
             getPreTree(list, node.left);
             getPreTree(list, node.right);
+            list.add(node);
 
             return list;
         }
@@ -84,14 +82,24 @@ public class Tree {
             final var ADGST_OFFSET = 4;
 
             ArrayList<String> lines = new ArrayList<>();
+            for (int i = 0; i <= list.size() / 2; i++) lines.add("");
+
             HashMap<TreeNode, Integer> line_idx = new HashMap<>();
             HashMap<TreeNode, Integer> line_off = new HashMap<>();
 
-            int idx = 0;
+             //int num_parrents = 0;
             for (int i = 0; i < list.size(); i++) {
                 TreeNode node = list.get(i);
 
+                TreeNode parrent = node.parrent;
+                int num_parrents = 0;
+                while (parrent != null) {
+                    num_parrents++;
+                    parrent = parrent.parrent;
+                }
+
                 if (node.parrent != null) {
+
                     if (line_idx.containsKey(node.parrent)) { // right node on line
                         int p_idx = line_idx.get(node.parrent);
                         lines.set(
@@ -101,7 +109,7 @@ public class Tree {
                                         + String.format("%d:%d", node.val, node.parrent.val));
 
                     } else { // left node
-                        line_idx.put(node.parrent, idx);
+                        line_idx.put(node.parrent, num_parrents);
 
                         // storing the offset in the parrent for the curr line
                         // the parrent's parrent
@@ -114,19 +122,20 @@ public class Tree {
                                                     : ADGST_OFFSET));
                         } else {
                             line_off.put(node.parrent, BASE_OFFSET);
-
                         }
 
-                        lines.add(
+                        lines.set(
+                                num_parrents,
                                 " ".repeat(line_off.get(node.parrent))
                                         + String.format("%d:%d", node.val, node.parrent.val));
-                        idx++;
+
                     }
                 } else { // root
                     line_off.put(node, BASE_OFFSET);
 
-                    lines.add(" ".repeat(line_off.get(node) + 5) + String.format("%d", node.val));
-                    idx++;
+                    lines.set(
+                            num_parrents,
+                            " ".repeat(line_off.get(node) + 5) + String.format("%d", node.val));
                 }
             }
 

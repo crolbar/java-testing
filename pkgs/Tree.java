@@ -78,70 +78,79 @@ public class Tree {
 
         public void printTree(ArrayList<TreeNode> list) {
 
-            final var BASE_OFFSET = 50;
-            final var ADGST_OFFSET = 4;
-
             ArrayList<String> lines = new ArrayList<>();
             for (int i = 0; i <= list.size() / 2; i++) lines.add("");
 
             HashMap<TreeNode, Integer> line_idx = new HashMap<>();
             HashMap<TreeNode, Integer> line_off = new HashMap<>();
 
-             //int num_parrents = 0;
-            for (int i = 0; i < list.size(); i++) {
-                TreeNode node = list.get(i);
-
-                TreeNode parrent = node.parrent;
-                int num_parrents = 0;
-                while (parrent != null) {
-                    num_parrents++;
-                    parrent = parrent.parrent;
-                }
-
-                if (node.parrent != null) {
-
-                    if (line_idx.containsKey(node.parrent)) { // right node on line
-                        int p_idx = line_idx.get(node.parrent);
-                        lines.set(
-                                p_idx,
-                                lines.get(p_idx)
-                                        + " ".repeat(2)
-                                        + String.format("%d:%d", node.val, node.parrent.val));
-
-                    } else { // left node
-                        line_idx.put(node.parrent, num_parrents);
-
-                        // storing the offset in the parrent for the curr line
-                        // the parrent's parrent
-                        if (line_off.containsKey(node.parrent.parrent)) {
-                            line_off.put(
-                                    node.parrent,
-                                    line_off.get(node.parrent.parrent)
-                                            + ((node.parrent == node.parrent.parrent.left)
-                                                    ? -ADGST_OFFSET
-                                                    : ADGST_OFFSET));
-                        } else {
-                            line_off.put(node.parrent, BASE_OFFSET);
-                        }
-
-                        lines.set(
-                                num_parrents,
-                                " ".repeat(line_off.get(node.parrent))
-                                        + String.format("%d:%d", node.val, node.parrent.val));
-
-                    }
-                } else { // root
-                    line_off.put(node, BASE_OFFSET);
-
-                    lines.set(
-                            num_parrents,
-                            " ".repeat(line_off.get(node) + 5) + String.format("%d", node.val));
-                }
-            }
+            r(0, list, lines, line_idx, line_off);
 
             for (int i = 0; i < lines.size(); i++) {
                 System.out.println(lines.get(i));
             }
+        }
+
+        final int BASE_OFFSET = 50;
+        final int ADGST_OFFSET = 4;
+
+        void r(
+                int i,
+                ArrayList<TreeNode> list,
+                ArrayList<String> lines,
+                HashMap<TreeNode, Integer> line_idx,
+                HashMap<TreeNode, Integer> line_off) {
+            if (i >= list.size()) return;
+
+            TreeNode node = list.get(i);
+
+            TreeNode parrent = node.parrent;
+            int num_parrents = 0;
+            while (parrent != null) {
+                num_parrents++;
+                parrent = parrent.parrent;
+            }
+
+            if (node.parrent != null) {
+
+                if (line_idx.containsKey(node.parrent)) { // right node on line
+                    int p_idx = line_idx.get(node.parrent);
+                    lines.set(
+                            p_idx,
+                            lines.get(p_idx)
+                                    + " ".repeat(2)
+                                    + String.format("%d:%d", node.val, node.parrent.val));
+
+                } else { // left node
+                    line_idx.put(node.parrent, num_parrents);
+
+                    // storing the offset in the parrent for the curr line
+                    // the parrent's parrent
+                    if (line_off.containsKey(node.parrent.parrent)) {
+                        line_off.put(
+                                node.parrent,
+                                line_off.get(node.parrent.parrent)
+                                        + ((node.parrent == node.parrent.parrent.left)
+                                                ? -ADGST_OFFSET
+                                                : ADGST_OFFSET));
+                    } else {
+                        line_off.put(node.parrent, BASE_OFFSET);
+                    }
+
+                    lines.set(
+                            num_parrents,
+                            " ".repeat(line_off.get(node.parrent))
+                                    + String.format("%d:%d", node.val, node.parrent.val));
+                }
+            } else { // root
+                line_off.put(node, BASE_OFFSET);
+
+                lines.set(
+                        num_parrents,
+                        " ".repeat(line_off.get(node) + 5) + String.format("%d", node.val));
+            }
+
+            r(i + 1, list, lines, line_idx, line_off);
         }
     }
 }

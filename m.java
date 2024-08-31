@@ -3,7 +3,7 @@ import pkgs.Recursion.*;
 import pkgs.Search.*;
 import pkgs.Sort.*;
 import pkgs.Tree.*;
-import pkgs.leet.*;
+
 
 public class m {
     public static void main(String[] args) {
@@ -11,6 +11,7 @@ public class m {
         // Sort.call(SortType.Quick);
         // Recursion.call(RecursionType.PathFind);
         // leet.main();
-        Tree.main();
+        //Tree.main();
+        Heap.main();
     }
 }

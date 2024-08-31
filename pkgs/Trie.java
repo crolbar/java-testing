@@ -45,6 +45,7 @@ public class Trie {
         s[1] = "hellium";
 
         assert Arrays.equals(trie.find("he"), s);
+        System.out.println("testing Trie successful");
     }
 
     TrieNode root;
@@ -86,6 +87,7 @@ public class Trie {
         return curr.isWord;
     }
 
+    // TODO: actualy delete them
     // private void delete_r(TrieNode curr, String word) { if (curr.isWord) return; }
     void delete(String word) {
         if (!this.contains(word)) return;

@@ -5,7 +5,34 @@ import java.util.HashSet;
 
 public class leet {
     public static void main() {
-        System.out.println("hi");
+        ValidPalindrome.main();
+    }
+}
+
+class ValidPalindrome {
+    public static void main() {
+        String s = "0P";
+        System.out.println(isPalindrome(s));
+    }
+
+    public static boolean isPalindrome(String s) {
+        int li = 0;
+        int ri = s.length() - 1;
+
+        while (li <= ri) {
+            while (!Character.isAlphabetic(s.charAt(li)) && !Character.isDigit(s.charAt(li)) && li < ri) li++;
+            while (!Character.isAlphabetic(s.charAt(ri)) && !Character.isDigit(s.charAt(ri)) && li < ri) ri--;
+
+            char lc = Character.toLowerCase(s.charAt(li));
+            char rc = Character.toLowerCase(s.charAt(ri));
+
+            if (lc != rc) return false;
+
+            li++;
+            ri--;
+        }
+
+        return true;
     }
 }
 

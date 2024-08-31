@@ -12,6 +12,7 @@ public class m {
         // Recursion.call(RecursionType.PathFind);
         // leet.main();
         //Tree.main();
-        Heap.main();
+        //Heap.main();
+        Trie.main();
     }
 }

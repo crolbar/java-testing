@@ -22,15 +22,13 @@ public class Graph {
             {0, 0, 0, 1, 0, 0, 0},
         };
 
-        int[] t = {0, 1, 4, 5, 6};
-        assert Arrays.equals(t, BFSMatrix(graphMatrix, 0, 6));
+        assert Arrays.equals(BFSMatrix(graphMatrix, 0, 6), new int[] {0, 1, 4, 5, 6});
         assert null == BFSMatrix(graphMatrix, 6, 0);
 
-        //System.out.println("test ran");
-        //System.out.println(Arrays.toString(BFSMatrix(graphMatrix, 0, 6)));
+        // System.out.println(Arrays.toString(BFSMatrix(graphMatrix, 0, 6)));
 
         GraphList graphList = new GraphList();
-        assert Arrays.equals(DFSList(graphList.list, 0, 6), t);
+        assert Arrays.equals(DFSList(graphList.list, 0, 6), new int[] {0, 1, 4, 5, 6});
         assert DFSList(graphList.list, 6, 0) == null;
 
         // for (int i = 0; i < graphList.list.length; i++) {
@@ -39,7 +37,15 @@ public class Graph {
         //        System.out.println(graphList.list[i][j].to + "w: " + graphList.list[i][j].weight);
         //    }
         // }
+        //
 
+        assert Arrays.equals(
+                Dijkstra.dijkstra_list(graphList.list, 0, 6), new int[] {0, 1, 4, 5, 6});
+        assert Arrays.equals(Dijkstra.dijkstra_list(graphList.list, 0, 7), new int[0]);
+        assert Arrays.equals(Dijkstra.dijkstra_list(graphList.list, 0, 3), new int[] {0, 2, 3});
+
+        System.out.println("test ran");
+        // System.out.println(Arrays.toString(Dijkstra.dijkstra_list(graphList.list, 0, 6)));
     }
 
     static class GraphList {
@@ -82,6 +88,76 @@ public class Graph {
         }
     }
 
+    class Dijkstra {
+        private static boolean hasUnvisited(boolean[] seen, int[] dists) {
+            for (int i = 0; i < seen.length; i++) {
+                if (!seen[i] && dists[i] < 1000) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private static int getLowestUnvisited(boolean[] seen, int[] dists) {
+            int idx = -1;
+            int ld = 1000;
+
+            for (int i = 0; i < seen.length; i++) {
+                if (!seen[i]) {
+                    if (dists[i] < ld) {
+                        ld = dists[i];
+                        idx = i;
+                    }
+                }
+            }
+
+            return idx;
+        }
+
+        static int[] dijkstra_list(GraphEdge[][] list, int source, int needle) {
+            int[] dists = new int[list.length];
+            for (int i = 0; i < dists.length; i++) dists[i] = 1000;
+            dists[source] = 0;
+
+            int[] prev = new int[list.length];
+            for (int i = 0; i < list.length; i++) prev[i] = -1;
+
+            boolean[] seen = new boolean[list.length];
+
+            while (hasUnvisited(seen, dists)) {
+                int curr = getLowestUnvisited(seen, dists);
+                seen[curr] = true;
+
+                for (int i = 0; i < list[curr].length; i++) {
+                    GraphEdge e = list[curr][i];
+
+                    if (!seen[e.to]) {
+                        int dist = dists[curr] + e.weight;
+                        if (dist < dists[e.to]) {
+                            dists[e.to] = dist;
+                            prev[e.to] = curr;
+                        }
+                    }
+                }
+            }
+
+            if (needle >= list.length || prev[needle] == -1) return new int[0];
+
+            ArrayList<Integer> l = new ArrayList<>();
+            int curr = needle;
+
+            while (curr != source) {
+                l.add(curr);
+                curr = prev[curr];
+            }
+            l.add(source);
+
+            int[] out = new int[l.size()];
+            for (int i = 0; i < l.size(); i++) out[i] = l.get(l.size() - 1 - i);
+            return out;
+        }
+    }
+
     static boolean _DFSList_r(
             GraphEdge[][] list, int curr, int needle, ArrayList<Integer> path, boolean[] seen) {
 
@@ -91,7 +167,6 @@ public class Graph {
         }
 
         if (seen[curr]) return false;
-
 
         path.add(curr);
         seen[curr] = true;

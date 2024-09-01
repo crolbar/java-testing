@@ -30,13 +30,18 @@ public class Graph {
 
     static int[] BFSMatrix(int[][] graph, int source, int needle) {
         ArrayList<Integer> queue = new ArrayList<>();
+        queue.add(source);
+
         boolean[] seen = new boolean[graph.length];
+        seen[source] = true;
+
         int[] prev = new int[graph.length];
         for (int i = 0; i < graph.length; i++) prev[i] = -1;
-        queue.add(source);
 
         while (!queue.isEmpty()) {
             int curr = queue.removeFirst();
+
+            if (curr == needle) break;
 
             int[] adj = graph[curr];
             for (int i = 0; i < graph.length; i++) {
@@ -57,12 +62,12 @@ public class Graph {
 
         int curr = needle;
         do {
-            tpath.addFirst(curr);
+            tpath.add(curr);
             curr = prev[curr];
         } while (curr != -1);
 
         int[] path = new int[tpath.size()];
-        for (int i = 0; i < path.length; i++) path[i] = tpath.get(i);
+        for (int i = 0; i < path.length; i++) path[i] = tpath.get(tpath.size() - 1 - i);
         return path;
     }
 }

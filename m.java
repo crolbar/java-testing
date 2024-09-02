@@ -14,6 +14,7 @@ public class m {
         //Tree.main();
         //Heap.main();
         //Trie.main();
-        Graph.main();
+        //Graph.main();
+        LRU.main();
     }
 }

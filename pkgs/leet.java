@@ -1,11 +1,78 @@
 package pkgs;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 
 public class leet {
     public static void main() {
-        ValidPalindrome.main();
+        char[][] board = {
+            {'1', '2', '.', '.', '3', '.', '.', '.', '.'},
+            {'4', '.', '.', '5', '.', '.', '.', '.', '.'},
+            {'.', '9', '8', '.', '.', '.', '.', '.', '3'},
+            {'5', '.', '.', '.', '6', '.', '.', '.', '4'},
+            {'.', '.', '.', '8', '.', '3', '.', '.', '5'},
+            {'7', '.', '.', '.', '2', '.', '.', '.', '6'},
+            {'.', '.', '.', '.', '.', '.', '2', '.', '.'},
+            {'.', '.', '.', '4', '1', '9', '.', '.', '8'},
+            {'.', '.', '.', '.', '8', '.', '.', '7', '9'}
+        };
+
+        boolean out = ValidSudoku.isValidSudoku(board);
+
+        System.out.println(out);
+    }
+}
+
+class ValidSudoku {
+    static class Point {
+        int x;
+        int y;
+
+        Point(int x, int y) {
+            this.x = x;
+            this.y = y;
+        }
+    }
+
+    public static boolean isValidSudoku(char[][] board) {
+        HashMap<Character, ArrayList<Point>> map = new HashMap<>();
+
+        for (int x = 0; x < board.length; x++) {
+            for (int y = 0; y < board.length; y++) {
+                char c = board[x][y];
+                Point curr_point = new Point(x, y);
+
+                if (c == '.') continue;
+
+                ArrayList<Point> list = map.get(c);
+
+                if (list != null) {
+                    for (int li = 0; li < list.size(); li++) {
+                        Point lp = list.get(li);
+
+                        if (curr_point.x == lp.x || curr_point.y == lp.y) {
+                            return false;
+                        }
+
+                        int tx = lp.x - ((x >= 6) ? 6 : (x >= 3) ? 3 : 0);
+                        int ty = lp.y - ((y >= 6) ? 6 : (y >= 3) ? 3 : 0);
+
+                        if (tx >= 0 && tx < 3 && ty >= 0 && ty < 3){
+                             return false;
+                        }
+                    }
+                } else {
+                    list = new ArrayList<>();
+                }
+
+                list.add(curr_point);
+                map.put(c, list);
+            }
+        }
+
+        return true;
     }
 }
 
@@ -20,8 +87,12 @@ class ValidPalindrome {
         int ri = s.length() - 1;
 
         while (li <= ri) {
-            while (!Character.isAlphabetic(s.charAt(li)) && !Character.isDigit(s.charAt(li)) && li < ri) li++;
-            while (!Character.isAlphabetic(s.charAt(ri)) && !Character.isDigit(s.charAt(ri)) && li < ri) ri--;
+            while (!Character.isAlphabetic(s.charAt(li))
+                    && !Character.isDigit(s.charAt(li))
+                    && li < ri) li++;
+            while (!Character.isAlphabetic(s.charAt(ri))
+                    && !Character.isDigit(s.charAt(ri))
+                    && li < ri) ri--;
 
             char lc = Character.toLowerCase(s.charAt(li));
             char rc = Character.toLowerCase(s.charAt(ri));

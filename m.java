@@ -10,11 +10,11 @@ public class m {
         // Search.call(SearchType.Binary);
         // Sort.call(SortType.Quick);
         // Recursion.call(RecursionType.PathFind);
-        //leet.main();
+        leet.main();
         //Tree.main();
         //Heap.main();
         //Trie.main();
         //Graph.main();
-        LRU.main();
+        //LRU.main();
     }
 }

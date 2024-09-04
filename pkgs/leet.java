@@ -4,8 +4,44 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Stack;
 
 public class leet {
+    public static void main() {
+        ValidateParentheses.main();
+    }
+}
+
+class ValidateParentheses {
+    public static void main() {
+        System.out.println(isValid("([])()"));
+    }
+
+    public static boolean isValid(String s) {
+        Stack<Character> stack = new Stack<>();
+
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+
+            if (c == '(' || c == '[' || c == '{') {
+                stack.push(c);
+            } else {
+                if (stack.isEmpty()) return false;
+
+                char tc = (c == '}') ? '{' : (c == ']') ? '[' : '(';
+
+                if (stack.peek() != tc) return false;
+
+                stack.pop();
+            }
+        }
+
+        return stack.isEmpty();
+    }
+}
+
+class ValidSudoku {
     public static void main() {
         char[][] board = {
             {'1', '2', '.', '.', '3', '.', '.', '.', '.'},
@@ -19,13 +55,11 @@ public class leet {
             {'.', '.', '.', '.', '8', '.', '.', '7', '9'}
         };
 
-        boolean out = ValidSudoku.isValidSudoku(board);
+        boolean out = isValidSudoku(board);
 
         System.out.println(out);
     }
-}
 
-class ValidSudoku {
     static class Point {
         int x;
         int y;
@@ -59,8 +93,8 @@ class ValidSudoku {
                         int tx = lp.x - ((x >= 6) ? 6 : (x >= 3) ? 3 : 0);
                         int ty = lp.y - ((y >= 6) ? 6 : (y >= 3) ? 3 : 0);
 
-                        if (tx >= 0 && tx < 3 && ty >= 0 && ty < 3){
-                             return false;
+                        if (tx >= 0 && tx < 3 && ty >= 0 && ty < 3) {
+                            return false;
                         }
                     }
                 } else {

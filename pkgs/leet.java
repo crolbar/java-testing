@@ -4,12 +4,94 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.Stack;
 
 public class leet {
     public static void main() {
-        ValidateParentheses.main();
+        MinStack.main();
+    }
+}
+
+class MinStack {
+    public static void main() {
+        MinStack ms = new MinStack();
+
+        ms.push(-2);
+        ms.push(4);
+        ms.push(-5);
+        ms.push(3);
+        ms.push(200);
+
+        assert ms.top() == 200;
+        assert ms.getMin() == -5;
+        ms.pop();
+        assert ms.top() == 3;
+        assert ms.getMin() == -5;
+        ms.pop();
+        assert ms.top() == -5;
+        assert ms.getMin() == -5;
+        ms.pop();
+        assert ms.top() == 4;
+        assert ms.getMin() == -2;
+        ms.pop();
+        assert ms.top() == -2;
+        assert ms.getMin() == -2;
+        ms.pop();
+    }
+
+    class Node {
+        Node next;
+        int val;
+
+        Node(int val) {
+            this.val = val;
+            this.next = null;
+        }
+    }
+
+    Node head;
+    Node minHead;
+
+    public MinStack() {
+        this.head = null;
+        this.minHead = null;
+    }
+
+    public void push(int val) {
+        Node new_head = new Node(val);
+
+        if (this.head != null) {
+            new_head.next = this.head;
+        }
+
+        this.head = new_head;
+
+        Node new_min_head =
+                (this.minHead == null)
+                        ? new Node(val)
+                        : (this.minHead.val < this.head.val) ? new Node(this.minHead.val) : new Node(val);
+
+        if (this.minHead != null) {
+            new_min_head.next = this.minHead;
+        }
+
+        this.minHead = new_min_head;
+    }
+
+    public void pop() {
+        Node min_next = this.minHead.next;
+        this.minHead = min_next;
+
+        Node next = this.head.next;
+        this.head = next;
+    }
+
+    public int top() {
+        return this.head.val;
+    }
+
+    public int getMin() {
+        return this.minHead.val;
     }
 }
 

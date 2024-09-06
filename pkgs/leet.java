@@ -20,18 +20,20 @@ class GenerateParentheses {
         System.out.println(out);
     }
 
-    public static void r(List<String> list, String curr, int n) {
+    public static void r(List<String> list, String curr, int n, int openC, int closeC) {
         if (curr.length() >= (n * 2) - 1) {
             curr += ')';
 
-            if (ValidateParentheses.isValid(curr)) {
+            if (openC == closeC) {
                 list.add(curr);
             }
             return;
         }
 
-        r(list, curr + '(', n);
-        r(list, curr + ')', n);
+        r(list, curr + '(', n, openC + 1, closeC);
+        if (closeC - 1 < openC) {
+            r(list, curr + ')', n, openC, closeC + 1);
+        }
 
         return;
     }
@@ -39,7 +41,7 @@ class GenerateParentheses {
     public static List<String> generateParenthesis(int n) {
         List<String> list = new ArrayList<String>();
 
-        r(list, "(", n);
+        r(list, "(", n, 1, 1);
 
         return list;
     }

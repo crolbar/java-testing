@@ -4,19 +4,52 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Stack;
 
 public class leet {
     public static void main() {
-        EvaluateReversePolishNotation.main();
+        GenerateParentheses.main();
+    }
+}
+
+class GenerateParentheses {
+    public static void main() {
+        int n = 3;
+        List<String> out = generateParenthesis(n);
+        System.out.println(out);
+    }
+
+    public static void r(List<String> list, String curr, int n) {
+        if (curr.length() >= (n * 2) - 1) {
+            curr += ')';
+
+            if (ValidateParentheses.isValid(curr)) {
+                list.add(curr);
+            }
+            return;
+        }
+
+        r(list, curr + '(', n);
+        r(list, curr + ')', n);
+
+        return;
+    }
+
+    public static List<String> generateParenthesis(int n) {
+        List<String> list = new ArrayList<String>();
+
+        r(list, "(", n);
+
+        return list;
     }
 }
 
 class EvaluateReversePolishNotation {
     public static void main() {
-        //String[] tokens = {"1"};
-        String[] tokens = {"10","6","9","3","+","-11","*","/","*","17","+","5","+"};
-        //String[] tokens = {"4","13","5","/","+"};
+        // String[] tokens = {"1"};
+        String[] tokens = {"10", "6", "9", "3", "+", "-11", "*", "/", "*", "17", "+", "5", "+"};
+        // String[] tokens = {"4","13","5","/","+"};
         int out = evalRPN(tokens);
 
         System.out.println(out);
@@ -29,17 +62,15 @@ class EvaluateReversePolishNotation {
             String t = tokens[i];
             // a bit cheeky but works
             boolean is_negative = t.charAt(0) == '-';
-            if (
-                    Character.isDigit(t.charAt(0)) ||
-                    is_negative && t.length() > 1 && Character.isDigit(t.charAt(1))
-               ) {
+            if (Character.isDigit(t.charAt(0))
+                    || is_negative && t.length() > 1 && Character.isDigit(t.charAt(1))) {
                 int num_t = 0;
                 for (int ci = (is_negative) ? 1 : 0; ci < t.length(); ci++) {
                     num_t *= 10;
                     num_t += t.charAt(ci) - '0';
                 }
                 if (is_negative) num_t *= -1;
-                //System.out.printf("num_t: %d\n", num_t);
+                // System.out.printf("num_t: %d\n", num_t);
                 stack.push(num_t);
 
                 continue;
@@ -50,20 +81,20 @@ class EvaluateReversePolishNotation {
 
             System.out.printf("1: %d, 2: %d\n", num_1, num_2);
 
-            int res = 
-                  (t.equals("*")) ? num_1 * num_2 
-                : (t.equals("+")) ? num_1 + num_2
-                : (t.equals("-")) ? num_1 - num_2
-                : num_1 / num_2;
+            int res =
+                    (t.equals("*"))
+                            ? num_1 * num_2
+                            : (t.equals("+"))
+                                    ? num_1 + num_2
+                                    : (t.equals("-")) ? num_1 - num_2 : num_1 / num_2;
 
-            //System.out.println(res);
+            // System.out.println(res);
             stack.push(res);
         }
 
         return stack.pop();
     }
 }
-
 
 class MinStack {
     public static void main() {

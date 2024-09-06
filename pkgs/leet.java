@@ -41,6 +41,7 @@ class MinStack {
 
     class Node {
         Node next;
+        int minVal;
         int val;
 
         Node(int val) {
@@ -50,38 +51,28 @@ class MinStack {
     }
 
     Node head;
-    Node minHead;
 
     public MinStack() {
         this.head = null;
-        this.minHead = null;
     }
 
     public void push(int val) {
-        Node new_head = new Node(val);
+        Node newHead = new Node(val);
 
         if (this.head != null) {
-            new_head.next = this.head;
+            newHead.next = this.head;
         }
 
-        this.head = new_head;
+        Integer newMinVal =
+                (this.head == null)
+                        ? val
+                        : (this.head.minVal < newHead.val) ? this.head.minVal : val;
 
-        Node new_min_head =
-                (this.minHead == null)
-                        ? new Node(val)
-                        : (this.minHead.val < this.head.val) ? new Node(this.minHead.val) : new Node(val);
-
-        if (this.minHead != null) {
-            new_min_head.next = this.minHead;
-        }
-
-        this.minHead = new_min_head;
+        this.head = newHead;
+        this.head.minVal = newMinVal;
     }
 
     public void pop() {
-        Node min_next = this.minHead.next;
-        this.minHead = min_next;
-
         Node next = this.head.next;
         this.head = next;
     }
@@ -91,7 +82,7 @@ class MinStack {
     }
 
     public int getMin() {
-        return this.minHead.val;
+        return this.head.minVal;
     }
 }
 

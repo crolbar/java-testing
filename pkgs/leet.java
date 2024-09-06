@@ -8,9 +8,62 @@ import java.util.Stack;
 
 public class leet {
     public static void main() {
-        MinStack.main();
+        EvaluateReversePolishNotation.main();
     }
 }
+
+class EvaluateReversePolishNotation {
+    public static void main() {
+        //String[] tokens = {"1"};
+        String[] tokens = {"10","6","9","3","+","-11","*","/","*","17","+","5","+"};
+        //String[] tokens = {"4","13","5","/","+"};
+        int out = evalRPN(tokens);
+
+        System.out.println(out);
+    }
+
+    public static int evalRPN(String[] tokens) {
+        Stack<Integer> stack = new Stack<>();
+
+        for (int i = 0; i < tokens.length; i++) {
+            String t = tokens[i];
+            // a bit cheeky but works
+            boolean is_negative = t.charAt(0) == '-';
+            if (
+                    Character.isDigit(t.charAt(0)) ||
+                    is_negative && t.length() > 1 && Character.isDigit(t.charAt(1))
+               ) {
+                int num_t = 0;
+                for (int ci = (is_negative) ? 1 : 0; ci < t.length(); ci++) {
+                    num_t *= 10;
+                    num_t += t.charAt(ci) - '0';
+                }
+                if (is_negative) num_t *= -1;
+                //System.out.printf("num_t: %d\n", num_t);
+                stack.push(num_t);
+
+                continue;
+            }
+
+            int num_2 = stack.pop();
+            int num_1 = stack.pop();
+
+            System.out.printf("1: %d, 2: %d\n", num_1, num_2);
+
+            int res = 
+                  (t.equals("*")) ? num_1 * num_2 
+                : (t.equals("+")) ? num_1 + num_2
+                : (t.equals("-")) ? num_1 - num_2
+                : num_1 / num_2;
+
+            //System.out.println(res);
+            stack.push(res);
+        }
+
+        return stack.pop();
+    }
+}
+
 
 class MinStack {
     public static void main() {

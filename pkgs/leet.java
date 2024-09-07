@@ -9,7 +9,55 @@ import java.util.Stack;
 
 public class leet {
     public static void main() {
-        GenerateParentheses.main();
+        DailyTemperatures.main();
+    }
+}
+
+class DailyTemperatures {
+    public static void main() {
+        //int[] temperatures = {30, 38, 30, 36, 35, 40, 28};
+        //int[] temperatures = {22,21,20};
+        int[] temperatures = {73,74,75,71,69,72,76,73};
+
+        DailyTemperatures d = new DailyTemperatures();
+        int[] out = d.dailyTemperatures(temperatures);
+
+        System.out.println(Arrays.toString(out));
+    }
+
+    class Node {
+        Node next;
+        int tmp;
+        int idx;
+        Node(int tmp, int idx) {
+            this.tmp = tmp;
+            this.idx = idx;
+        }
+    }
+    Node head;
+
+    DailyTemperatures() {
+        this.head = null;
+    }
+
+    public int[] dailyTemperatures(int[] temperatures) {
+        int[] res = new int[temperatures.length];
+
+        for (int i = 0; i < temperatures.length; i++) {
+            Node n = new Node(temperatures[i], i);
+
+            while (this.head != null && this.head.tmp < n.tmp) {
+                Node p = this.head;
+                this.head = p.next;
+
+                res[p.idx] = i - p.idx;
+            }
+
+            n.next = this.head;
+            this.head = n;
+        }
+
+        return res;
     }
 }
 

@@ -10,7 +10,9 @@ public class Sort {
 
     public static int[] quick(int[] nums) {
         class QuickSort {
-            public static void qs(int[] nums, int li, int hi) {
+
+            QuickSort() {}
+            public void qs(int[] nums, int li, int hi) {
                 if (li >= hi) return;
 
                 int pi = partiton(nums, li, hi);
@@ -19,7 +21,7 @@ public class Sort {
                 qs(nums, pi + 1, hi);
             }
 
-            public static int partiton(int[] nums, int li, int hi) {
+            public int partiton(int[] nums, int li, int hi) {
                 int pivot = nums[hi];
 
                 //System.out.printf("\n\nStarting partition with pivot: %d\n\n", pivot);
@@ -48,7 +50,8 @@ public class Sort {
             }
         }
 
-        QuickSort.qs(nums, 0, nums.length - 1);
+        QuickSort qs = new QuickSort();
+        qs.qs(nums, 0, nums.length - 1);
         return nums;
     }
 

@@ -9,9 +9,20 @@ import java.util.Stack;
 
 public class leet {
     public static void main() {
-        DailyTemperatures.main();
+        CarFleet.main();
     }
 }
+
+class CarFleet {
+    public static void main() {
+        System.out.println("hi");
+    }
+
+    public int carFleet(int target, int[] position, int[] speed) {
+        return 0;
+    }
+}
+
 
 class DailyTemperatures {
     public static void main() {

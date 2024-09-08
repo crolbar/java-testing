@@ -15,18 +15,14 @@
         pkgs = pkgsFor.${system};
 
         runScript = ''
+          cd src
           ${pkgs.jdk}/bin/javac m.java && ${pkgs.jdk}/bin/java -ea m
         '';
       in {
         default = pkgs.mkShell {
           packages = with pkgs; [
             jdk jdt-language-server
-            (pkgs.writeTextFile {
-              name = "run";
-              destination = "/bin/run";
-              executable = true;
-              text = runScript;
-            })
+            (pkgs.writers.writeBashBin "run" runScript)
           ];
         };
       }

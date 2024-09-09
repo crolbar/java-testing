@@ -10,7 +10,50 @@ import java.util.Stack;
 
 public class leet {
     public static void main() {
-        CarFleet.main();
+        LargestRectangleInHistogram.main();
+    }
+}
+
+class LargestRectangleInHistogram {
+    LargestRectangleInHistogram() {}
+    public static void main() {
+        LargestRectangleInHistogram o = new LargestRectangleInHistogram();
+
+        int[] heights = {7,1,7,2,2,4};
+        //int[] heights = {1,3,7};
+        int out = o.largestRectangleArea(heights);
+        System.out.println(out);
+
+
+        System.out.println("LargestRectangleInHistogram");
+    }
+
+    public int largestRectangleArea(int[] heights) {
+        int ans = 0;
+
+        int[] prevSmallest = new int[heights.length];
+        Stack<Integer> stack = new Stack<>();
+        for (int i = 0; i < heights.length; i++) {
+            while (!stack.isEmpty() && heights[stack.peek()] >= heights[i]) stack.pop();
+            prevSmallest[i] = (stack.isEmpty()) ? -1 : stack.peek();
+            stack.push(i);
+        }
+
+        int[] nextSmallest = new int[heights.length];
+        stack.clear();
+        for (int i = heights.length - 1; i >= 0; i--) {
+            while (!stack.isEmpty() && heights[stack.peek()] >= heights[i]) stack.pop();
+            nextSmallest[i] = (stack.isEmpty()) ? heights.length : stack.peek();
+            stack.push(i);
+        }
+
+
+        for (int i = 0; i < heights.length; i++) {
+            int area = ((nextSmallest[i] - prevSmallest[i]) - 1) * heights[i];
+            ans = Math.max(ans, area);
+        }
+
+        return ans;
     }
 }
 

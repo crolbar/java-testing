@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 
@@ -14,21 +15,61 @@ public class leet {
 }
 
 class CarFleet {
+    CarFleet() {}
+
     public static void main() {
-        System.out.println("hi");
+         //int[] position = {0, 2, 4};
+         //int[] speed = {4, 2, 1};
+         int target = 12;
+         int[] position = {10, 8, 0, 5, 3};
+         int[] speed = {2, 4, 1, 1, 3};
+        //int target = 10;
+        //int[] position = {0, 4, 2};
+        //int[] speed = {2, 1, 3};
+
+        CarFleet cf = new CarFleet();
+        int out = cf.carFleet(target, position, speed);
+        System.out.println(out);
+    }
+
+    class car {
+        int position;
+        int speed;
+        car(int position, int speed) {
+            this.position = position;
+            this.speed = speed;
+        }
     }
 
     public int carFleet(int target, int[] position, int[] speed) {
-        return 0;
+        LinkedList<car> list = new LinkedList<>();
+        for (int i = 0; i < position.length; i++) {
+            list.add(new car(position[i], speed[i]));
+        }
+        list.sort((a, b) -> Integer.compare(b.position, a.position));
+
+        int count = 0;
+        double[] times = new double[position.length];
+        for (int i = 0; i < position.length; i++) {
+            car n = list.pop();
+            System.out.println(n.position);
+
+            times[i] = (double)(target - n.position) / n.speed;
+
+            if (count != 0 && times[i] <= times[i - 1]) {
+                times[i] = times[i - 1];
+            } else count++;
+        }
+
+        return count;
     }
 }
 
-
 class DailyTemperatures {
     public static void main() {
-        //int[] temperatures = {30, 38, 30, 36, 35, 40, 28};
-        //int[] temperatures = {22,21,20};
-        int[] temperatures = {73,74,75,71,69,72,76,73};
+        // int[] temperatures = {30, 38, 30, 36, 35, 40, 28};
+        // int[] temperatures = {22,21,20};
+        int[] temperatures = {73, 74, 75, 71, 69, 72, 76, 73};
 
         DailyTemperatures d = new DailyTemperatures();
         int[] out = d.dailyTemperatures(temperatures);
@@ -40,11 +81,13 @@ class DailyTemperatures {
         Node next;
         int tmp;
         int idx;
+
         Node(int tmp, int idx) {
             this.tmp = tmp;
             this.idx = idx;
         }
     }
+
     Node head;
 
     DailyTemperatures() {

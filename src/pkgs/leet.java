@@ -40,59 +40,40 @@ class ThreeSum {
         System.out.println("\n" + out);
         System.out.println(
                 "[[-10, 4, 6], [-8, -1, 9], [-6, -3, 9], [-6, -2, 8], [-5, -4, 9], [-5, -3, 8],"
-                    + " [-5, -1, 6], [-4, -2, 6], [-3, -1, 4], [-2, -2, 4]]");
+                        + " [-5, -1, 6], [-4, -2, 6], [-3, -1, 4], [-2, -2, 4]]");
     }
 
     public List<List<Integer>> threeSum(int[] nums) {
-        Arrays.sort(nums);
-        System.out.println("Sorted: " + Arrays.toString(nums));
+        List<List<Integer>> l = new ArrayList<>();
 
-        HashSet<ArrayList<Integer>> set = new HashSet<>();
-        HashMap<Integer, ArrayList<Integer>> map = new HashMap<>();
+        Arrays.sort(nums);
 
         for (int i = 0; i < nums.length; i++) {
-            map.putIfAbsent(nums[i], new ArrayList<Integer>());
+            if (nums[i] > 0) break;
+            if (i > 0 && nums[i] == nums[i - 1]) continue;
 
-            map.get(nums[i]).add(i);
-        }
-
-        int li = 0, hi = nums.length - 1;
-
-        while (li < hi) {
+            int li = i + 1;
+            int hi = nums.length - 1;
 
             while (li < hi) {
-                int sumTarget = nums[li] + nums[hi];
+                int sum = nums[i] + nums[li] + nums[hi];
 
-                if (map.containsKey(sumTarget * -1)) {
-                    ArrayList<Integer> ti = map.get(sumTarget * -1);
+                if (sum > 0) hi--;
+                else if (sum < 0) li++;
+                else {
+                    l.add(Arrays.asList(nums[i], nums[li], nums[hi]));
 
-                    for (int i : ti) {
-                        if (i != li && i != hi) {
-                            ArrayList<Integer> list = new ArrayList<Integer>();
+                    hi--;
+                    li++;
 
-                            list.add(nums[li]);
-                            list.add(nums[i]);
-                            list.add(nums[hi]);
-
-                            list.sort((a, b) -> Integer.compare(a, b));
-
-                            set.add(list);
-
-                            break;
-                        }
-                    }
+                    // not adjusting hi because the loop will adjust it for us
+                    // the sum will not be the same
+                    while (li < hi && nums[li] == nums[li - 1]) li++;
                 }
-
-                if (nums[li] >= 0) break;
-                li++;
             }
-
-            li = 0;
-            if (nums[hi] <= 0) break;
-            hi--;
         }
 
-        return new ArrayList<>(set);
+        return l;
     }
 }
 

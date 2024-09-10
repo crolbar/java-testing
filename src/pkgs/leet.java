@@ -10,7 +10,47 @@ import java.util.Stack;
 
 public class leet {
     public static void main() {
-        ThreeSum.main();
+        MaxWaterContainer.main();
+    }
+}
+
+class MaxWaterContainer {
+    MaxWaterContainer() {}
+
+    public static void main() {
+        MaxWaterContainer mc = new MaxWaterContainer();
+        ////int[] heights = {1, 8, 6, 2, 5, 4, 8, 3, 7};
+        //int[] heights = {1,1};
+        int[] heights = {1,2,4,3}; // 4
+        int out = mc.maxArea(heights);
+        System.out.println(out);
+        //System.out.println(Math.abs(0));
+    }
+
+    public int maxArea(int[] height) {
+        int l = 0, r = height.length - 1;
+        int max = 0;
+
+        while (l < r) {
+            int c = r - l;
+
+            System.out.printf("l: %d, r: %d, c: %d\n", l, r, c);
+
+            int area = c * Math.min(height[r], height[l]);
+
+            System.out.println(area);
+
+            max = Math.max(area, max);
+
+            if (height[l] > height[r]) {
+                r--;
+            } else {
+                l++;
+            }
+
+        }
+
+        return max;
     }
 }
 

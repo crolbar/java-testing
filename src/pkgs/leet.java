@@ -10,7 +10,89 @@ import java.util.Stack;
 
 public class leet {
     public static void main() {
-        TwoSumII.main();
+        ThreeSum.main();
+    }
+}
+
+class ThreeSum {
+    ThreeSum() {}
+
+    public static void main() {
+        System.out.println("hi");
+
+        ThreeSum ts = new ThreeSum();
+
+        // int[] nums = {-1, 0, 1, 2, -1, -4};
+        // int[] nums = {-1, 0, 1, 2, -1, -4, -2, -3, 3, 0, 4};
+        int[] nums = {
+            6, -5, -6, -1, -2, 8, -1, 4, -10, -8, -10, -2, -4, -1, -8, -2, 8, 9, -5, -2, -8, -9, -3,
+            -5
+        };
+        // Last case:     [6,-5,-6,-1,-2,8,-1,4,-10,-8,-10,-2,-4,-1,-8,-2,8,9,-5,-2,-8,-9,-3,-5]
+        // Output:
+        // [[-8,-1,9],[-5,-1,6],[-6,-2,8],[-4,-2,6],[-6,-3,9],[-5,-3,8],[-5,-4,9],[-10,4,6]]
+        // Expected:
+        // [[-10,4,6],[-8,-1,9],[-6,-3,9],[-6,-2,8],[-5,-4,9],[-5,-3,8],[-5,-1,6],[-4,-2,6],[-3,-1,4],[-2,-2,4]]
+        // missing:
+
+        List<List<Integer>> out = ts.threeSum(nums);
+
+        System.out.println("\n" + out);
+        System.out.println(
+                "[[-10, 4, 6], [-8, -1, 9], [-6, -3, 9], [-6, -2, 8], [-5, -4, 9], [-5, -3, 8],"
+                    + " [-5, -1, 6], [-4, -2, 6], [-3, -1, 4], [-2, -2, 4]]");
+    }
+
+    public List<List<Integer>> threeSum(int[] nums) {
+        Arrays.sort(nums);
+        System.out.println("Sorted: " + Arrays.toString(nums));
+
+        HashSet<ArrayList<Integer>> set = new HashSet<>();
+        HashMap<Integer, ArrayList<Integer>> map = new HashMap<>();
+
+        for (int i = 0; i < nums.length; i++) {
+            map.putIfAbsent(nums[i], new ArrayList<Integer>());
+
+            map.get(nums[i]).add(i);
+        }
+
+        int li = 0, hi = nums.length - 1;
+
+        while (li < hi) {
+
+            while (li < hi) {
+                int sumTarget = nums[li] + nums[hi];
+
+                if (map.containsKey(sumTarget * -1)) {
+                    ArrayList<Integer> ti = map.get(sumTarget * -1);
+
+                    for (int i : ti) {
+                        if (i != li && i != hi) {
+                            ArrayList<Integer> list = new ArrayList<Integer>();
+
+                            list.add(nums[li]);
+                            list.add(nums[i]);
+                            list.add(nums[hi]);
+
+                            list.sort((a, b) -> Integer.compare(a, b));
+
+                            set.add(list);
+
+                            break;
+                        }
+                    }
+                }
+
+                if (nums[li] >= 0) break;
+                li++;
+            }
+
+            li = 0;
+            if (nums[hi] <= 0) break;
+            hi--;
+        }
+
+        return new ArrayList<>(set);
     }
 }
 
@@ -19,10 +101,10 @@ class TwoSumII {
 
     public static void main() {
         TwoSumII ts = new TwoSumII();
-         //int[] numbers = {2,7,11,15};
-         //int target = 9;
-         int[] numbers = {2,3,4};
-         int target = 6;
+        // int[] numbers = {2,7,11,15};
+        // int target = 9;
+        int[] numbers = {2, 3, 4};
+        int target = 6;
 
         int[] out = ts.twoSum(numbers, target);
         System.out.println(Arrays.toString(out));
@@ -39,7 +121,7 @@ class TwoSumII {
             } else if (s < target) {
                 l++;
             } else {
-                return new int[]{l+1, r+1};
+                return new int[] {l + 1, r + 1};
             }
         }
         return new int[0];

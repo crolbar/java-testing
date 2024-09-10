@@ -10,20 +10,52 @@ import java.util.Stack;
 
 public class leet {
     public static void main() {
-        LargestRectangleInHistogram.main();
+        TwoSumII.main();
+    }
+}
+
+class TwoSumII {
+    TwoSumII() {}
+
+    public static void main() {
+        TwoSumII ts = new TwoSumII();
+         //int[] numbers = {2,7,11,15};
+         //int target = 9;
+         int[] numbers = {2,3,4};
+         int target = 6;
+
+        int[] out = ts.twoSum(numbers, target);
+        System.out.println(Arrays.toString(out));
+    }
+
+    public int[] twoSum(int[] numbers, int target) {
+        int l = 0, r = numbers.length - 1;
+
+        while (l < r) {
+            int s = numbers[l] + numbers[r];
+
+            if (s > target) {
+                r--;
+            } else if (s < target) {
+                l++;
+            } else {
+                return new int[]{l+1, r+1};
+            }
+        }
+        return new int[0];
     }
 }
 
 class LargestRectangleInHistogram {
     LargestRectangleInHistogram() {}
+
     public static void main() {
         LargestRectangleInHistogram o = new LargestRectangleInHistogram();
 
-        int[] heights = {7,1,7,2,2,4};
-        //int[] heights = {1,3,7};
+        int[] heights = {7, 1, 7, 2, 2, 4};
+        // int[] heights = {1,3,7};
         int out = o.largestRectangleArea(heights);
         System.out.println(out);
-
 
         System.out.println("LargestRectangleInHistogram");
     }
@@ -47,7 +79,6 @@ class LargestRectangleInHistogram {
             stack.push(i);
         }
 
-
         for (int i = 0; i < heights.length; i++) {
             int area = ((nextSmallest[i] - prevSmallest[i]) - 1) * heights[i];
             ans = Math.max(ans, area);
@@ -61,14 +92,14 @@ class CarFleet {
     CarFleet() {}
 
     public static void main() {
-         //int[] position = {0, 2, 4};
-         //int[] speed = {4, 2, 1};
-         int target = 12;
-         int[] position = {10, 8, 0, 5, 3};
-         int[] speed = {2, 4, 1, 1, 3};
-        //int target = 10;
-        //int[] position = {0, 4, 2};
-        //int[] speed = {2, 1, 3};
+        // int[] position = {0, 2, 4};
+        // int[] speed = {4, 2, 1};
+        int target = 12;
+        int[] position = {10, 8, 0, 5, 3};
+        int[] speed = {2, 4, 1, 1, 3};
+        // int target = 10;
+        // int[] position = {0, 4, 2};
+        // int[] speed = {2, 1, 3};
 
         CarFleet cf = new CarFleet();
         int out = cf.carFleet(target, position, speed);
@@ -78,6 +109,7 @@ class CarFleet {
     class car {
         int position;
         int speed;
+
         car(int position, int speed) {
             this.position = position;
             this.speed = speed;
@@ -97,7 +129,7 @@ class CarFleet {
             car n = list.pop();
             System.out.println(n.position);
 
-            times[i] = (double)(target - n.position) / n.speed;
+            times[i] = (double) (target - n.position) / n.speed;
 
             if (count != 0 && times[i] <= times[i - 1]) {
                 times[i] = times[i - 1];

@@ -10,7 +10,44 @@ import java.util.Stack;
 
 public class leet {
     public static void main() {
-        MaxWaterContainer.main();
+        TrappingRainWater.main();
+    }
+}
+
+class TrappingRainWater {
+    TrappingRainWater() {}
+
+    public static void main() {
+        TrappingRainWater trw = new TrappingRainWater();
+        int[] height = {0,1,0,2,1,0,1,3,2,1,2,1};
+        int out = trw.trap(height);
+
+        assert out == 6;
+        System.out.println(out);
+    }
+
+    public int trap(int[] height) {
+
+        int[] nextMax = new int[height.length];
+        int max = 0;
+        for (int i = height.length - 1; i >= 0; i--) {
+            nextMax[i] = max;
+            max = Math.max(max, height[i]);
+        }
+
+
+        int ans = 0;
+
+        max = 0;
+        for (int i = 0; i < height.length; i++) {
+            if (max > height[i] && nextMax[i] > height[i]) {
+                ans += Math.min(nextMax[i], max) - height[i];
+            }
+
+            max = Math.max(max, height[i]);
+        }
+
+        return ans;
     }
 }
 
@@ -19,12 +56,12 @@ class MaxWaterContainer {
 
     public static void main() {
         MaxWaterContainer mc = new MaxWaterContainer();
-        ////int[] heights = {1, 8, 6, 2, 5, 4, 8, 3, 7};
-        //int[] heights = {1,1};
-        int[] heights = {1,2,4,3}; // 4
+        //// int[] heights = {1, 8, 6, 2, 5, 4, 8, 3, 7};
+        // int[] heights = {1,1};
+        int[] heights = {1, 2, 4, 3}; // 4
         int out = mc.maxArea(heights);
         System.out.println(out);
-        //System.out.println(Math.abs(0));
+        // System.out.println(Math.abs(0));
     }
 
     public int maxArea(int[] height) {
@@ -47,7 +84,6 @@ class MaxWaterContainer {
             } else {
                 l++;
             }
-
         }
 
         return max;

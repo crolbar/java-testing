@@ -27,24 +27,23 @@ class TrappingRainWater {
     }
 
     public int trap(int[] height) {
-
-        int[] nextMax = new int[height.length];
-        int max = 0;
-        for (int i = height.length - 1; i >= 0; i--) {
-            nextMax[i] = max;
-            max = Math.max(max, height[i]);
-        }
-
+        if (height.length == 0) return 0;
 
         int ans = 0;
+        int r = height.length - 1, l = 0;
 
-        max = 0;
-        for (int i = 0; i < height.length; i++) {
-            if (max > height[i] && nextMax[i] > height[i]) {
-                ans += Math.min(nextMax[i], max) - height[i];
+        int leftMax = height[l], rightMax = height[r];
+
+        while (l < r) {
+            if (leftMax < rightMax) {
+                l++;
+                leftMax = Math.max(leftMax, height[l]);
+                ans += leftMax - height[l];
+            } else {
+                r--;
+                rightMax = Math.max(rightMax, height[r]);
+                ans += rightMax - height[r];
             }
-
-            max = Math.max(max, height[i]);
         }
 
         return ans;

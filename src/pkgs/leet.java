@@ -26,33 +26,27 @@ class LongestSubstringWithoutDuplicates {
         assert l.lengthOfLongestSubstring("abcabcbb") == 3;
         assert l.lengthOfLongestSubstring(" ") == 1;
         assert l.lengthOfLongestSubstring("dvdf") == 3;
+        assert l.lengthOfLongestSubstring("aaaadvdfo") == 4;
     }
 
     public int lengthOfLongestSubstring(String s) {
         int length = 0;
         HashSet<Character> set = new HashSet<>();
 
-        int currStart = 0;
-        int currLength = 0;
-        for (int i = 0; i < s.length(); i++) {
-            char c = s.charAt(i);
+        int l = 0;
+        for (int r = 0; r < s.length(); r++) {
+            char c = s.charAt(r);
 
-            if (set.contains(c)) {
-
-                length = Math.max(length, currLength);
-                currLength = 0;
-                set.clear();
-               
-                i = currStart;
-                currStart += 1;
-                continue;
+            while (set.contains(s.charAt(r))) {
+                set.remove(s.charAt(l));
+                l++;
             }
 
             set.add(c);
-            currLength++;
+            length = Math.max(length, r - l + 1);
         }
 
-        return Math.max(length, currLength);
+        return length;
     }
 
 }

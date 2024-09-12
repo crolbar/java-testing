@@ -10,7 +10,32 @@ import java.util.Stack;
 
 public class leet {
     public static void main() {
-        TrappingRainWater.main();
+        BestTimetoBuyandSellStock.main();
+    }
+}
+
+class BestTimetoBuyandSellStock {
+    BestTimetoBuyandSellStock() {}
+
+    public static void main() {
+        System.out.println("hi");
+        BestTimetoBuyandSellStock b = new BestTimetoBuyandSellStock();
+
+        assert b.maxProfit(new int[] {7, 1, 5, 3, 6, 4}) == 5;
+    }
+
+    public int maxProfit(int[] prices) {
+        int ans = 0;
+        int min = prices[0];
+
+        for (int i = 0; i < prices.length; i++) {
+            min = Math.min(min, prices[i]);
+            if (prices[i] > min) {
+                ans = Math.max(ans, prices[i] - min);
+            }
+        }
+
+        return ans;
     }
 }
 
@@ -19,7 +44,7 @@ class TrappingRainWater {
 
     public static void main() {
         TrappingRainWater trw = new TrappingRainWater();
-        int[] height = {0,1,0,2,1,0,1,3,2,1,2,1};
+        int[] height = {0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1};
         int out = trw.trap(height);
 
         assert out == 6;

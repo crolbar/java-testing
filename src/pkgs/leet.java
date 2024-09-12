@@ -10,10 +10,52 @@ import java.util.Stack;
 
 public class leet {
     public static void main() {
-        BestTimetoBuyandSellStock.main();
+        LongestSubstringWithoutDuplicates.main();
     }
 }
 
+class LongestSubstringWithoutDuplicates {
+    LongestSubstringWithoutDuplicates() {}
+    public static void main() {
+        System.out.println("hi");
+        LongestSubstringWithoutDuplicates l = new LongestSubstringWithoutDuplicates();
+        assert l.lengthOfLongestSubstring("zxyzxyz") == 3;
+        assert l.lengthOfLongestSubstring("xxxx") == 1;
+        assert l.lengthOfLongestSubstring("pwwkew") == 3;
+        assert l.lengthOfLongestSubstring("bbbbb") == 1;
+        assert l.lengthOfLongestSubstring("abcabcbb") == 3;
+        assert l.lengthOfLongestSubstring(" ") == 1;
+        assert l.lengthOfLongestSubstring("dvdf") == 3;
+    }
+
+    public int lengthOfLongestSubstring(String s) {
+        int length = 0;
+        HashSet<Character> set = new HashSet<>();
+
+        int currStart = 0;
+        int currLength = 0;
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+
+            if (set.contains(c)) {
+
+                length = Math.max(length, currLength);
+                currLength = 0;
+                set.clear();
+               
+                i = currStart;
+                currStart += 1;
+                continue;
+            }
+
+            set.add(c);
+            currLength++;
+        }
+
+        return Math.max(length, currLength);
+    }
+
+}
 class BestTimetoBuyandSellStock {
     BestTimetoBuyandSellStock() {}
 

@@ -10,12 +10,58 @@ import java.util.Stack;
 
 public class leet {
     public static void main() {
-        LongestSubstringWithoutDuplicates.main();
+        LongestRepeatingSubstringWithReplacement.main();
+    }
+}
+
+class LongestRepeatingSubstringWithReplacement {
+    LongestRepeatingSubstringWithReplacement() {}
+
+    public static void main() {
+        LongestRepeatingSubstringWithReplacement l = new LongestRepeatingSubstringWithReplacement();
+
+        assert l.characterReplacement("AAABABB", 1) == 5;
+        assert l.characterReplacement("XYYX", 2) == 4;
+        assert l.characterReplacement("ABAB", 2) == 4;
+        assert l.characterReplacement("AABABBA", 1) == 4;
+        assert l.characterReplacement("BBBBBAABBAABBBBBB", 2) == 10;
+        assert l.characterReplacement("ABBB", 2) == 4;
+        assert l.characterReplacement("ABCDE", 1) == 2;
+    }
+
+    public int characterReplacement(String s, int k) {
+        int ans = 0;
+        System.out.println();
+        System.out.println(s);
+        HashMap<Character, Integer> map = new HashMap<>();
+
+        int l = 0;
+        int max = 0;
+        for (int r = 0; r < s.length(); r++) {
+            char c = s.charAt(r);
+
+            map.put(c, map.getOrDefault(c, 0) + 1);
+
+            max = Math.max(max, map.get(c));
+
+            if (r - l + 1 - max > k) {
+                map.put(s.charAt(l), map.get(s.charAt(l)) - 1);
+                l++;
+            }
+
+            ans = Math.max(ans, r - l + 1);
+            //System.out.printf("atchar: %c, %d, max: %d\n", c, map.get(c), max);
+        }
+
+
+        //System.out.printf("ans: %d, max: %d\n\n", ans, max);
+        return ans;
     }
 }
 
 class LongestSubstringWithoutDuplicates {
     LongestSubstringWithoutDuplicates() {}
+
     public static void main() {
         System.out.println("hi");
         LongestSubstringWithoutDuplicates l = new LongestSubstringWithoutDuplicates();
@@ -48,8 +94,8 @@ class LongestSubstringWithoutDuplicates {
 
         return length;
     }
-
 }
+
 class BestTimetoBuyandSellStock {
     BestTimetoBuyandSellStock() {}
 

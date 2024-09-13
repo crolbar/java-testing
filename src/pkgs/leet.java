@@ -10,7 +10,7 @@ import java.util.Stack;
 
 public class leet {
     public static void main() {
-        LongestRepeatingSubstringWithReplacement.main();
+        BestTimetoBuyandSellStock.main();
     }
 }
 
@@ -50,11 +50,10 @@ class LongestRepeatingSubstringWithReplacement {
             }
 
             ans = Math.max(ans, r - l + 1);
-            //System.out.printf("atchar: %c, %d, max: %d\n", c, map.get(c), max);
+            // System.out.printf("atchar: %c, %d, max: %d\n", c, map.get(c), max);
         }
 
-
-        //System.out.printf("ans: %d, max: %d\n\n", ans, max);
+        // System.out.printf("ans: %d, max: %d\n\n", ans, max);
         return ans;
     }
 }
@@ -104,17 +103,18 @@ class BestTimetoBuyandSellStock {
         BestTimetoBuyandSellStock b = new BestTimetoBuyandSellStock();
 
         assert b.maxProfit(new int[] {7, 1, 5, 3, 6, 4}) == 5;
+        assert b.maxProfit(new int[] {7, 6, 4, 3, 1}) == 0;
     }
 
     public int maxProfit(int[] prices) {
         int ans = 0;
-        int min = prices[0];
+        //int min = prices[0];
 
-        for (int i = 0; i < prices.length; i++) {
-            min = Math.min(min, prices[i]);
-            if (prices[i] > min) {
-                ans = Math.max(ans, prices[i] - min);
-            }
+        int l = 0;
+        for (int r = 0; r < prices.length; r++) {
+            while (l < prices.length && prices[l] > prices[r]) l++;
+
+            ans = Math.max(ans, prices[r] - prices[l]);
         }
 
         return ans;

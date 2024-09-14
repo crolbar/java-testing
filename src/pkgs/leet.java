@@ -10,7 +10,66 @@ import java.util.Stack;
 
 public class leet {
     public static void main() {
-        BestTimetoBuyandSellStock.main();
+        PermutationinString.main();
+    }
+}
+
+class PermutationinString {
+    PermutationinString() {}
+
+    public static void main() {
+        System.out.println("hi");
+        PermutationinString p = new PermutationinString();
+        assert p.checkInclusion("abc", "abc") == true;
+        assert p.checkInclusion("acb", "abc") == true;
+        assert p.checkInclusion("ab", "eidbaooo") == true;
+        assert p.checkInclusion("ab", "eidboaoo") == false;
+        assert p.checkInclusion("abc", "lecabee") == true;
+        assert p.checkInclusion("abbcc", "abbccdcl") == true;
+        assert p.checkInclusion("ccbba", "ccbbcccccccccccccccccccdcl") == false;
+        assert p.checkInclusion("ccbba", "ccbbacccccccccccccccccccdcl") == true;
+        assert p.checkInclusion("abc", "lecaabee") == false;
+        assert p.checkInclusion("adc", "dcda") == true;
+        assert p.checkInclusion("a", "b") == false;
+        assert p.checkInclusion("ab", "a") == false;
+    }
+
+    public boolean checkInclusion(String s1, String s2) {
+        HashMap<Character, Integer> minMap = new HashMap<>();
+
+        for (int i = 0; i < s1.length(); i++) {
+            char c = s1.charAt(i);
+
+            minMap.put(c, minMap.getOrDefault(c, 0) + 1);
+        }
+
+        int l = 0;
+
+
+        HashMap<Character, Integer> tmpMap = new HashMap<>();
+        for (int i = 0; i < s2.length(); i++) {
+            char c = s2.charAt(i);
+
+            tmpMap.put(c, tmpMap.getOrDefault(c, 0) + 1);
+
+            if (i - l + 1 > s1.length()) {
+                char firstChar = s2.charAt(l);
+
+                if (tmpMap.get(firstChar) > 1) {
+                    tmpMap.put(firstChar, tmpMap.get(firstChar) - 1);
+                } else {
+                    tmpMap.remove(firstChar);
+                }
+
+                l++;
+            }
+
+
+            if (minMap.equals(tmpMap))
+                return true;
+        }
+
+        return false;
     }
 }
 
@@ -108,7 +167,6 @@ class BestTimetoBuyandSellStock {
 
     public int maxProfit(int[] prices) {
         int ans = 0;
-        //int min = prices[0];
 
         int l = 0;
         for (int r = 0; r < prices.length; r++) {

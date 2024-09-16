@@ -10,7 +10,67 @@ import java.util.Stack;
 
 public class leet {
     public static void main() {
-        PermutationinString.main();
+        MinimumWindowSubstring.main();
+    }
+}
+
+class MinimumWindowSubstring {
+    MinimumWindowSubstring() {}
+
+    public static void main() {
+        MinimumWindowSubstring m = new MinimumWindowSubstring();
+        assert m.minWindow("ADOBECODEBANC", "ABC").equals("BANC");
+        assert m.minWindow("a", "a").equals("a");
+        assert m.minWindow("a", "aa").equals("");
+        assert m.minWindow("OUZODYXAZV", "XYZ").equals("YXAZ");
+        assert m.minWindow("aaaaaaaaaaaabbbbbcdd", "abcdd").equals("abbbbbcdd");
+    }
+
+    public String minWindow(String s, String t) {
+        HashMap<Character, Integer> tMap = new HashMap<>();
+
+        for (int i = 0; i < t.length(); i++) {
+            char c = t.charAt(i);
+            tMap.put(c, tMap.getOrDefault(c, 0) + 1);
+        }
+
+        int min = s.length() + 1;
+
+        int[] res = new int[2];
+
+        int m = 0;
+        int l = 0;
+        int r;
+        HashMap<Character, Integer> sMap = new HashMap<>();
+        for (r = 0; r < s.length(); r++) {
+            char c = s.charAt(r);
+
+            if (tMap.containsKey(c)) {
+                sMap.put(c, sMap.getOrDefault(c, 0) + 1);
+                if (sMap.get(c).equals(tMap.get(c))) m++;
+            } else continue;
+
+            if (m < tMap.size()) continue;
+
+            do {
+                int newMin = r - l + 1;
+                if (newMin < min) {
+                    min = newMin;
+                    res[0] = l;
+                    res[1] = r + 1;
+                }
+
+                char lc = s.charAt(l);
+                if (sMap.containsKey(lc)) {
+                    if (sMap.get(lc).equals(tMap.get(lc))) m--;
+                    sMap.put(lc, sMap.get(lc) - 1);
+                }
+
+                l++;
+            } while (m >= tMap.size() && l < s.length());
+        }
+
+        return s.substring(res[0], res[1]);
     }
 }
 
@@ -45,7 +105,6 @@ class PermutationinString {
 
         int l = 0;
 
-
         HashMap<Character, Integer> tmpMap = new HashMap<>();
         for (int i = 0; i < s2.length(); i++) {
             char c = s2.charAt(i);
@@ -64,9 +123,7 @@ class PermutationinString {
                 l++;
             }
 
-
-            if (minMap.equals(tmpMap))
-                return true;
+            if (minMap.equals(tmpMap)) return true;
         }
 
         return false;

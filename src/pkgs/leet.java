@@ -1,7 +1,9 @@
 package pkgs;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -10,7 +12,52 @@ import java.util.Stack;
 
 public class leet {
     public static void main() {
-        MinimumWindowSubstring.main();
+        SlidingWindowMaximum.main();
+    }
+}
+
+class SlidingWindowMaximum {
+    SlidingWindowMaximum() {}
+
+    public static void main() {
+        SlidingWindowMaximum s = new SlidingWindowMaximum();
+
+        assert Arrays.equals(
+                s.maxSliingWindow(new int[] {1, 2, 1, 0, 4, 2, 6}, 3), new int[] {2, 2, 4, 4, 6});
+         assert Arrays.equals(
+                s.maxSliingWindow(new int[] {1, 3, -1, -3, 5, 3, 6, 7}, 3),
+                new int[] {3, 3, 5, 5, 6, 7});
+
+         assert Arrays.equals(s.maxSliingWindow(new int[] {1}, 1), new int[] {1});
+         assert Arrays.equals(s.maxSliingWindow(new int[] {1, -1}, 1), new int[] {1, -1});
+    }
+
+    public int[] maxSliingWindow(int[] nums, int k) {
+        Deque<Integer> q = new ArrayDeque<>();
+
+        int[] res = new int[(nums.length - k) + 1];
+
+        int l = 0, r = 0;
+
+        for (; r < nums.length; r++) {
+            while (!q.isEmpty() && nums[q.peekLast()] < nums[r]) {
+                q.pollLast();
+            }
+
+            q.offer(r);
+
+            if (l > q.peekFirst()) {
+                q.pollFirst();
+            }
+
+            if (r < k - 1) continue;
+
+            res[l] = nums[q.peekFirst()];
+
+            l++;
+        }
+
+        return res;
     }
 }
 

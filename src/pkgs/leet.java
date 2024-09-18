@@ -12,10 +12,36 @@ import java.util.Stack;
 
 public class leet {
     public static void main() {
-        SlidingWindowMaximum.main();
+        BinarySearch.main();
     }
 }
 
+class BinarySearch {
+    public static void main() {
+        BinarySearch bs = new BinarySearch();
+        assert bs.search(new int[]{-1,0,3,5,9,12}, 9) == 4;
+        assert bs.search(new int[]{-1,0,3,5,9,12}, 2) == -1;
+    }
+
+    public int search(int[] nums, int target) {
+        int l = 0, r = nums.length-1;
+
+        while (l <= r) {
+            int m = l + (r - l) / 2;
+            int mv = nums[m];
+
+            if (mv == target) {
+                return m;
+            } else if (target > mv) {
+                l = m + 1;
+            } else if (target < mv) {
+                r = m - 1;
+            }
+        }
+
+        return -1;
+    }
+}
 class SlidingWindowMaximum {
     SlidingWindowMaximum() {}
 

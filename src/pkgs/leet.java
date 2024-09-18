@@ -12,19 +12,54 @@ import java.util.Stack;
 
 public class leet {
     public static void main() {
-        BinarySearch.main();
+        Search2DMatrix.main();
+    }
+}
+
+class Search2DMatrix {
+    public static void main() {
+        Search2DMatrix s = new Search2DMatrix();
+        assert s.searchMatrix(new int[][] {{1, 3, 5, 7}, {10, 11, 16, 20}, {23, 30, 34, 60}}, 3)
+                == true;
+        assert s.searchMatrix(new int[][] {{1, 3, 5, 7}, {10, 11, 16, 20}, {23, 30, 34, 60}}, 13)
+                == false;
+        assert s.searchMatrix(new int[][] {{1, 2, 4, 8}, {10, 11, 12, 13}, {14, 20, 30, 40}}, 10)
+                == true;
+        assert s.searchMatrix(new int[][] {{1, 2, 4, 8}, {10, 11, 12, 13}, {14, 20, 30, 40}}, 15)
+                == false;
+    }
+
+    public boolean searchMatrix(int[][] matrix, int target) {
+        int m = matrix[0].length;
+        int l = 0, r = (m * matrix.length) - 1;
+
+        while (l <= r) {
+            int mid = l + (r - l) / 2;
+
+            int mv = matrix[mid / m][mid % m];
+
+            if (mv == target) {
+                return true;
+            } else if (target > mv) {
+                l = mid + 1;
+            } else if (target < mv) {
+                r = mid - 1;
+            }
+        }
+
+        return false;
     }
 }
 
 class BinarySearch {
     public static void main() {
         BinarySearch bs = new BinarySearch();
-        assert bs.search(new int[]{-1,0,3,5,9,12}, 9) == 4;
-        assert bs.search(new int[]{-1,0,3,5,9,12}, 2) == -1;
+        assert bs.search(new int[] {-1, 0, 3, 5, 9, 12}, 9) == 4;
+        assert bs.search(new int[] {-1, 0, 3, 5, 9, 12}, 2) == -1;
     }
 
     public int search(int[] nums, int target) {
-        int l = 0, r = nums.length-1;
+        int l = 0, r = nums.length - 1;
 
         while (l <= r) {
             int m = l + (r - l) / 2;
@@ -42,6 +77,7 @@ class BinarySearch {
         return -1;
     }
 }
+
 class SlidingWindowMaximum {
     SlidingWindowMaximum() {}
 
@@ -50,12 +86,12 @@ class SlidingWindowMaximum {
 
         assert Arrays.equals(
                 s.maxSliingWindow(new int[] {1, 2, 1, 0, 4, 2, 6}, 3), new int[] {2, 2, 4, 4, 6});
-         assert Arrays.equals(
+        assert Arrays.equals(
                 s.maxSliingWindow(new int[] {1, 3, -1, -3, 5, 3, 6, 7}, 3),
                 new int[] {3, 3, 5, 5, 6, 7});
 
-         assert Arrays.equals(s.maxSliingWindow(new int[] {1}, 1), new int[] {1});
-         assert Arrays.equals(s.maxSliingWindow(new int[] {1, -1}, 1), new int[] {1, -1});
+        assert Arrays.equals(s.maxSliingWindow(new int[] {1}, 1), new int[] {1});
+        assert Arrays.equals(s.maxSliingWindow(new int[] {1, -1}, 1), new int[] {1, -1});
     }
 
     public int[] maxSliingWindow(int[] nums, int k) {

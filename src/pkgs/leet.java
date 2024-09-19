@@ -12,7 +12,41 @@ import java.util.Stack;
 
 public class leet {
     public static void main() {
-        KokoEatingBananas.main();
+        FindMinimuminRotatedSortedArray.main();
+    }
+}
+
+class FindMinimuminRotatedSortedArray {
+    public static void main() {
+        FindMinimuminRotatedSortedArray f = new FindMinimuminRotatedSortedArray();
+        assert f.findMin(new int[] {3, 4, 5, 1, 2}) == 1;
+        assert f.findMin(new int[] {4, 5, 6, 7, 0, 1, 2}) == 0;
+        assert f.findMin(new int[] {11, 13, 15, 17}) == 11;
+    }
+
+    public int findMin(int[] nums) {
+        int l = 0, r = nums.length - 1;
+
+        int res = -1;
+        while (l <= r) {
+            int m = l + (r - l) / 2;
+
+            if (m != 0 && nums[m - 1] > nums[m]) {
+                res = nums[m];
+                break;
+            }
+
+            if (nums[m] >= nums[r]) {
+                l = m + 1;
+            } else if (nums[m] < nums[r]) {
+                r = m - 1;
+            }
+
+        }
+
+        if (res == -1) return nums[0];
+
+        return res;
     }
 }
 
@@ -40,7 +74,7 @@ class KokoEatingBananas {
 
             int time = 0;
             for (int i = 0; i < piles.length; i++) {
-                time += Math.ceil((float)piles[i] / m);
+                time += Math.ceil((float) piles[i] / m);
             }
 
             if (time <= h) {

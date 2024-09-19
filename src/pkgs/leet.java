@@ -12,7 +12,46 @@ import java.util.Stack;
 
 public class leet {
     public static void main() {
-        Search2DMatrix.main();
+        KokoEatingBananas.main();
+    }
+}
+
+class KokoEatingBananas {
+    public static void main() {
+        KokoEatingBananas k = new KokoEatingBananas();
+        assert k.minEatingSpeed(new int[] {3, 6, 7, 11}, 8) == 4;
+        assert k.minEatingSpeed(new int[] {30, 11, 23, 4, 20}, 5) == 30;
+        assert k.minEatingSpeed(new int[] {30, 11, 23, 4, 20}, 6) == 23;
+        assert k.minEatingSpeed(new int[] {1, 4, 3, 2}, 9) == 2;
+        assert k.minEatingSpeed(new int[] {25, 10, 23, 4}, 4) == 25;
+    }
+
+    public int minEatingSpeed(int[] piles, int h) {
+        int max = 0;
+        for (int i = 0; i < piles.length; i++) {
+            max = Math.max(max, piles[i]);
+        }
+
+        int res = max;
+
+        int r = max, l = 1;
+        while (l <= r) {
+            int m = l + (r - l) / 2;
+
+            int time = 0;
+            for (int i = 0; i < piles.length; i++) {
+                time += Math.ceil((float)piles[i] / m);
+            }
+
+            if (time <= h) {
+                res = m;
+                r = m - 1;
+            } else if (time > h) {
+                l = m + 1;
+            }
+        }
+
+        return res;
     }
 }
 

@@ -12,7 +12,51 @@ import java.util.Stack;
 
 public class leet {
     public static void main() {
-        FindMinimuminRotatedSortedArray.main();
+        FindTargetinRotatedSortedArray.main();
+    }
+}
+
+class FindTargetinRotatedSortedArray {
+    public static void main() {
+        FindTargetinRotatedSortedArray f = new FindTargetinRotatedSortedArray();
+        assert f.search(new int[] {4, 5, 6, 7, 0, 1, 2}, 0) == 4;
+         assert f.search(new int[] {4, 5, 6, 7, 0, 1, 2}, 3) == -1;
+         assert f.search(new int[] {1}, 0) == -1;
+         assert f.search(new int[] {3, 4, 5, 6, 1, 2}, 1) == 4;
+         assert f.search(new int[] {3, 5, 6, 0, 1, 2}, 4) == -1;
+         assert f.search(new int[] {1, 2, 3, 4, 5, 6}, 4) == 3;
+         assert f.search(new int[] {5, 1, 3}, 5) == 0;
+         assert f.search(new int[] {5, 1, 2, 3, 4}, 1) == 1;
+    }
+
+    public int search(int[] nums, int target) {
+        int l = 0, r = nums.length - 1;
+
+        while (l <= r) {
+            int m = l + (r - l) / 2;
+            int curr = nums[m];
+
+            if (curr == target) {
+                return m;
+            }
+
+            if (curr >= nums[l]) {
+                if (target > curr || target < nums[l]) {
+                    l = m + 1;
+                } else {
+                    r = m - 1;
+                }
+
+            } else {
+                if (target < curr || target > nums[r]) {
+                    r = m - 1;
+                } else {
+                    l = m + 1;
+                }
+            }
+        }
+
+        return -1;
     }
 }
 
@@ -41,7 +85,6 @@ class FindMinimuminRotatedSortedArray {
             } else if (nums[m] < nums[r]) {
                 r = m - 1;
             }
-
         }
 
         if (res == -1) return nums[0];

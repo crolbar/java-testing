@@ -12,7 +12,78 @@ import java.util.Stack;
 
 public class leet {
     public static void main() {
-        FindTargetinRotatedSortedArray.main();
+        TimeMap.main();
+    }
+}
+
+class TimeMap {
+    public static void main() {
+        TimeMap timeMap = new TimeMap();
+
+        {
+            timeMap.set("alice", "happy", 1);
+            assert timeMap.get("alice", 1) == "happy";
+            assert timeMap.get("alice", 2) == "happy";
+            timeMap.set("alice", "sad", 3);
+            assert timeMap.get("alice", 3) == "sad";
+        }
+
+        timeMap = new TimeMap();
+
+        {
+            timeMap.set("foo", "bar", 1);
+            assert timeMap.get("foo", 1) == "bar";
+            assert timeMap.get("foo", 3) == "bar";
+            timeMap.set("foo", "bar2", 4);
+            assert timeMap.get("foo", 4) == "bar2";
+            assert timeMap.get("foo", 5) == "bar2";
+        }
+    }
+
+    private static class Pair<K, V> {
+        K key;
+        V value;
+
+        public Pair(K key, V value) {
+            this.key = key;
+            this.value = value;
+        }
+    }
+
+    HashMap<String, ArrayList<Pair<Integer, String>>> map;
+
+    public TimeMap() {
+        map = new HashMap<>();
+    }
+
+    public void set(String key, String value, int timestamp) {
+        ArrayList<Pair<Integer, String>> tsList = this.map.getOrDefault(key, new ArrayList<>());
+        tsList.add(new Pair<>(timestamp, value));
+
+        this.map.put(key, tsList);
+    }
+
+    public String get(String key, int timestamp) {
+        if (!this.map.containsKey(key)) return "";
+
+        ArrayList<Pair<Integer, String>> tsList = this.map.get(key);
+
+        String res = "";
+
+        int l = 0, r = tsList.size() - 1;
+
+        while (l <= r) {
+            int m = l + (r - l) / 2;
+
+            if (tsList.get(m).key <= timestamp) {
+                res = tsList.get(m).value;
+                l = m + 1;
+            } else {
+                r = m - 1;
+            }
+        }
+
+        return res;
     }
 }
 
@@ -20,13 +91,13 @@ class FindTargetinRotatedSortedArray {
     public static void main() {
         FindTargetinRotatedSortedArray f = new FindTargetinRotatedSortedArray();
         assert f.search(new int[] {4, 5, 6, 7, 0, 1, 2}, 0) == 4;
-         assert f.search(new int[] {4, 5, 6, 7, 0, 1, 2}, 3) == -1;
-         assert f.search(new int[] {1}, 0) == -1;
-         assert f.search(new int[] {3, 4, 5, 6, 1, 2}, 1) == 4;
-         assert f.search(new int[] {3, 5, 6, 0, 1, 2}, 4) == -1;
-         assert f.search(new int[] {1, 2, 3, 4, 5, 6}, 4) == 3;
-         assert f.search(new int[] {5, 1, 3}, 5) == 0;
-         assert f.search(new int[] {5, 1, 2, 3, 4}, 1) == 1;
+        assert f.search(new int[] {4, 5, 6, 7, 0, 1, 2}, 3) == -1;
+        assert f.search(new int[] {1}, 0) == -1;
+        assert f.search(new int[] {3, 4, 5, 6, 1, 2}, 1) == 4;
+        assert f.search(new int[] {3, 5, 6, 0, 1, 2}, 4) == -1;
+        assert f.search(new int[] {1, 2, 3, 4, 5, 6}, 4) == 3;
+        assert f.search(new int[] {5, 1, 3}, 5) == 0;
+        assert f.search(new int[] {5, 1, 2, 3, 4}, 1) == 1;
     }
 
     public int search(int[] nums, int target) {

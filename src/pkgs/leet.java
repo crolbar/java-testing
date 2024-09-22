@@ -12,7 +12,52 @@ import java.util.Stack;
 
 public class leet {
     public static void main() {
-        TimeMap.main();
+        MedianofTwoSortedArrays.main();
+    }
+}
+
+class MedianofTwoSortedArrays {
+    public static void main() {
+        MedianofTwoSortedArrays m = new MedianofTwoSortedArrays();
+
+
+        assert m.findMedianSortedArrays(new int[]{1,3}, new int[]{2}) == 2.00000;
+        assert m.findMedianSortedArrays(new int[]{1,2}, new int[]{3,4}) == 2.50000;
+    }
+
+    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        if (nums1.length > nums2.length)
+            return findMedianSortedArrays(nums2, nums1);
+
+
+        int total = nums1.length + nums2.length;
+
+        int half = (total + 1) / 2;
+
+        int l = 0, r = nums1.length;
+
+        while (l <= r) {
+            int mid = l + (r - l) / 2;
+            int mid2 = half - mid;
+
+            int Right1 = (mid < nums1.length) ? nums1[mid] : Integer.MAX_VALUE;
+            int Left1 = (mid > 0) ? nums1[mid - 1] : Integer.MIN_VALUE;
+
+            int Right2 = (mid2 < nums2.length) ? nums2[mid2] : Integer.MAX_VALUE;
+            int Left2 = (mid2 > 0) ? nums2[mid2 - 1] : Integer.MIN_VALUE;
+
+            if (Left1 <= Right2 && Left2 <= Right1) {
+                if (total % 2 == 1) {
+                    return Math.max(Left1, Left2);
+                }
+                return (Math.max(Left1, Left2) + Math.min(Right1, Right2)) / 2.0;
+            } else if (Left1 > Right2) {
+                r = mid - 1;
+            } else {
+                l = mid + 1;
+            }
+        }
+        return 0;
     }
 }
 

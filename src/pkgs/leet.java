@@ -12,9 +12,83 @@ import java.util.Stack;
 
 public class leet {
     public static void main() {
-        ReverseLinkedList.main();
+        MergeTwoSortedLists.main();
     }
 }
+class MergeTwoSortedLists {
+    public static void main() {
+        MergeTwoSortedLists r = new MergeTwoSortedLists();
+        r.test();
+    }
+
+    void test() {
+        ListNode list1 = new ListNode(1);
+        //list1.val = 1;
+        //list1.next = new ListNode(2);
+        //list1.next.next = new ListNode(4);
+        list1.val = -9;
+        list1.next = new ListNode(3);
+
+        ListNode list2 = new ListNode(1);
+        //list2.val = 1;
+        //list2.next = new ListNode(3);
+        //list2.next.next = new ListNode(4);
+        list2.val = 5;
+        list2.next = new ListNode(7);
+
+
+        ListNode curr = list1;
+        for (int i = 1; i <= 2; i++) {
+            System.out.println(curr.val);
+            curr = curr.next;
+        }
+
+        curr = list2;
+        for (int i = 1; i <= 2; i++) {
+            System.out.println(curr.val);
+            curr = curr.next;
+        }
+
+        ListNode res = this.mergeTwoLists(list1, list2);
+
+        System.out.println("\nres");
+        curr = res;
+        for (int i = 1; i <= 4; i++) {
+            System.out.println(curr.val);
+            curr = curr.next;
+        }
+    }
+
+    public class ListNode {
+        int val;
+        ListNode next;
+        ListNode() {}
+        ListNode(int val) { this.val = val; }
+        ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+    }
+
+    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+        if (list1 == null || list2 == null) {
+            if (list1 == null && list2 == null) return null;
+            return (list1 != null) ? list1 : list2;
+        }
+
+        ListNode res = new ListNode();
+
+        if (list1.val < list2.val) {
+            res.val = list1.val;
+            list1 = list1.next;
+        } else {
+            res.val = list2.val;
+            list2 = list2.next;
+        }
+
+        res.next = mergeTwoLists(list1, list2);
+
+        return res;
+    }
+}
+
 
 class ReverseLinkedList {
     public static void main() {

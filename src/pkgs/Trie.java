@@ -4,8 +4,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
-public class Trie {
-    public static void main() {
+public
+class Trie
+{
+  public
+    static void main()
+    {
         Trie trie = new Trie();
 
         trie.insert("foo");
@@ -28,8 +32,6 @@ public class Trie {
 
         assert Arrays.equals(trie.find("fo"), s);
 
-
-
         trie.insert("helicopter");
         trie.insert("hellium");
         trie.insert("hololo");
@@ -50,11 +52,10 @@ public class Trie {
 
     TrieNode root;
 
-    Trie() {
-        root = new TrieNode();
-    }
+    Trie() { root = new TrieNode(); }
 
-    void insert(String word) {
+    void insert(String word)
+    {
         TrieNode curr = this.root;
 
         for (int i = 0; i < word.length(); i++) {
@@ -71,7 +72,8 @@ public class Trie {
         curr.isWord = true;
     }
 
-    boolean contains(String word) {
+    boolean contains(String word)
+    {
         TrieNode curr = this.root;
 
         for (int i = 0; i < word.length(); i++) {
@@ -88,9 +90,12 @@ public class Trie {
     }
 
     // TODO: actualy delete them
-    // private void delete_r(TrieNode curr, String word) { if (curr.isWord) return; }
-    void delete(String word) {
-        if (!this.contains(word)) return;
+    // private void delete_r(TrieNode curr, String word) { if (curr.isWord)
+    // return; }
+    void delete(String word)
+    {
+        if (!this.contains(word))
+            return;
 
         TrieNode curr = this.root;
         for (int i = 0; i < word.length(); i++) {
@@ -101,8 +106,11 @@ public class Trie {
         curr.isWord = false;
     }
 
-    private void _find_r(ArrayList<String> list, TrieNode curr, String prefix) {
-        if (curr.isWord) list.add(prefix);
+  private
+    void _find_r(ArrayList<String> list, TrieNode curr, String prefix)
+    {
+        if (curr.isWord)
+            list.add(prefix);
 
         TrieNode[] nodes = curr.children.values().toArray(new TrieNode[0]);
         Character[] chars = curr.children.keySet().toArray(new Character[0]);
@@ -111,7 +119,8 @@ public class Trie {
         }
     }
 
-    String[] find(String prefix) {
+    String[] find(String prefix)
+    {
         ArrayList<String> list = new ArrayList<>();
 
         TrieNode curr = this.root;
@@ -123,15 +132,18 @@ public class Trie {
         _find_r(list, curr, prefix);
 
         String[] out = new String[list.size()];
-        for (int i = 0; i < list.size(); i++) out[i] = list.get(i);
+        for (int i = 0; i < list.size(); i++)
+            out[i] = list.get(i);
         return out;
     }
 
-    class TrieNode {
+    class TrieNode
+    {
         HashMap<Character, TrieNode> children;
         boolean isWord;
 
-        TrieNode() {
+        TrieNode()
+        {
             children = new HashMap<>();
             isWord = false;
         }

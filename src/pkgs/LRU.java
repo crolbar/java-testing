@@ -2,10 +2,13 @@ package pkgs;
 
 import java.util.HashMap;
 
-public class LRU {
-    public static void main() {
+public
+class LRU
+{
+  public
+    static void main()
+    {
         LRU lru = new LRU(3);
-
 
         assert lru.get("foo") == null;
         lru.update("foo", 69);
@@ -13,7 +16,6 @@ public class LRU {
 
         lru.update("bar", 420);
         assert lru.get("bar") == 420;
-
 
         lru.update("baz", 1337);
         assert lru.get("baz") == 1337;
@@ -53,24 +55,26 @@ public class LRU {
     HashMap<String, Node> lookup;
     HashMap<Node, String> revLookup;
 
-    public class Node {
+  public
+    class Node
+    {
         int val;
         Node prev;
         Node next;
 
-        Node(int val) {
-            this.val = val;
-        }
+        Node(int val) { this.val = val; }
     }
 
-    LRU(int capacity) {
+    LRU(int capacity)
+    {
         this.length = 0;
         this.lookup = new HashMap<>();
         this.revLookup = new HashMap<>();
         this.capacity = capacity;
     }
 
-    void update(String key, int val) {
+    void update(String key, int val)
+    {
         Node node = this.lookup.get(key);
 
         if (node == null) {
@@ -89,10 +93,12 @@ public class LRU {
         }
     }
 
-    Integer get(String key) {
+    Integer get(String key)
+    {
         Node node = this.lookup.get(key);
 
-        if (node == null) return null;
+        if (node == null)
+            return null;
 
         this.detatch(node);
         this.prepend(node);
@@ -100,7 +106,8 @@ public class LRU {
         return node.val;
     }
 
-    void detatch(Node node) {
+    void detatch(Node node)
+    {
         if (node.prev != null) {
             node.prev.next = node.next;
         }
@@ -121,7 +128,8 @@ public class LRU {
         node.prev = null;
     }
 
-    void prepend(Node node) {
+    void prepend(Node node)
+    {
         if (this.head == null) {
             this.head = this.tail = node;
             return;
@@ -133,7 +141,8 @@ public class LRU {
         this.head = node;
     }
 
-    void trimCache() {
+    void trimCache()
+    {
         if (this.length <= this.capacity) {
             return;
         }

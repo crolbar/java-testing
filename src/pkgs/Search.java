@@ -1,11 +1,17 @@
 package pkgs;
 
-public class Search {
-    public enum SearchType {
+public
+class Search
+{
+  public
+    enum SearchType
+    {
         Binary
     };
 
-    public static int binary(int[] nums, int target) {
+  public
+    static int binary(int[] nums, int target)
+    {
         int hi = nums.length - 1, li = 0;
 
         while (li <= hi) {
@@ -23,8 +29,10 @@ public class Search {
         return -1;
     }
 
-    public static void call(SearchType st) {
-        int[] nums = {-1, 0, 2, 4, 6, 8};
+  public
+    static void call(SearchType st)
+    {
+        int[] nums = { -1, 0, 2, 4, 6, 8 };
         int target = 8;
 
         int search_res = -1337;

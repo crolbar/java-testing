@@ -2,8 +2,12 @@ package pkgs;
 
 import java.util.ArrayList;
 
-public class Heap {
-    public static void main() {
+public
+class Heap
+{
+  public
+    static void main()
+    {
         MinHeap mh = new MinHeap();
 
         assert mh.length == 0;
@@ -30,7 +34,6 @@ public class Heap {
         assert mh.pop() == 6;
         assert mh.pop() == 7;
 
-
         mh.insert(5);
         mh.insert(3);
         mh.insert(69);
@@ -53,20 +56,22 @@ public class Heap {
         assert mh.pop() == 69;
         assert mh.pop() == 420;
         assert mh.length == 0;
-
     }
 }
 
-class MinHeap {
+class MinHeap
+{
     int length;
     ArrayList<Integer> data;
 
-    MinHeap() {
+    MinHeap()
+    {
         this.length = 0;
         this.data = new ArrayList<>();
     }
 
-    void insert(int val) {
+    void insert(int val)
+    {
         this.data.add(val);
 
         this.heapifyUp(this.length);
@@ -74,8 +79,10 @@ class MinHeap {
         this.length++;
     }
 
-    int pop() {
-        if (this.length == 0) return -1;
+    int pop()
+    {
+        if (this.length == 0)
+            return -1;
 
         int o = this.data.get(0);
 
@@ -93,13 +100,17 @@ class MinHeap {
         return o;
     }
 
-    private void heapifyDown(int i) {
-        if (i >= this.length) return;
+  private
+    void heapifyDown(int i)
+    {
+        if (i >= this.length)
+            return;
 
         int li = this.leftChild(i);
         int ri = this.rightChild(i);
 
-        if (li >= this.length) return;
+        if (li >= this.length)
+            return;
 
         int lv = this.data.get(li);
         int rv = this.data.get(ri);
@@ -115,13 +126,17 @@ class MinHeap {
             this.data.set(li, v);
 
             i = li;
-        } else return;
+        } else
+            return;
 
         this.heapifyDown(i);
     }
 
-    private void heapifyUp(int i) {
-        if (i == 0) return;
+  private
+    void heapifyUp(int i)
+    {
+        if (i == 0)
+            return;
 
         int pi = this.parent(i);
         int pv = this.data.get(pi);
@@ -136,15 +151,12 @@ class MinHeap {
         }
     }
 
-    private int parent(int i) {
-        return (i - 1) / 2;
-    }
+  private
+    int parent(int i) { return (i - 1) / 2; }
 
-    private int leftChild(int p) {
-        return (p * 2) + 1;
-    }
+  private
+    int leftChild(int p) { return (p * 2) + 1; }
 
-    private int rightChild(int p) {
-        return (p * 2) + 2;
-    }
+  private
+    int rightChild(int p) { return (p * 2) + 2; }
 }

@@ -10,32 +10,37 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 
-public class leet {
-    public static void main() {
-        MergeTwoSortedLists.main();
-    }
+public
+class leet
+{
+  public
+    static void main() { MergeTwoSortedLists.main(); }
 }
-class MergeTwoSortedLists {
-    public static void main() {
+
+class MergeTwoSortedLists
+{
+  public
+    static void main()
+    {
         MergeTwoSortedLists r = new MergeTwoSortedLists();
         r.test();
     }
 
-    void test() {
+    void test()
+    {
         ListNode list1 = new ListNode(1);
-        //list1.val = 1;
-        //list1.next = new ListNode(2);
-        //list1.next.next = new ListNode(4);
+        // list1.val = 1;
+        // list1.next = new ListNode(2);
+        // list1.next.next = new ListNode(4);
         list1.val = -9;
         list1.next = new ListNode(3);
 
         ListNode list2 = new ListNode(1);
-        //list2.val = 1;
-        //list2.next = new ListNode(3);
-        //list2.next.next = new ListNode(4);
+        // list2.val = 1;
+        // list2.next = new ListNode(3);
+        // list2.next.next = new ListNode(4);
         list2.val = 5;
         list2.next = new ListNode(7);
-
 
         ListNode curr = list1;
         for (int i = 1; i <= 2; i++) {
@@ -59,17 +64,26 @@ class MergeTwoSortedLists {
         }
     }
 
-    public class ListNode {
+  public
+    class ListNode
+    {
         int val;
         ListNode next;
         ListNode() {}
         ListNode(int val) { this.val = val; }
-        ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+        ListNode(int val, ListNode next)
+        {
+            this.val = val;
+            this.next = next;
+        }
     }
 
-    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+    public ListNode
+    mergeTwoLists(ListNode list1, ListNode list2)
+    {
         if (list1 == null || list2 == null) {
-            if (list1 == null && list2 == null) return null;
+            if (list1 == null && list2 == null)
+                return null;
             return (list1 != null) ? list1 : list2;
         }
 
@@ -89,14 +103,17 @@ class MergeTwoSortedLists {
     }
 }
 
-
-class ReverseLinkedList {
-    public static void main() {
+class ReverseLinkedList
+{
+  public
+    static void main()
+    {
         ReverseLinkedList r = new ReverseLinkedList();
         r.test();
     }
 
-    void test() {
+    void test()
+    {
         ListNode n = new ListNode(1);
 
         ListNode curr = n;
@@ -121,16 +138,25 @@ class ReverseLinkedList {
         }
     }
 
-    public class ListNode {
+  public
+    class ListNode
+    {
         int val;
         ListNode next;
         ListNode() {}
         ListNode(int val) { this.val = val; }
-        ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+        ListNode(int val, ListNode next)
+        {
+            this.val = val;
+            this.next = next;
+        }
     }
 
-    ListNode r(ListNode curr, ListNode prev) {
-        if (curr == null) return prev;
+    ListNode
+    r(ListNode curr, ListNode prev)
+    {
+        if (curr == null)
+            return prev;
 
         ListNode next = curr.next;
         curr.next = prev;
@@ -138,25 +164,28 @@ class ReverseLinkedList {
         return r(next, curr);
     }
 
-    public ListNode reverseList(ListNode head) {
-        return r(head, null);
-    }
+  public
+    ListNode reverseList(ListNode head) { return r(head, null); }
 }
 
-
-class MedianofTwoSortedArrays {
-    public static void main() {
+class MedianofTwoSortedArrays
+{
+  public
+    static void main()
+    {
         MedianofTwoSortedArrays m = new MedianofTwoSortedArrays();
 
-
-        assert m.findMedianSortedArrays(new int[]{1,3}, new int[]{2}) == 2.00000;
-        assert m.findMedianSortedArrays(new int[]{1,2}, new int[]{3,4}) == 2.50000;
+        assert m.findMedianSortedArrays(new int[]{ 1, 3 }, new int[]{ 2 }) ==
+          2.00000;
+        assert m.findMedianSortedArrays(new int[]{ 1, 2 }, new int[]{ 3, 4 }) ==
+          2.50000;
     }
 
-    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+  public
+    double findMedianSortedArrays(int[] nums1, int[] nums2)
+    {
         if (nums1.length > nums2.length)
             return findMedianSortedArrays(nums2, nums1);
-
 
         int total = nums1.length + nums2.length;
 
@@ -171,14 +200,16 @@ class MedianofTwoSortedArrays {
             int Right1 = (mid < nums1.length) ? nums1[mid] : Integer.MAX_VALUE;
             int Left1 = (mid > 0) ? nums1[mid - 1] : Integer.MIN_VALUE;
 
-            int Right2 = (mid2 < nums2.length) ? nums2[mid2] : Integer.MAX_VALUE;
+            int Right2 =
+              (mid2 < nums2.length) ? nums2[mid2] : Integer.MAX_VALUE;
             int Left2 = (mid2 > 0) ? nums2[mid2 - 1] : Integer.MIN_VALUE;
 
             if (Left1 <= Right2 && Left2 <= Right1) {
                 if (total % 2 == 1) {
                     return Math.max(Left1, Left2);
                 }
-                return (Math.max(Left1, Left2) + Math.min(Right1, Right2)) / 2.0;
+                return (Math.max(Left1, Left2) + Math.min(Right1, Right2)) /
+                       2.0;
             } else if (Left1 > Right2) {
                 r = mid - 1;
             } else {
@@ -189,8 +220,11 @@ class MedianofTwoSortedArrays {
     }
 }
 
-class TimeMap {
-    public static void main() {
+class TimeMap
+{
+  public
+    static void main()
+    {
         TimeMap timeMap = new TimeMap();
 
         {
@@ -213,31 +247,41 @@ class TimeMap {
         }
     }
 
-    private static class Pair<K, V> {
+  private
+    static class Pair<K, V>
+    {
         K key;
         V value;
 
-        public Pair(K key, V value) {
+      public
+        Pair(K key, V value)
+        {
             this.key = key;
             this.value = value;
         }
     }
 
-    HashMap<String, ArrayList<Pair<Integer, String>>> map;
+    HashMap<String, ArrayList<Pair<Integer, String>>>
+      map;
 
-    public TimeMap() {
-        map = new HashMap<>();
-    }
+  public
+    TimeMap() { map = new HashMap<>(); }
 
-    public void set(String key, String value, int timestamp) {
-        ArrayList<Pair<Integer, String>> tsList = this.map.getOrDefault(key, new ArrayList<>());
+  public
+    void set(String key, String value, int timestamp)
+    {
+        ArrayList<Pair<Integer, String>> tsList =
+          this.map.getOrDefault(key, new ArrayList<>());
         tsList.add(new Pair<>(timestamp, value));
 
         this.map.put(key, tsList);
     }
 
-    public String get(String key, int timestamp) {
-        if (!this.map.containsKey(key)) return "";
+  public
+    String get(String key, int timestamp)
+    {
+        if (!this.map.containsKey(key))
+            return "";
 
         ArrayList<Pair<Integer, String>> tsList = this.map.get(key);
 
@@ -260,20 +304,25 @@ class TimeMap {
     }
 }
 
-class FindTargetinRotatedSortedArray {
-    public static void main() {
+class FindTargetinRotatedSortedArray
+{
+  public
+    static void main()
+    {
         FindTargetinRotatedSortedArray f = new FindTargetinRotatedSortedArray();
-        assert f.search(new int[] {4, 5, 6, 7, 0, 1, 2}, 0) == 4;
-        assert f.search(new int[] {4, 5, 6, 7, 0, 1, 2}, 3) == -1;
-        assert f.search(new int[] {1}, 0) == -1;
-        assert f.search(new int[] {3, 4, 5, 6, 1, 2}, 1) == 4;
-        assert f.search(new int[] {3, 5, 6, 0, 1, 2}, 4) == -1;
-        assert f.search(new int[] {1, 2, 3, 4, 5, 6}, 4) == 3;
-        assert f.search(new int[] {5, 1, 3}, 5) == 0;
-        assert f.search(new int[] {5, 1, 2, 3, 4}, 1) == 1;
+        assert f.search(new int[]{ 4, 5, 6, 7, 0, 1, 2 }, 0) == 4;
+        assert f.search(new int[]{ 4, 5, 6, 7, 0, 1, 2 }, 3) == -1;
+        assert f.search(new int[]{ 1 }, 0) == -1;
+        assert f.search(new int[]{ 3, 4, 5, 6, 1, 2 }, 1) == 4;
+        assert f.search(new int[]{ 3, 5, 6, 0, 1, 2 }, 4) == -1;
+        assert f.search(new int[]{ 1, 2, 3, 4, 5, 6 }, 4) == 3;
+        assert f.search(new int[]{ 5, 1, 3 }, 5) == 0;
+        assert f.search(new int[]{ 5, 1, 2, 3, 4 }, 1) == 1;
     }
 
-    public int search(int[] nums, int target) {
+  public
+    int search(int[] nums, int target)
+    {
         int l = 0, r = nums.length - 1;
 
         while (l <= r) {
@@ -304,15 +353,21 @@ class FindTargetinRotatedSortedArray {
     }
 }
 
-class FindMinimuminRotatedSortedArray {
-    public static void main() {
-        FindMinimuminRotatedSortedArray f = new FindMinimuminRotatedSortedArray();
-        assert f.findMin(new int[] {3, 4, 5, 1, 2}) == 1;
-        assert f.findMin(new int[] {4, 5, 6, 7, 0, 1, 2}) == 0;
-        assert f.findMin(new int[] {11, 13, 15, 17}) == 11;
+class FindMinimuminRotatedSortedArray
+{
+  public
+    static void main()
+    {
+        FindMinimuminRotatedSortedArray f =
+          new FindMinimuminRotatedSortedArray();
+        assert f.findMin(new int[]{ 3, 4, 5, 1, 2 }) == 1;
+        assert f.findMin(new int[]{ 4, 5, 6, 7, 0, 1, 2 }) == 0;
+        assert f.findMin(new int[]{ 11, 13, 15, 17 }) == 11;
     }
 
-    public int findMin(int[] nums) {
+  public
+    int findMin(int[] nums)
+    {
         int l = 0, r = nums.length - 1;
 
         int res = -1;
@@ -331,23 +386,29 @@ class FindMinimuminRotatedSortedArray {
             }
         }
 
-        if (res == -1) return nums[0];
+        if (res == -1)
+            return nums[0];
 
         return res;
     }
 }
 
-class KokoEatingBananas {
-    public static void main() {
+class KokoEatingBananas
+{
+  public
+    static void main()
+    {
         KokoEatingBananas k = new KokoEatingBananas();
-        assert k.minEatingSpeed(new int[] {3, 6, 7, 11}, 8) == 4;
-        assert k.minEatingSpeed(new int[] {30, 11, 23, 4, 20}, 5) == 30;
-        assert k.minEatingSpeed(new int[] {30, 11, 23, 4, 20}, 6) == 23;
-        assert k.minEatingSpeed(new int[] {1, 4, 3, 2}, 9) == 2;
-        assert k.minEatingSpeed(new int[] {25, 10, 23, 4}, 4) == 25;
+        assert k.minEatingSpeed(new int[]{ 3, 6, 7, 11 }, 8) == 4;
+        assert k.minEatingSpeed(new int[]{ 30, 11, 23, 4, 20 }, 5) == 30;
+        assert k.minEatingSpeed(new int[]{ 30, 11, 23, 4, 20 }, 6) == 23;
+        assert k.minEatingSpeed(new int[]{ 1, 4, 3, 2 }, 9) == 2;
+        assert k.minEatingSpeed(new int[]{ 25, 10, 23, 4 }, 4) == 25;
     }
 
-    public int minEatingSpeed(int[] piles, int h) {
+  public
+    int minEatingSpeed(int[] piles, int h)
+    {
         int max = 0;
         for (int i = 0; i < piles.length; i++) {
             max = Math.max(max, piles[i]);
@@ -361,7 +422,7 @@ class KokoEatingBananas {
 
             int time = 0;
             for (int i = 0; i < piles.length; i++) {
-                time += Math.ceil((float) piles[i] / m);
+                time += Math.ceil((float)piles[i] / m);
             }
 
             if (time <= h) {
@@ -376,20 +437,29 @@ class KokoEatingBananas {
     }
 }
 
-class Search2DMatrix {
-    public static void main() {
+class Search2DMatrix
+{
+  public
+    static void main()
+    {
         Search2DMatrix s = new Search2DMatrix();
-        assert s.searchMatrix(new int[][] {{1, 3, 5, 7}, {10, 11, 16, 20}, {23, 30, 34, 60}}, 3)
-                == true;
-        assert s.searchMatrix(new int[][] {{1, 3, 5, 7}, {10, 11, 16, 20}, {23, 30, 34, 60}}, 13)
-                == false;
-        assert s.searchMatrix(new int[][] {{1, 2, 4, 8}, {10, 11, 12, 13}, {14, 20, 30, 40}}, 10)
-                == true;
-        assert s.searchMatrix(new int[][] {{1, 2, 4, 8}, {10, 11, 12, 13}, {14, 20, 30, 40}}, 15)
-                == false;
+        assert s.searchMatrix(
+          new int[][]{ { 1, 3, 5, 7 }, { 10, 11, 16, 20 }, { 23, 30, 34, 60 } },
+          3) == true;
+        assert s.searchMatrix(
+          new int[][]{ { 1, 3, 5, 7 }, { 10, 11, 16, 20 }, { 23, 30, 34, 60 } },
+          13) == false;
+        assert s.searchMatrix(
+          new int[][]{ { 1, 2, 4, 8 }, { 10, 11, 12, 13 }, { 14, 20, 30, 40 } },
+          10) == true;
+        assert s.searchMatrix(
+          new int[][]{ { 1, 2, 4, 8 }, { 10, 11, 12, 13 }, { 14, 20, 30, 40 } },
+          15) == false;
     }
 
-    public boolean searchMatrix(int[][] matrix, int target) {
+  public
+    boolean searchMatrix(int[][] matrix, int target)
+    {
         int m = matrix[0].length;
         int l = 0, r = (m * matrix.length) - 1;
 
@@ -411,14 +481,19 @@ class Search2DMatrix {
     }
 }
 
-class BinarySearch {
-    public static void main() {
+class BinarySearch
+{
+  public
+    static void main()
+    {
         BinarySearch bs = new BinarySearch();
-        assert bs.search(new int[] {-1, 0, 3, 5, 9, 12}, 9) == 4;
-        assert bs.search(new int[] {-1, 0, 3, 5, 9, 12}, 2) == -1;
+        assert bs.search(new int[]{ -1, 0, 3, 5, 9, 12 }, 9) == 4;
+        assert bs.search(new int[]{ -1, 0, 3, 5, 9, 12 }, 2) == -1;
     }
 
-    public int search(int[] nums, int target) {
+  public
+    int search(int[] nums, int target)
+    {
         int l = 0, r = nums.length - 1;
 
         while (l <= r) {
@@ -438,23 +513,31 @@ class BinarySearch {
     }
 }
 
-class SlidingWindowMaximum {
+class SlidingWindowMaximum
+{
     SlidingWindowMaximum() {}
 
-    public static void main() {
+  public
+    static void main()
+    {
         SlidingWindowMaximum s = new SlidingWindowMaximum();
 
         assert Arrays.equals(
-                s.maxSliingWindow(new int[] {1, 2, 1, 0, 4, 2, 6}, 3), new int[] {2, 2, 4, 4, 6});
+          s.maxSliingWindow(new int[]{ 1, 2, 1, 0, 4, 2, 6 }, 3),
+          new int[]{ 2, 2, 4, 4, 6 });
         assert Arrays.equals(
-                s.maxSliingWindow(new int[] {1, 3, -1, -3, 5, 3, 6, 7}, 3),
-                new int[] {3, 3, 5, 5, 6, 7});
+          s.maxSliingWindow(new int[]{ 1, 3, -1, -3, 5, 3, 6, 7 }, 3),
+          new int[]{ 3, 3, 5, 5, 6, 7 });
 
-        assert Arrays.equals(s.maxSliingWindow(new int[] {1}, 1), new int[] {1});
-        assert Arrays.equals(s.maxSliingWindow(new int[] {1, -1}, 1), new int[] {1, -1});
+        assert Arrays.equals(s.maxSliingWindow(new int[]{ 1 }, 1),
+                             new int[]{ 1 });
+        assert Arrays.equals(s.maxSliingWindow(new int[]{ 1, -1 }, 1),
+                             new int[]{ 1, -1 });
     }
 
-    public int[] maxSliingWindow(int[] nums, int k) {
+  public
+    int[] maxSliingWindow(int[] nums, int k)
+    {
         Deque<Integer> q = new ArrayDeque<>();
 
         int[] res = new int[(nums.length - k) + 1];
@@ -472,7 +555,8 @@ class SlidingWindowMaximum {
                 q.pollFirst();
             }
 
-            if (r < k - 1) continue;
+            if (r < k - 1)
+                continue;
 
             res[l] = nums[q.peekFirst()];
 
@@ -483,10 +567,13 @@ class SlidingWindowMaximum {
     }
 }
 
-class MinimumWindowSubstring {
+class MinimumWindowSubstring
+{
     MinimumWindowSubstring() {}
 
-    public static void main() {
+  public
+    static void main()
+    {
         MinimumWindowSubstring m = new MinimumWindowSubstring();
         assert m.minWindow("ADOBECODEBANC", "ABC").equals("BANC");
         assert m.minWindow("a", "a").equals("a");
@@ -495,7 +582,9 @@ class MinimumWindowSubstring {
         assert m.minWindow("aaaaaaaaaaaabbbbbcdd", "abcdd").equals("abbbbbcdd");
     }
 
-    public String minWindow(String s, String t) {
+  public
+    String minWindow(String s, String t)
+    {
         HashMap<Character, Integer> tMap = new HashMap<>();
 
         for (int i = 0; i < t.length(); i++) {
@@ -516,10 +605,13 @@ class MinimumWindowSubstring {
 
             if (tMap.containsKey(c)) {
                 sMap.put(c, sMap.getOrDefault(c, 0) + 1);
-                if (sMap.get(c).equals(tMap.get(c))) m++;
-            } else continue;
+                if (sMap.get(c).equals(tMap.get(c)))
+                    m++;
+            } else
+                continue;
 
-            if (m < tMap.size()) continue;
+            if (m < tMap.size())
+                continue;
 
             do {
                 int newMin = r - l + 1;
@@ -531,7 +623,8 @@ class MinimumWindowSubstring {
 
                 char lc = s.charAt(l);
                 if (sMap.containsKey(lc)) {
-                    if (sMap.get(lc).equals(tMap.get(lc))) m--;
+                    if (sMap.get(lc).equals(tMap.get(lc)))
+                        m--;
                     sMap.put(lc, sMap.get(lc) - 1);
                 }
 
@@ -543,10 +636,13 @@ class MinimumWindowSubstring {
     }
 }
 
-class PermutationinString {
+class PermutationinString
+{
     PermutationinString() {}
 
-    public static void main() {
+  public
+    static void main()
+    {
         System.out.println("hi");
         PermutationinString p = new PermutationinString();
         assert p.checkInclusion("abc", "abc") == true;
@@ -563,7 +659,9 @@ class PermutationinString {
         assert p.checkInclusion("ab", "a") == false;
     }
 
-    public boolean checkInclusion(String s1, String s2) {
+  public
+    boolean checkInclusion(String s1, String s2)
+    {
         HashMap<Character, Integer> minMap = new HashMap<>();
 
         for (int i = 0; i < s1.length(); i++) {
@@ -592,18 +690,23 @@ class PermutationinString {
                 l++;
             }
 
-            if (minMap.equals(tmpMap)) return true;
+            if (minMap.equals(tmpMap))
+                return true;
         }
 
         return false;
     }
 }
 
-class LongestRepeatingSubstringWithReplacement {
+class LongestRepeatingSubstringWithReplacement
+{
     LongestRepeatingSubstringWithReplacement() {}
 
-    public static void main() {
-        LongestRepeatingSubstringWithReplacement l = new LongestRepeatingSubstringWithReplacement();
+  public
+    static void main()
+    {
+        LongestRepeatingSubstringWithReplacement l =
+          new LongestRepeatingSubstringWithReplacement();
 
         assert l.characterReplacement("AAABABB", 1) == 5;
         assert l.characterReplacement("XYYX", 2) == 4;
@@ -614,7 +717,9 @@ class LongestRepeatingSubstringWithReplacement {
         assert l.characterReplacement("ABCDE", 1) == 2;
     }
 
-    public int characterReplacement(String s, int k) {
+  public
+    int characterReplacement(String s, int k)
+    {
         int ans = 0;
         System.out.println();
         System.out.println(s);
@@ -635,7 +740,8 @@ class LongestRepeatingSubstringWithReplacement {
             }
 
             ans = Math.max(ans, r - l + 1);
-            // System.out.printf("atchar: %c, %d, max: %d\n", c, map.get(c), max);
+            // System.out.printf("atchar: %c, %d, max: %d\n", c, map.get(c),
+            // max);
         }
 
         // System.out.printf("ans: %d, max: %d\n\n", ans, max);
@@ -643,12 +749,16 @@ class LongestRepeatingSubstringWithReplacement {
     }
 }
 
-class LongestSubstringWithoutDuplicates {
+class LongestSubstringWithoutDuplicates
+{
     LongestSubstringWithoutDuplicates() {}
 
-    public static void main() {
+  public
+    static void main()
+    {
         System.out.println("hi");
-        LongestSubstringWithoutDuplicates l = new LongestSubstringWithoutDuplicates();
+        LongestSubstringWithoutDuplicates l =
+          new LongestSubstringWithoutDuplicates();
         assert l.lengthOfLongestSubstring("zxyzxyz") == 3;
         assert l.lengthOfLongestSubstring("xxxx") == 1;
         assert l.lengthOfLongestSubstring("pwwkew") == 3;
@@ -659,7 +769,9 @@ class LongestSubstringWithoutDuplicates {
         assert l.lengthOfLongestSubstring("aaaadvdfo") == 4;
     }
 
-    public int lengthOfLongestSubstring(String s) {
+  public
+    int lengthOfLongestSubstring(String s)
+    {
         int length = 0;
         HashSet<Character> set = new HashSet<>();
 
@@ -680,23 +792,29 @@ class LongestSubstringWithoutDuplicates {
     }
 }
 
-class BestTimetoBuyandSellStock {
+class BestTimetoBuyandSellStock
+{
     BestTimetoBuyandSellStock() {}
 
-    public static void main() {
+  public
+    static void main()
+    {
         System.out.println("hi");
         BestTimetoBuyandSellStock b = new BestTimetoBuyandSellStock();
 
-        assert b.maxProfit(new int[] {7, 1, 5, 3, 6, 4}) == 5;
-        assert b.maxProfit(new int[] {7, 6, 4, 3, 1}) == 0;
+        assert b.maxProfit(new int[]{ 7, 1, 5, 3, 6, 4 }) == 5;
+        assert b.maxProfit(new int[]{ 7, 6, 4, 3, 1 }) == 0;
     }
 
-    public int maxProfit(int[] prices) {
+  public
+    int maxProfit(int[] prices)
+    {
         int ans = 0;
 
         int l = 0;
         for (int r = 0; r < prices.length; r++) {
-            while (l < prices.length && prices[l] > prices[r]) l++;
+            while (l < prices.length && prices[l] > prices[r])
+                l++;
 
             ans = Math.max(ans, prices[r] - prices[l]);
         }
@@ -705,20 +823,26 @@ class BestTimetoBuyandSellStock {
     }
 }
 
-class TrappingRainWater {
+class TrappingRainWater
+{
     TrappingRainWater() {}
 
-    public static void main() {
+  public
+    static void main()
+    {
         TrappingRainWater trw = new TrappingRainWater();
-        int[] height = {0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1};
+        int[] height = { 0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1 };
         int out = trw.trap(height);
 
         assert out == 6;
         System.out.println(out);
     }
 
-    public int trap(int[] height) {
-        if (height.length == 0) return 0;
+  public
+    int trap(int[] height)
+    {
+        if (height.length == 0)
+            return 0;
 
         int ans = 0;
         int r = height.length - 1, l = 0;
@@ -741,20 +865,25 @@ class TrappingRainWater {
     }
 }
 
-class MaxWaterContainer {
+class MaxWaterContainer
+{
     MaxWaterContainer() {}
 
-    public static void main() {
+  public
+    static void main()
+    {
         MaxWaterContainer mc = new MaxWaterContainer();
         //// int[] heights = {1, 8, 6, 2, 5, 4, 8, 3, 7};
         // int[] heights = {1,1};
-        int[] heights = {1, 2, 4, 3}; // 4
+        int[] heights = { 1, 2, 4, 3 }; // 4
         int out = mc.maxArea(heights);
         System.out.println(out);
         // System.out.println(Math.abs(0));
     }
 
-    public int maxArea(int[] height) {
+  public
+    int maxArea(int[] height)
+    {
         int l = 0, r = height.length - 1;
         int max = 0;
 
@@ -780,21 +909,23 @@ class MaxWaterContainer {
     }
 }
 
-class ThreeSum {
+class ThreeSum
+{
     ThreeSum() {}
 
-    public static void main() {
+  public
+    static void main()
+    {
         System.out.println("hi");
 
         ThreeSum ts = new ThreeSum();
 
         // int[] nums = {-1, 0, 1, 2, -1, -4};
         // int[] nums = {-1, 0, 1, 2, -1, -4, -2, -3, 3, 0, 4};
-        int[] nums = {
-            6, -5, -6, -1, -2, 8, -1, 4, -10, -8, -10, -2, -4, -1, -8, -2, 8, 9, -5, -2, -8, -9, -3,
-            -5
-        };
-        // Last case:     [6,-5,-6,-1,-2,8,-1,4,-10,-8,-10,-2,-4,-1,-8,-2,8,9,-5,-2,-8,-9,-3,-5]
+        int[] nums = { 6,  -5, -6, -1, -2, 8, -1, 4,  -10, -8, -10, -2,
+                       -4, -1, -8, -2, 8,  9, -5, -2, -8,  -9, -3,  -5 };
+        // Last case:
+        // [6,-5,-6,-1,-2,8,-1,4,-10,-8,-10,-2,-4,-1,-8,-2,8,9,-5,-2,-8,-9,-3,-5]
         // Output:
         // [[-8,-1,9],[-5,-1,6],[-6,-2,8],[-4,-2,6],[-6,-3,9],[-5,-3,8],[-5,-4,9],[-10,4,6]]
         // Expected:
@@ -805,18 +936,23 @@ class ThreeSum {
 
         System.out.println("\n" + out);
         System.out.println(
-                "[[-10, 4, 6], [-8, -1, 9], [-6, -3, 9], [-6, -2, 8], [-5, -4, 9], [-5, -3, 8],"
-                        + " [-5, -1, 6], [-4, -2, 6], [-3, -1, 4], [-2, -2, 4]]");
+          "[[-10, 4, 6], [-8, -1, 9], [-6, -3, 9], [-6, -2, 8], [-5, -4, 9]," +
+          "[-5, -3, 8]," +
+          "[-5, -1, 6], [-4, -2, 6], [-3, -1, 4], [-2, -2, 4]]");
     }
 
-    public List<List<Integer>> threeSum(int[] nums) {
+  public
+    List<List<Integer>> threeSum(int[] nums)
+    {
         List<List<Integer>> l = new ArrayList<>();
 
         Arrays.sort(nums);
 
         for (int i = 0; i < nums.length; i++) {
-            if (nums[i] > 0) break;
-            if (i > 0 && nums[i] == nums[i - 1]) continue;
+            if (nums[i] > 0)
+                break;
+            if (i > 0 && nums[i] == nums[i - 1])
+                continue;
 
             int li = i + 1;
             int hi = nums.length - 1;
@@ -824,8 +960,10 @@ class ThreeSum {
             while (li < hi) {
                 int sum = nums[i] + nums[li] + nums[hi];
 
-                if (sum > 0) hi--;
-                else if (sum < 0) li++;
+                if (sum > 0)
+                    hi--;
+                else if (sum < 0)
+                    li++;
                 else {
                     l.add(Arrays.asList(nums[i], nums[li], nums[hi]));
 
@@ -834,7 +972,8 @@ class ThreeSum {
 
                     // not adjusting hi because the loop will adjust it for us
                     // the sum will not be the same
-                    while (li < hi && nums[li] == nums[li - 1]) li++;
+                    while (li < hi && nums[li] == nums[li - 1])
+                        li++;
                 }
             }
         }
@@ -843,21 +982,26 @@ class ThreeSum {
     }
 }
 
-class TwoSumII {
+class TwoSumII
+{
     TwoSumII() {}
 
-    public static void main() {
+  public
+    static void main()
+    {
         TwoSumII ts = new TwoSumII();
         // int[] numbers = {2,7,11,15};
         // int target = 9;
-        int[] numbers = {2, 3, 4};
+        int[] numbers = { 2, 3, 4 };
         int target = 6;
 
         int[] out = ts.twoSum(numbers, target);
         System.out.println(Arrays.toString(out));
     }
 
-    public int[] twoSum(int[] numbers, int target) {
+  public
+    int[] twoSum(int[] numbers, int target)
+    {
         int l = 0, r = numbers.length - 1;
 
         while (l < r) {
@@ -868,20 +1012,23 @@ class TwoSumII {
             } else if (s < target) {
                 l++;
             } else {
-                return new int[] {l + 1, r + 1};
+                return new int[]{ l + 1, r + 1 };
             }
         }
         return new int[0];
     }
 }
 
-class LargestRectangleInHistogram {
+class LargestRectangleInHistogram
+{
     LargestRectangleInHistogram() {}
 
-    public static void main() {
+  public
+    static void main()
+    {
         LargestRectangleInHistogram o = new LargestRectangleInHistogram();
 
-        int[] heights = {7, 1, 7, 2, 2, 4};
+        int[] heights = { 7, 1, 7, 2, 2, 4 };
         // int[] heights = {1,3,7};
         int out = o.largestRectangleArea(heights);
         System.out.println(out);
@@ -889,13 +1036,16 @@ class LargestRectangleInHistogram {
         System.out.println("LargestRectangleInHistogram");
     }
 
-    public int largestRectangleArea(int[] heights) {
+  public
+    int largestRectangleArea(int[] heights)
+    {
         int ans = 0;
 
         int[] prevSmallest = new int[heights.length];
         Stack<Integer> stack = new Stack<>();
         for (int i = 0; i < heights.length; i++) {
-            while (!stack.isEmpty() && heights[stack.peek()] >= heights[i]) stack.pop();
+            while (!stack.isEmpty() && heights[stack.peek()] >= heights[i])
+                stack.pop();
             prevSmallest[i] = (stack.isEmpty()) ? -1 : stack.peek();
             stack.push(i);
         }
@@ -903,7 +1053,8 @@ class LargestRectangleInHistogram {
         int[] nextSmallest = new int[heights.length];
         stack.clear();
         for (int i = heights.length - 1; i >= 0; i--) {
-            while (!stack.isEmpty() && heights[stack.peek()] >= heights[i]) stack.pop();
+            while (!stack.isEmpty() && heights[stack.peek()] >= heights[i])
+                stack.pop();
             nextSmallest[i] = (stack.isEmpty()) ? heights.length : stack.peek();
             stack.push(i);
         }
@@ -917,15 +1068,18 @@ class LargestRectangleInHistogram {
     }
 }
 
-class CarFleet {
+class CarFleet
+{
     CarFleet() {}
 
-    public static void main() {
+  public
+    static void main()
+    {
         // int[] position = {0, 2, 4};
         // int[] speed = {4, 2, 1};
         int target = 12;
-        int[] position = {10, 8, 0, 5, 3};
-        int[] speed = {2, 4, 1, 1, 3};
+        int[] position = { 10, 8, 0, 5, 3 };
+        int[] speed = { 2, 4, 1, 1, 3 };
         // int target = 10;
         // int[] position = {0, 4, 2};
         // int[] speed = {2, 1, 3};
@@ -935,22 +1089,26 @@ class CarFleet {
         System.out.println(out);
     }
 
-    class car {
+    class car
+    {
         int position;
         int speed;
 
-        car(int position, int speed) {
+        car(int position, int speed)
+        {
             this.position = position;
             this.speed = speed;
         }
     }
 
-    public int carFleet(int target, int[] position, int[] speed) {
+    public int
+    carFleet(int target, int[] position, int[] speed)
+    {
         LinkedList<car> list = new LinkedList<>();
         for (int i = 0; i < position.length; i++) {
             list.add(new car(position[i], speed[i]));
         }
-        list.sort((a, b) -> Integer.compare(b.position, a.position));
+        list.sort((a, b)->Integer.compare(b.position, a.position));
 
         int count = 0;
         double[] times = new double[position.length];
@@ -958,22 +1116,26 @@ class CarFleet {
             car n = list.pop();
             System.out.println(n.position);
 
-            times[i] = (double) (target - n.position) / n.speed;
+            times[i] = (double)(target - n.position) / n.speed;
 
             if (count != 0 && times[i] <= times[i - 1]) {
                 times[i] = times[i - 1];
-            } else count++;
+            } else
+                count++;
         }
 
         return count;
     }
 }
 
-class DailyTemperatures {
-    public static void main() {
+class DailyTemperatures
+{
+  public
+    static void main()
+    {
         // int[] temperatures = {30, 38, 30, 36, 35, 40, 28};
         // int[] temperatures = {22,21,20};
-        int[] temperatures = {73, 74, 75, 71, 69, 72, 76, 73};
+        int[] temperatures = { 73, 74, 75, 71, 69, 72, 76, 73 };
 
         DailyTemperatures d = new DailyTemperatures();
         int[] out = d.dailyTemperatures(temperatures);
@@ -981,12 +1143,14 @@ class DailyTemperatures {
         System.out.println(Arrays.toString(out));
     }
 
-    class Node {
+    class Node
+    {
         Node next;
         int tmp;
         int idx;
 
-        Node(int tmp, int idx) {
+        Node(int tmp, int idx)
+        {
             this.tmp = tmp;
             this.idx = idx;
         }
@@ -994,11 +1158,11 @@ class DailyTemperatures {
 
     Node head;
 
-    DailyTemperatures() {
-        this.head = null;
-    }
+    DailyTemperatures() { this.head = null; }
 
-    public int[] dailyTemperatures(int[] temperatures) {
+  public
+    int[] dailyTemperatures(int[] temperatures)
+    {
         int[] res = new int[temperatures.length];
 
         for (int i = 0; i < temperatures.length; i++) {
@@ -1019,14 +1183,19 @@ class DailyTemperatures {
     }
 }
 
-class GenerateParentheses {
-    public static void main() {
+class GenerateParentheses
+{
+  public
+    static void main()
+    {
         int n = 3;
         List<String> out = generateParenthesis(n);
         System.out.println(out);
     }
 
-    public static void r(List<String> list, String curr, int n, int openC, int closeC) {
+  public
+    static void r(List<String> list, String curr, int n, int openC, int closeC)
+    {
         if (curr.length() >= (n * 2) - 1) {
             curr += ')';
 
@@ -1044,7 +1213,9 @@ class GenerateParentheses {
         return;
     }
 
-    public static List<String> generateParenthesis(int n) {
+  public
+    static List<String> generateParenthesis(int n)
+    {
         List<String> list = new ArrayList<String>();
 
         r(list, "(", n, 1, 1);
@@ -1053,31 +1224,39 @@ class GenerateParentheses {
     }
 }
 
-class EvaluateReversePolishNotation {
-    public static void main() {
+class EvaluateReversePolishNotation
+{
+  public
+    static void main()
+    {
         // String[] tokens = {"1"};
-        String[] tokens = {"10", "6", "9", "3", "+", "-11", "*", "/", "*", "17", "+", "5", "+"};
+        String[] tokens = { "10", "6", "9",  "3", "+", "-11", "*",
+                            "/",  "*", "17", "+", "5", "+" };
         // String[] tokens = {"4","13","5","/","+"};
         int out = evalRPN(tokens);
 
         System.out.println(out);
     }
 
-    public static int evalRPN(String[] tokens) {
+  public
+    static int evalRPN(String[] tokens)
+    {
         Stack<Integer> stack = new Stack<>();
 
         for (int i = 0; i < tokens.length; i++) {
             String t = tokens[i];
             // a bit cheeky but works
             boolean is_negative = t.charAt(0) == '-';
-            if (Character.isDigit(t.charAt(0))
-                    || is_negative && t.length() > 1 && Character.isDigit(t.charAt(1))) {
+            if (Character.isDigit(t.charAt(0)) ||
+                is_negative && t.length() > 1 &&
+                  Character.isDigit(t.charAt(1))) {
                 int num_t = 0;
                 for (int ci = (is_negative) ? 1 : 0; ci < t.length(); ci++) {
                     num_t *= 10;
                     num_t += t.charAt(ci) - '0';
                 }
-                if (is_negative) num_t *= -1;
+                if (is_negative)
+                    num_t *= -1;
                 // System.out.printf("num_t: %d\n", num_t);
                 stack.push(num_t);
 
@@ -1089,12 +1268,10 @@ class EvaluateReversePolishNotation {
 
             System.out.printf("1: %d, 2: %d\n", num_1, num_2);
 
-            int res =
-                    (t.equals("*"))
-                            ? num_1 * num_2
-                            : (t.equals("+"))
-                                    ? num_1 + num_2
-                                    : (t.equals("-")) ? num_1 - num_2 : num_1 / num_2;
+            int res = (t.equals("*"))   ? num_1 * num_2
+                      : (t.equals("+")) ? num_1 + num_2
+                      : (t.equals("-")) ? num_1 - num_2
+                                        : num_1 / num_2;
 
             // System.out.println(res);
             stack.push(res);
@@ -1104,8 +1281,11 @@ class EvaluateReversePolishNotation {
     }
 }
 
-class MinStack {
-    public static void main() {
+class MinStack
+{
+  public
+    static void main()
+    {
         MinStack ms = new MinStack();
 
         ms.push(-2);
@@ -1131,12 +1311,14 @@ class MinStack {
         ms.pop();
     }
 
-    class Node {
+    class Node
+    {
         Node next;
         int minVal;
         int val;
 
-        Node(int val) {
+        Node(int val)
+        {
             this.val = val;
             this.next = null;
         }
@@ -1144,46 +1326,49 @@ class MinStack {
 
     Node head;
 
-    public MinStack() {
-        this.head = null;
-    }
+  public
+    MinStack() { this.head = null; }
 
-    public void push(int val) {
+  public
+    void push(int val)
+    {
         Node newHead = new Node(val);
 
         if (this.head != null) {
             newHead.next = this.head;
         }
 
-        Integer newMinVal =
-                (this.head == null)
-                        ? val
-                        : (this.head.minVal < newHead.val) ? this.head.minVal : val;
+        Integer newMinVal = (this.head == null) ? val
+                            : (this.head.minVal < newHead.val)
+                              ? this.head.minVal
+                              : val;
 
         this.head = newHead;
         this.head.minVal = newMinVal;
     }
 
-    public void pop() {
+  public
+    void pop()
+    {
         Node next = this.head.next;
         this.head = next;
     }
 
-    public int top() {
-        return this.head.val;
-    }
+  public
+    int top() { return this.head.val; }
 
-    public int getMin() {
-        return this.head.minVal;
-    }
+  public
+    int getMin() { return this.head.minVal; }
 }
 
-class ValidateParentheses {
-    public static void main() {
-        System.out.println(isValid("([])()"));
-    }
+class ValidateParentheses
+{
+  public
+    static void main() { System.out.println(isValid("([])()")); }
 
-    public static boolean isValid(String s) {
+  public
+    static boolean isValid(String s)
+    {
         Stack<Character> stack = new Stack<>();
 
         for (int i = 0; i < s.length(); i++) {
@@ -1192,11 +1377,13 @@ class ValidateParentheses {
             if (c == '(' || c == '[' || c == '{') {
                 stack.push(c);
             } else {
-                if (stack.isEmpty()) return false;
+                if (stack.isEmpty())
+                    return false;
 
                 char tc = (c == '}') ? '{' : (c == ']') ? '[' : '(';
 
-                if (stack.peek() != tc) return false;
+                if (stack.peek() != tc)
+                    return false;
 
                 stack.pop();
             }
@@ -1206,36 +1393,41 @@ class ValidateParentheses {
     }
 }
 
-class ValidSudoku {
-    public static void main() {
-        char[][] board = {
-            {'1', '2', '.', '.', '3', '.', '.', '.', '.'},
-            {'4', '.', '.', '5', '.', '.', '.', '.', '.'},
-            {'.', '9', '8', '.', '.', '.', '.', '.', '3'},
-            {'5', '.', '.', '.', '6', '.', '.', '.', '4'},
-            {'.', '.', '.', '8', '.', '3', '.', '.', '5'},
-            {'7', '.', '.', '.', '2', '.', '.', '.', '6'},
-            {'.', '.', '.', '.', '.', '.', '2', '.', '.'},
-            {'.', '.', '.', '4', '1', '9', '.', '.', '8'},
-            {'.', '.', '.', '.', '8', '.', '.', '7', '9'}
-        };
+class ValidSudoku
+{
+  public
+    static void main()
+    {
+        char[][] board = { { '1', '2', '.', '.', '3', '.', '.', '.', '.' },
+                           { '4', '.', '.', '5', '.', '.', '.', '.', '.' },
+                           { '.', '9', '8', '.', '.', '.', '.', '.', '3' },
+                           { '5', '.', '.', '.', '6', '.', '.', '.', '4' },
+                           { '.', '.', '.', '8', '.', '3', '.', '.', '5' },
+                           { '7', '.', '.', '.', '2', '.', '.', '.', '6' },
+                           { '.', '.', '.', '.', '.', '.', '2', '.', '.' },
+                           { '.', '.', '.', '4', '1', '9', '.', '.', '8' },
+                           { '.', '.', '.', '.', '8', '.', '.', '7', '9' } };
 
         boolean out = isValidSudoku(board);
 
         System.out.println(out);
     }
 
-    static class Point {
+    static class Point
+    {
         int x;
         int y;
 
-        Point(int x, int y) {
+        Point(int x, int y)
+        {
             this.x = x;
             this.y = y;
         }
     }
 
-    public static boolean isValidSudoku(char[][] board) {
+    public static boolean
+    isValidSudoku(char[][] board)
+    {
         HashMap<Character, ArrayList<Point>> map = new HashMap<>();
 
         for (int x = 0; x < board.length; x++) {
@@ -1243,7 +1435,8 @@ class ValidSudoku {
                 char c = board[x][y];
                 Point curr_point = new Point(x, y);
 
-                if (c == '.') continue;
+                if (c == '.')
+                    continue;
 
                 ArrayList<Point> list = map.get(c);
 
@@ -1275,28 +1468,34 @@ class ValidSudoku {
     }
 }
 
-class ValidPalindrome {
-    public static void main() {
+class ValidPalindrome
+{
+  public
+    static void main()
+    {
         String s = "0P";
         System.out.println(isPalindrome(s));
     }
 
-    public static boolean isPalindrome(String s) {
+  public
+    static boolean isPalindrome(String s)
+    {
         int li = 0;
         int ri = s.length() - 1;
 
         while (li <= ri) {
-            while (!Character.isAlphabetic(s.charAt(li))
-                    && !Character.isDigit(s.charAt(li))
-                    && li < ri) li++;
-            while (!Character.isAlphabetic(s.charAt(ri))
-                    && !Character.isDigit(s.charAt(ri))
-                    && li < ri) ri--;
+            while (!Character.isAlphabetic(s.charAt(li)) &&
+                   !Character.isDigit(s.charAt(li)) && li < ri)
+                li++;
+            while (!Character.isAlphabetic(s.charAt(ri)) &&
+                   !Character.isDigit(s.charAt(ri)) && li < ri)
+                ri--;
 
             char lc = Character.toLowerCase(s.charAt(li));
             char rc = Character.toLowerCase(s.charAt(ri));
 
-            if (lc != rc) return false;
+            if (lc != rc)
+                return false;
 
             li++;
             ri--;
@@ -1306,8 +1505,11 @@ class ValidPalindrome {
     }
 }
 
-class pES {
-    public static int[] productExceptSelf(int[] nums) {
+class pES
+{
+  public
+    static int[] productExceptSelf(int[] nums)
+    {
         int[] out = new int[nums.length];
 
         // store the prod of all element to the left of i in out[i]
@@ -1341,8 +1543,10 @@ class pES {
         return out;
     }
 
-    public static void main() {
-        int[] nums = {1, 2, 4, 6};
+  public
+    static void main()
+    {
+        int[] nums = { 1, 2, 4, 6 };
 
         System.out.println(Arrays.toString(nums));
         int[] out = productExceptSelf(nums);
@@ -1351,8 +1555,11 @@ class pES {
     }
 }
 
-class LongestConsecutiveSequence {
-    public static int longestConsecutive(int[] nums) {
+class LongestConsecutiveSequence
+{
+  public
+    static int longestConsecutive(int[] nums)
+    {
         HashSet<Integer> set = new HashSet<>();
 
         for (int i = 0; i < nums.length; i++) {
@@ -1378,9 +1585,11 @@ class LongestConsecutiveSequence {
         return num;
     }
 
-    public static void main() {
+  public
+    static void main()
+    {
         // int[] nums = {0, 0, 2};
-        int[] nums = {2, 20, 4, 10, 3, 4, 5};
+        int[] nums = { 2, 20, 4, 10, 3, 4, 5 };
         // int[] nums = {0, 3, 2, 5, 4, 6, 1, 1};
         // int[] nums = {9,1,4,7,3,-1,0,5,8,-1,6};
 

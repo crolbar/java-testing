@@ -12,9 +12,63 @@ import java.util.Stack;
 
 public class leet {
     public static void main() {
-        MedianofTwoSortedArrays.main();
+        ReverseLinkedList.main();
     }
 }
+
+class ReverseLinkedList {
+    public static void main() {
+        ReverseLinkedList r = new ReverseLinkedList();
+        r.test();
+    }
+
+    void test() {
+        ListNode n = new ListNode(1);
+
+        ListNode curr = n;
+        for (int i = 2; i < 6; i++) {
+            curr.next = new ListNode(i);
+            curr = curr.next;
+        }
+
+        curr = n;
+        for (int i = 1; i < 6; i++) {
+            System.out.println(curr.val);
+            curr = curr.next;
+        }
+
+        n = this.reverseList(n);
+
+        curr = n;
+        for (int i = 5; i >= 1; i--) {
+            assert curr.val == i;
+            System.out.println(curr.val);
+            curr = curr.next;
+        }
+    }
+
+    public class ListNode {
+        int val;
+        ListNode next;
+        ListNode() {}
+        ListNode(int val) { this.val = val; }
+        ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+    }
+
+    ListNode r(ListNode curr, ListNode prev) {
+        if (curr == null) return prev;
+
+        ListNode next = curr.next;
+        curr.next = prev;
+
+        return r(next, curr);
+    }
+
+    public ListNode reverseList(ListNode head) {
+        return r(head, null);
+    }
+}
+
 
 class MedianofTwoSortedArrays {
     public static void main() {

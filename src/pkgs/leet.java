@@ -14,7 +14,97 @@ public
 class leet
 {
   public
-    static void main() { MergeTwoSortedLists.main(); }
+    static void main() { ReorderList.main(); }
+}
+
+class ReorderList
+{
+
+  public
+    static void main()
+    {
+        ReorderList r = new ReorderList();
+
+        {
+            // 3 8 0 5 1 98
+            //
+            // ListNode head = new ListNode(1);
+            // head.next = new ListNode(2);
+            // head.next.next = new ListNode(3);
+            // head.next.next.next = new ListNode(4);
+            // head.next.next.next.next = new ListNode(5);
+            ListNode head = new ListNode(3);
+            head.next = new ListNode(8);
+            head.next.next = new ListNode(0);
+            head.next.next.next = new ListNode(5);
+            head.next.next.next.next = new ListNode(1);
+            head.next.next.next.next.next = new ListNode(98);
+            head.next.next.next.next.next.next = new ListNode(-1);
+
+            // ListNode list = new ListNode(1);
+            // list.next = new ListNode(5);
+            // list.next.next = new ListNode(2);
+            // list.next.next.next = new ListNode(4);
+            // list.next.next.next.next = new ListNode(3);
+            ListNode list = new ListNode(3);
+            list.next = new ListNode(-1);
+            list.next.next = new ListNode(8);
+            list.next.next.next = new ListNode(98);
+            list.next.next.next.next = new ListNode(0);
+            list.next.next.next.next.next = new ListNode(1);
+            list.next.next.next.next.next.next = new ListNode(5);
+
+            r.reorderList(head);
+
+            System.out.println();
+
+            ListNode curr = head;
+            ListNode curr2 = list;
+            for (int i = 1; i <= 7; i++) {
+                System.out.println(curr.val);
+                assert curr.val == curr2.val;
+
+                curr = curr.next;
+                curr2 = curr2.next;
+            }
+        }
+    }
+
+  public
+    void reorderList(ListNode head)
+    {
+        Stack<Integer> stack = new Stack<>();
+
+        ListNode curr = head;
+        while (curr != null) {
+            stack.push(curr.val);
+            curr = curr.next;
+        }
+
+        curr = head;
+        while (!stack.isEmpty()) {
+            curr.val = stack.removeFirst();
+            curr = curr.next;
+            if (!stack.isEmpty()) {
+                curr.val = stack.pop();
+                curr = curr.next;
+            }
+        }
+    }
+
+}
+
+class ListNode
+{
+    int val;
+    ListNode next;
+    ListNode() {}
+    ListNode(int val) { this.val = val; }
+    ListNode(int val, ListNode next)
+    {
+        this.val = val;
+        this.next = next;
+    }
 }
 
 class MergeTwoSortedLists
@@ -65,21 +155,7 @@ class MergeTwoSortedLists
     }
 
   public
-    class ListNode
-    {
-        int val;
-        ListNode next;
-        ListNode() {}
-        ListNode(int val) { this.val = val; }
-        ListNode(int val, ListNode next)
-        {
-            this.val = val;
-            this.next = next;
-        }
-    }
-
-    public ListNode
-    mergeTwoLists(ListNode list1, ListNode list2)
+    ListNode mergeTwoLists(ListNode list1, ListNode list2)
     {
         if (list1 == null || list2 == null) {
             if (list1 == null && list2 == null)

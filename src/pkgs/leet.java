@@ -26,33 +26,31 @@ class ReorderList
         ReorderList r = new ReorderList();
 
         {
-            // 3 8 0 5 1 98
-            //
-            // ListNode head = new ListNode(1);
-            // head.next = new ListNode(2);
-            // head.next.next = new ListNode(3);
-            // head.next.next.next = new ListNode(4);
-            // head.next.next.next.next = new ListNode(5);
-            ListNode head = new ListNode(3);
-            head.next = new ListNode(8);
-            head.next.next = new ListNode(0);
-            head.next.next.next = new ListNode(5);
-            head.next.next.next.next = new ListNode(1);
-            head.next.next.next.next.next = new ListNode(98);
-            head.next.next.next.next.next.next = new ListNode(-1);
+            //ListNode head = new ListNode(1);
+            //head.next = new ListNode(2);
+            //head.next.next = new ListNode(3);
+            //head.next.next.next = new ListNode(4);
 
-            // ListNode list = new ListNode(1);
-            // list.next = new ListNode(5);
-            // list.next.next = new ListNode(2);
-            // list.next.next.next = new ListNode(4);
-            // list.next.next.next.next = new ListNode(3);
-            ListNode list = new ListNode(3);
-            list.next = new ListNode(-1);
-            list.next.next = new ListNode(8);
-            list.next.next.next = new ListNode(98);
-            list.next.next.next.next = new ListNode(0);
-            list.next.next.next.next.next = new ListNode(1);
-            list.next.next.next.next.next.next = new ListNode(5);
+             ListNode head = new ListNode(3);
+             head.next = new ListNode(8);
+             head.next.next = new ListNode(0);
+             head.next.next.next = new ListNode(5);
+             head.next.next.next.next = new ListNode(1);
+             head.next.next.next.next.next = new ListNode(98);
+             head.next.next.next.next.next.next = new ListNode(-1);
+
+            //ListNode list = new ListNode(1);
+            //list.next = new ListNode(4);
+            //list.next.next = new ListNode(2);
+            //list.next.next.next = new ListNode(3);
+
+             ListNode list = new ListNode(3);
+             list.next = new ListNode(-1);
+             list.next.next = new ListNode(8);
+             list.next.next.next = new ListNode(98);
+             list.next.next.next.next = new ListNode(0);
+             list.next.next.next.next.next = new ListNode(1);
+             list.next.next.next.next.next.next = new ListNode(5);
 
             r.reorderList(head);
 
@@ -70,25 +68,71 @@ class ReorderList
         }
     }
 
+    class Args
+    {
+        ListNode leftCurr;
+        ListNode listCurr;
+        ListNode listHead;
+        int count;
+
+        Args(ListNode leftCurr, ListNode listCurr, ListNode listHead, int count)
+        {
+            this.leftCurr = leftCurr;
+            this.listCurr = listCurr;
+            this.listHead = listHead;
+            this.count = count;
+        }
+        Args(ListNode listHead) { this.listHead = listHead; }
+    }
+
+    Args
+    r(ListNode left, ListNode right, ListNode list, int count)
+    {
+        if (right == null)
+            return new Args(left, list, list, count);
+
+        count++;
+
+        Args r = r(left, right.next, list, count);
+
+        if (r.leftCurr == null) {
+            return new Args(r.listHead);
+        }
+
+        left = r.leftCurr;
+        list = r.listCurr;
+
+         //if (count == r.count / 2) {
+             System.out.printf("left: %d, r: %d, c: %d\n", left.val, right.val, r.count);
+         //}
+
+        if (r.count % 2 != 0 && count - 1 == r.count / 2) {
+            list.val = left.val;
+            return new Args(r.listHead);
+        } else if (count == r.count / 2) {
+            return new Args(r.listHead);
+        }
+
+        list.val = left.val;
+        list.next = new ListNode(right.val);
+        if (count - 1 != r.count / 2) {
+            list.next.next = new ListNode(0);
+        }
+
+        return new Args(left.next, list.next.next, r.listHead, r.count);
+    }
+
   public
     void reorderList(ListNode head)
     {
-        Stack<Integer> stack = new Stack<>();
+        Args r = r(head, head, new ListNode(head.val), 0);
+        head.val = r.listHead.val;
+        head.next = r.listHead.next;
 
-        ListNode curr = head;
+        ListNode curr = r.listHead;
         while (curr != null) {
-            stack.push(curr.val);
+            System.out.println(curr.val);
             curr = curr.next;
-        }
-
-        curr = head;
-        while (!stack.isEmpty()) {
-            curr.val = stack.removeFirst();
-            curr = curr.next;
-            if (!stack.isEmpty()) {
-                curr.val = stack.pop();
-                curr = curr.next;
-            }
         }
     }
 

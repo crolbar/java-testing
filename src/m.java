@@ -18,6 +18,8 @@ class m
         // Trie.main();
         // Graph.main();
         // LRU.main();
-        leet.main();
+        //leet.main();
+
+        leetcode.Main.main();
     }
 }

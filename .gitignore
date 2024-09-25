@@ -6,3 +6,6 @@ testing.iml
 tmp*
 .gradle
 /build
+.classpath
+.project
+.settings

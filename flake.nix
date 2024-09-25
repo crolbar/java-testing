@@ -14,15 +14,14 @@
       system: let
         pkgs = pkgsFor.${system};
 
-        runScript = ''
-          cd src
-          ${pkgs.jdk}/bin/javac m.java && ${pkgs.jdk}/bin/java -ea m
-        '';
+        runScript = "./gradlew \"$@\"";
       in {
         default = pkgs.mkShell {
           packages = with pkgs; [
-            jdk jdt-language-server
-            (pkgs.writers.writeBashBin "run" runScript)
+            jdk
+            gradle
+            jdt-language-server
+            (pkgs.writers.writeBashBin "g" runScript)
           ];
         };
       }
@@ -33,30 +32,21 @@
         pkgs = pkgsFor.${system};
 
         test = pkgs.stdenv.mkDerivation rec {
-          pname = "test";
+          pname = "java-testing";
           version = "0.1";
           src = ./.;
 
           nativeBuildInputs = with pkgs; [
             jdk
+            gradle
           ];
-
-          dontPatch = true;
-          dontConfigure = true;
-
-          buildPhase = ''
-            javac m.java
-          '';
 
           installPhase = ''
             mkdir -p $out/bin
-            mv m.class $out/bin
-
-            mkdir $out/bin/pkgs
-            cp pkgs/*.class $out/bin/pkgs
+            cp -r build/libs/*.jar $out/bin/${pname}.jar
 
             echo "#!/bin/sh" > $out/bin/${pname}
-            echo "${pkgs.jdk}/bin/java -cp $out/bin m" >> $out/bin/${pname}
+            echo "java -jar $out/bin/${pname}.jar \"\$@\"" >> $out/bin/${pname}
             chmod +x $out/bin/${pname}
           '';
         };

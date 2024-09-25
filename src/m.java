@@ -10,6 +10,7 @@ class m
   public
     static void main(String[] args)
     {
+        System.out.println("main");
         // Search.call(SearchType.Binary);
         // Sort.call(SortType.Quick);
         // Recursion.call(RecursionType.PathFind);
@@ -18,8 +19,7 @@ class m
         // Trie.main();
         // Graph.main();
         // LRU.main();
-        //leet.main();
-
-        leetcode.Main.main();
+        // leet.main();
+        // leetcode.LL._19.main(null);
     }
 }

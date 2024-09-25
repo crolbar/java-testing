@@ -3,33 +3,64 @@ plugins {
     id 'application'
 }
 
-version '1.0'
+def secClass = 'leetcode.LL._19'
+def mainclass = 'm'
 
-application {
-    mainClass = 'm'
-    applicationDefaultJvmArgs = ['-ea']
+repositories {
+    mavenCentral()
 }
 
-sourceSets {
-    main {
-        java {
-            srcDirs = ['src']
-        }
-    }
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.2'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+application {
+    mainClass = secClass
+    applicationDefaultJvmArgs = ['-ea']
 }
 
 jar {
     manifest {
         attributes(
-            'Main-Class': 'm'
+            'Main-Class': mainclass
         )
     }
 }
 
-dependencies {
-    testImplementation 'junit:junit:4.13.2'
+sourceSets {
+    main {
+        java {
+            setSrcDirs(['src'])
+        }
+    }
+    test {
+        java {
+            setSrcDirs(['__tests__'])
+        }
+    }
 }
 
 test {
-    useJUnitPlatform()
+	useJUnitPlatform()
+
+    testLogging {
+        showStandardStreams = true
+    }
+
+    beforeTest { descriptor ->
+       logger.lifecycle("Running test: " + descriptor)
+    }
+
+    reports {
+        junitXml.required.set(false)
+        html.required.set(false)
+    }
+}
+
+// gradle runJar to execute the jar file instead of gradle run to execute the class
+task runJar(type: Exec) {
+    group = 'application'
+    dependsOn build
+    commandLine 'java', '-ea', '-jar', jar.archiveFile.get().toString()
 }

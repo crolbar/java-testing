@@ -1,11 +1,8 @@
 Idea
 .idea
-out
-testing.iml
-*.class
-tmp*
 .gradle
 /build
 .classpath
 .project
 .settings
+/bin

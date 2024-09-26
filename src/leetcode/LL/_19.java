@@ -38,3 +38,27 @@ class _19
         return head;
     }
 }
+
+class _19_2
+{
+  public
+    ListNode removeNthFromEnd(ListNode head, int n)
+    {
+        ListNode t = new ListNode(0, head);
+        ListNode l = t;
+        ListNode r = head;
+
+        while (n > 0) {
+            r = r.next;
+            n--;
+        }
+
+        while (r != null) {
+            l = l.next;
+            r = r.next;
+        }
+
+        l.next = l.next.next;
+        return t.next;
+    }
+}

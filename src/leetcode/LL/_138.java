@@ -1,5 +1,5 @@
 package leetcode.LL;
-import java.util.ArrayList;
+import java.util.HashMap;
 
 import leetcode.lib.*;
 
@@ -9,60 +9,36 @@ class _138
   public
     Node copyRandomList(Node head)
     {
-        Node newHead = new Node(head.val);
+        if (head == null)
+            return null;
+
+        HashMap<Node, Node> list = new HashMap<>();
 
         Node headCurr = head;
-        Node newHeadCurr = newHead;
-
-        while (headCurr.next != null) {
-            newHeadCurr.next = new Node(headCurr.next.val);
-
+        while (headCurr != null) {
+            list.put(headCurr, new Node(headCurr.val));
             headCurr = headCurr.next;
-            newHeadCurr = newHeadCurr.next;
         }
 
-        int size = 0;
-
-        ArrayList<Node> list = new ArrayList<>();
-
-        newHeadCurr = newHead;
-        while (newHeadCurr != null) {
-            size++;
-
-            list.add(newHeadCurr);
-            newHeadCurr = newHeadCurr.next;
-        }
-
-        newHeadCurr = newHead;
         headCurr = head;
+        while (headCurr != null) {
+            Node currNode = list.get(headCurr);
 
-        while (newHeadCurr != null) {
-            int c = 0;
-            Node randCurr = headCurr.random;
-            while (randCurr != null) {
-                c++;
-                randCurr = randCurr.next;
-            };
-
-            int randIdx = size - c;
-
-            //int randVal = (headCurr.random != null) ? headCurr.random.val : -1;
-            //System.out.printf("randval: %d, randIdx: %d\n", randVal, randIdx);
-
-            if (randIdx >= list.size()) {
-                newHeadCurr.random = null;
+            if (!list.containsKey(headCurr.random)) {
+                currNode.random = null;
             } else {
-                if (randIdx == 0) {
-                    newHeadCurr.random = list.get(randIdx);
-                } else {
-                    newHeadCurr.random = list.get(randIdx - 1).next;
-                }
+                currNode.random = list.get(headCurr.random);
             }
 
-            newHeadCurr = newHeadCurr.next;
+            if (!list.containsKey(headCurr.next)) {
+                currNode.next = null;
+            } else {
+                currNode.next = list.get(headCurr.next);
+            }
+
             headCurr = headCurr.next;
         }
 
-        return newHead;
+        return list.get(head);
     }
 }

@@ -9,13 +9,10 @@ class _287
         int slow = 0;
         int fast = 0;
 
-        for (;;) {
+        do {
             fast = nums[nums[fast]];
             slow = nums[slow];
-
-            if (fast == slow)
-                break;
-        }
+        } while (fast != slow);
 
         int slow2 = 0;
         for (;;) {

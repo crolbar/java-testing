@@ -3,7 +3,8 @@ plugins {
     id 'application'
 }
 
-def secClass = 'leetcode.LL._19'
+//def secClass = 'leetcode.LL._19'
+def secClass = 'm'
 def mainclass = 'm'
 
 repositories {

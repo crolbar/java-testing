@@ -4,15 +4,16 @@ import leetcode.lib.ListNode;
 public
 class _25
 {
-    ListNode r(ListNode curr, ListNode prev, int k, int c)
+  private
+    ListNode reverse(ListNode curr, ListNode prev, ListNode groupNext)
     {
-        if (curr == null || k == c)
+        if (curr == groupNext)
             return prev;
 
         ListNode next = curr.next;
         curr.next = prev;
 
-        return r(next, curr, k, c + 1);
+        return reverse(next, curr, groupNext);
     }
 
   private
@@ -26,32 +27,28 @@ class _25
         return curr;
     }
 
+  private
+    void r(ListNode groupPrev, int k)
+    {
+        ListNode kth = getKth(groupPrev, k);
+        if (kth == null)
+            return;
+
+        ListNode groupNext = kth.next;
+
+        ListNode tmp = groupPrev.next;
+
+        groupPrev.next = this.reverse(groupPrev.next, groupNext, groupNext);
+
+        r(tmp, k);
+    }
+
   public
     ListNode reverseKGroup(ListNode head, int k)
     {
         ListNode dummy = new ListNode(0, head);
-        ListNode groupPrev = dummy;
 
-        while (true) {
-            ListNode kth = getKth(groupPrev, k);
-            if (kth == null) {
-                break;
-            }
-            ListNode groupNext = kth.next;
-
-            ListNode prev = kth.next;
-            ListNode curr = groupPrev.next;
-            while (curr != groupNext) {
-                ListNode tmp = curr.next;
-                curr.next = prev;
-                prev = curr;
-                curr = tmp;
-            }
-
-            ListNode tmp = groupPrev.next;
-            groupPrev.next = kth;
-            groupPrev = tmp;
-        }
+        r(dummy, k);
 
         return dummy.next;
     }

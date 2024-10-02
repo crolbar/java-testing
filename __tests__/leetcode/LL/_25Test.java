@@ -36,7 +36,7 @@ class _25Test
         ListNode ansCurr = ans;
         while (resCurr != null) {
             System.out.println(resCurr.val);
-            // assertEquals(ansCurr.val, resCurr.val);
+            assertEquals(ansCurr.val, resCurr.val);
 
             resCurr = resCurr.next;
             ansCurr = ansCurr.next;

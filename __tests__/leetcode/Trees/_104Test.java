@@ -1,4 +1,4 @@
-package leetcode.LL;
+package leetcode.Trees;
 import leetcode.lib.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

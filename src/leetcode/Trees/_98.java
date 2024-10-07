@@ -8,18 +8,6 @@ class _98
         if (curr == null)
             return true;
 
-        if (curr.left != null ) {
-            if (curr.left.val >= curr.val) {
-                return false;
-            }
-        }
-
-        if (curr.right != null) {
-            if (curr.right.val <= curr.val) {
-                return false;
-            }
-        }
-
         if (min != null) {
             if (curr.val <= min) {
                 return false;
@@ -32,12 +20,7 @@ class _98
             }
         }
 
-        int nextMax = (max == null) ? curr.val : Math.min(max, curr.val);
-        int nextMin = (min == null) ? curr.val : Math.max(min, curr.val);
-
-
-        // left min of max - right max of min
-        if (r(curr.left, min, nextMax) && r(curr.right, nextMin, max)) {
+        if (r(curr.left, min, curr.val) && r(curr.right, curr.val, max)) {
             return true;
         }
 

@@ -63,24 +63,46 @@ class TreeNode
     }
 
   private
-    static ArrayList<Integer> rDFS(ArrayList<Integer> list, TreeNode curr)
+    static ArrayList<Integer> rPreDFS(ArrayList<Integer> list, TreeNode curr)
     {
         if (curr == null) {
-            list.add(-1);
+            //list.add(-1);
             return list;
         }
 
         list.add(curr.val);
 
-        rDFS(list, curr.left);
-        rDFS(list, curr.right);
+        rPreDFS(list, curr.left);
+        rPreDFS(list, curr.right);
 
         return list;
     }
 
   public
-    static Integer[] getDFS(TreeNode root)
+    static Integer[] getPreDFS(TreeNode root)
     {
-        return rDFS(new ArrayList<Integer>(), root).toArray(new Integer[0]);
+        return rPreDFS(new ArrayList<Integer>(), root).toArray(new Integer[0]);
+    }
+
+  private
+    static ArrayList<Integer> rInDFS(ArrayList<Integer> list, TreeNode curr)
+    {
+        if (curr == null) {
+            //list.add(-1);
+            return list;
+        }
+
+
+        rInDFS(list, curr.left);
+        list.add(curr.val);
+        rInDFS(list, curr.right);
+
+        return list;
+    }
+
+  public
+    static Integer[] getInDFS(TreeNode root)
+    {
+        return rInDFS(new ArrayList<Integer>(), root).toArray(new Integer[0]);
     }
 }

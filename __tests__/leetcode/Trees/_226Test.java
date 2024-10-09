@@ -25,10 +25,10 @@ class _226Test
         root.right.left = new TreeNode(6);
         root.right.right = new TreeNode(9);
 
-        System.out.println(Arrays.toString(TreeNode.getDFS(root)));
+        System.out.println(Arrays.toString(TreeNode.getPreDFS(root)));
 
         o.invertTree(root);
 
-        System.out.println(Arrays.toString(TreeNode.getDFS(root)));
+        System.out.println(Arrays.toString(TreeNode.getPreDFS(root)));
     }
 }

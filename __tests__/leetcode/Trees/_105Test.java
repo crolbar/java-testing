@@ -25,23 +25,24 @@ class _105Test
         root.right.left = new TreeNode(15);
         root.right.right = new TreeNode(7);
 
-        Integer[] bfs = TreeNode.getBFS(root);
+        Integer[] correct_bfs = TreeNode.getBFS(root);
 
-        System.out.println("[BFS]: " + Arrays.toString(bfs));
-
+        System.out.println("[BFS]: " + Arrays.toString(correct_bfs));
         System.out.println("[DFS Pre]: " +
                            Arrays.toString(TreeNode.getPreDFS(root)));
         System.out.println("[DFS In]: " +
                            Arrays.toString(TreeNode.getInDFS(root)));
-
         System.out.println();
 
-        bfs = TreeNode.getBFS(o.buildTree(new int[]{ 3, 9, 20, 15, 7 },
-                                          new int[]{ 9, 3, 15, 20, 7 }));
+        Integer[] bfs = TreeNode.getBFS(o.buildTree(
+          new int[]{ 3, 9, 20, 15, 7 }, new int[]{ 9, 3, 15, 20, 7 }));
 
         System.out.println();
+        System.out.println("[RES BFS]: " + Arrays.toString(correct_bfs));
 
-        System.out.println("[RES BFS]: " + Arrays.toString(bfs));
+        for (int i = 0; i < correct_bfs.length; i++) {
+            assertEquals(bfs[i], correct_bfs[i]);
+        }
     }
 
     @Test void test2()
@@ -57,23 +58,24 @@ class _105Test
         root.right.left = new TreeNode(15);
         root.right.right = new TreeNode(6);
 
-        Integer[] bfs = TreeNode.getBFS(root);
+        Integer[] correct_bfs = TreeNode.getBFS(root);
 
-        System.out.println("[BFS]: " + Arrays.toString(bfs));
-
+        System.out.println("[BFS]: " + Arrays.toString(correct_bfs));
         System.out.println("[DFS Pre]: " +
                            Arrays.toString(TreeNode.getPreDFS(root)));
         System.out.println("[DFS In]: " +
                            Arrays.toString(TreeNode.getInDFS(root)));
-
         System.out.println();
 
-        bfs =
+        Integer[] bfs =
           TreeNode.getBFS(o.buildTree(new int[]{ 3, 9, 7, 4, 8, 20, 15, 6 },
                                       new int[]{ 4, 7, 9, 8, 3, 15, 20, 6 }));
 
         System.out.println();
-
         System.out.println("[RES BFS]: " + Arrays.toString(bfs));
+
+        for (int i = 0; i < correct_bfs.length; i++) {
+            assertEquals(bfs[i], correct_bfs[i]);
+        }
     }
 }

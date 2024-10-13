@@ -1,5 +1,4 @@
 package leetcode.Heap;
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
@@ -13,7 +12,7 @@ class _973
           new PriorityQueue<>(new Comparator<Integer[]>() {
               @Override public int compare(Integer[] a, Integer[] b)
               {
-                  return Integer.compare(a[0], b[0]);
+                  return Integer.compare(b[0], a[0]);
               }
           });
 
@@ -21,11 +20,14 @@ class _973
             int[] c = points[i];
             int n = (c[0] * c[0]) + (c[1] * c[1]);
             pq.offer(new Integer[]{ n, i });
+
+            if (pq.size() > k) {
+                pq.poll();
+            }
         }
 
         int [][] res = new int[k][2];
         for (int i = 0; i < k; i++) {
-            System.out.println(Arrays.toString(pq.peek()));
             res[i] = points[pq.poll()[1]];
         }
 

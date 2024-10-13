@@ -21,6 +21,6 @@ class _973Test
 
         assertArrayEquals(
           o.kClosest(new int[][]{ { 3, 3 }, { 5, -1 }, { -2, 4 } }, 2),
-          new int[][]{ { 3, 3 }, { -2, 4 } });
+          new int[][]{ { -2, 4 }, { 3, 3 } });
     }
 }

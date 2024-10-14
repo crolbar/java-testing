@@ -26,7 +26,7 @@ class _973
             }
         }
 
-        int [][] res = new int[k][2];
+        int[][] res = new int[k][2];
         for (int i = 0; i < k; i++) {
             res[i] = points[pq.poll()[1]];
         }

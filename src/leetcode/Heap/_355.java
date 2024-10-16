@@ -47,6 +47,7 @@ class Twitter
     {
         this.followMap = new HashMap<>();
         this.tweetMap = new HashMap<>();
+        this.timestamp = 0;
     }
 
   public
@@ -94,20 +95,16 @@ class Twitter
   public
     void follow(int followerId, int followeeId)
     {
-        HashSet<Integer> followedList =
-          followMap.getOrDefault(followerId, new HashSet<>());
-
-        followedList.add(followeeId);
-        followMap.put(followerId, followedList);
+        this.followMap.computeIfAbsent(followerId, k -> new HashSet<>())
+            .add(followeeId);
     }
 
   public
     void unfollow(int followerId, int followeeId)
     {
-        HashSet<Integer> followedList =
-          followMap.getOrDefault(followerId, new HashSet<>());
-
-        followedList.remove(Integer.valueOf(followeeId));
-        followMap.put(followerId, followedList);
+        this.followMap.computeIfPresent(followerId, (k, v) -> {
+            v.remove(followeeId);
+            return v;
+        });
     }
 }

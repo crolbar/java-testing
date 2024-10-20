@@ -12,7 +12,7 @@ class _78Test
     @BeforeEach void setup() { o = new _78(); }
 
     @Test void test() {
-        List<List<Integer>> res = o.subsets(new int[]{1,2,3});
-
+        //o.subsets(new int[]{1,2,3});
+        o.subsets(new int[]{3,2,4,1});
     }
 }

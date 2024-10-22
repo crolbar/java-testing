@@ -9,9 +9,10 @@ class _90Test
     _90 o;
     @BeforeEach void setup() { o = new _90(); }
 
-    @Test void test() {
-       var res = o.subsetsWithDup(new int[]{1,2,2});
+    @Test void test()
+    {
+        var res = o.subsetsWithDup(new int[]{ 1, 2, 2 });
 
-       System.out.println(res);
+        System.out.println(res);
     }
 }

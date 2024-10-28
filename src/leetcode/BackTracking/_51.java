@@ -1,14 +1,11 @@
 package leetcode.BackTracking;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 
 public
 class _51
 {
-
     String constructRow(int c, int n)
     {
         StringBuilder sb = new StringBuilder();
@@ -26,20 +23,24 @@ class _51
 
     boolean r(int n,
            List<List<String>> res,
-           List<String> l,
-           HashSet<int[]> queenColumns,
+           int[][] queenColumns,
            int x,
            int y)
     {
         if (y >= n) {
-            res.add(new ArrayList<>(l));
+            List<String> l = new ArrayList<>();
+            for (int i = 0; i < y; i++) {
+                l.add(constructRow(queenColumns[i][1], n));
+            }
+            res.add(l);
             return true;
         }
 
-        Iterator<int[]> iter = queenColumns.iterator();
-
-        while (iter.hasNext()) {
-            int[] curr = iter.next();
+        // we check if we are at the same column as some of the 
+        // above queens or if some of the queens above will hit
+        // our row at the x that we are at
+        for (int i = 0; i < y; i++) {
+            int[] curr = queenColumns[i];
 
             if (x == curr[1])
                 return false;
@@ -56,17 +57,13 @@ class _51
 
         int[] curr = new int[]{y, x};;
 
-        queenColumns.add(curr);
-        l.add(constructRow(x, n));
+        queenColumns[y] = curr;
 
         for (int i = 0; i < n; i++) {
-            if (r(n, res, l, queenColumns, i, y + 1)) {
+            if (r(n, res, queenColumns, i, y + 1)) {
                 break;
             }
         }
-
-        l.removeLast();
-        queenColumns.remove(curr);
 
         return false;
     }
@@ -77,7 +74,7 @@ class _51
         List<List<String>> res = new ArrayList<>();
 
         for (int i = 0; i < n; i++) {
-            r(n, res, new ArrayList<>(), new HashSet<>(), i, 0);
+            r(n, res, new int[n][2], i, 0);
         }
 
         return res;

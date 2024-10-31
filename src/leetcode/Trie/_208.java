@@ -73,6 +73,6 @@ class Trie {
             curr = curr.children.get(c);
         }
 
-        return curr.isEndOfWord;
+        return true;
     }
 }

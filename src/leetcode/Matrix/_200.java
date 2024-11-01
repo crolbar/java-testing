@@ -1,8 +1,5 @@
 package leetcode.Matrix;
 
-import java.util.LinkedList;
-import java.util.Queue;
-
 public
 class _200
 {
@@ -13,46 +10,38 @@ class _200
         { 0, -1 }, // left
     };
 
-    void r(char[][] grid, Queue<int[]> q)
+    void dfs(char[][] grid, int r, int c)
     {
-        while (!q.isEmpty()) {
-            int[] curr = q.poll();
-            int r = curr[0];
-            int c = curr[1];
+        for (int i = 0; i < dirs.length; i++) {
+            int[] dir = dirs[i];
 
-            for (int i = 0; i < dirs.length; i++) {
-                int[] dir = dirs[i];
+            int nextR = r + dir[0];
+            int nextC = c + dir[1];
 
-                int nextR = r + dir[0];
-                int nextC = c + dir[1];
+            if (nextR >= grid.length || nextR < 0)
+                continue;
 
-                if (nextR >= grid.length || nextR < 0)
-                    continue;
+            if (nextC >= grid[0].length || nextC < 0)
+                continue;
 
-                if (nextC >= grid[0].length || nextC < 0)
-                    continue;
+            if (grid[nextR][nextC] == '0')
+                continue;
 
-                if (grid[nextR][nextC] == '0')
-                    continue;
-
-                grid[nextR][nextC] = '0';
-                q.add(new int[]{ nextR, nextC });
-            }
+            grid[nextR][nextC] = '0';
+            dfs(grid, nextR, nextC);
         }
     }
 
   public
     int numIslands(char[][] grid)
     {
-        Queue<int[]> q = new LinkedList<int[]>();
         int c = 0;
 
         for (int ri = 0; ri < grid.length; ri++) {
             for (int ci = 0; ci < grid[0].length; ci++) {
                 if (grid[ri][ci] == '1') {
                     grid[ri][ci] = '0';
-                    q.add(new int[]{ ri, ci });
-                    r(grid, q);
+                    dfs(grid, ri, ci);
                     c++;
                 }
             }

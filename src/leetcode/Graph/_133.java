@@ -1,26 +1,20 @@
 package leetcode.Graph;
 import java.util.HashMap;
-import java.util.HashSet;
-
 import leetcode.lib.Graph.*;
 
 public class _133 {
-    void r(Node curr, Node origin, HashMap<Integer, Node> lookup, HashSet<Integer> visited) {
-        if (visited.contains(curr.val)) {
-            return;
-        }
-
-        visited.add(curr.val);
+    void r(Node curr, Node origin, HashMap<Integer, Node> lookup) {
         for (int i = 0; i < origin.neighbors.size(); i++) {
-            Node n = origin.neighbors.get(i);
+            Node oldNeighbor = origin.neighbors.get(i);
 
-            if (!lookup.containsKey(n.val)) {
-                lookup.put(n.val, new Node(n.val));
+            if (!lookup.containsKey(oldNeighbor.val)) {
+                Node newNeighbor = new Node(oldNeighbor.val);
+
+                lookup.put(oldNeighbor.val, newNeighbor);
+                r(newNeighbor, oldNeighbor, lookup);
             }
 
-            curr.neighbors.add(lookup.get(n.val));
-
-            r(lookup.get(n.val), n, lookup, visited);
+            curr.neighbors.add(lookup.get(oldNeighbor.val));
         }
     }
 
@@ -33,7 +27,7 @@ public class _133 {
         lookup.put(node.val, new Node(node.val));
         Node root = lookup.get(node.val);
 
-        r(root, node, lookup, new HashSet<>());
+        r(root, node, lookup);
 
         return root;
     }

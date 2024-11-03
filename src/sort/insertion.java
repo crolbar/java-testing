@@ -1,8 +1,11 @@
 package sort;
 
-
-public class insertion {
-    public static void sort(int[] data) {
+public
+class insertion
+{
+  public
+    static void sort(int[] data)
+    {
         for (int i = 1; i < data.length; i++) {
             int j = i - 1;
             int cmp = data[i];

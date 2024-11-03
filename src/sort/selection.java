@@ -1,7 +1,11 @@
 package sort;
 
-public class selection {
-    public static void sort(int[] data) {
+public
+class selection
+{
+  public
+    static void sort(int[] data)
+    {
         for (int i = 0; i < data.length - 1; i++) {
             int lowestIdx = i;
 

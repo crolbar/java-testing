@@ -13,7 +13,7 @@ class _994
         { 0, -1 },
     };
 
-    void bfs(int[][] grid, Queue<int[]> q, int[] time)
+    void bfs(int[][] grid, Queue<int[]> q, int[] time, int[] fresh)
     {
         while (!q.isEmpty()) {
             for (int qi = 0, size = q.size(); qi < size; qi++) {
@@ -38,6 +38,7 @@ class _994
                         continue;
 
                     grid[nr][nc] = 2;
+                    fresh[0]--;
 
                     q.add(new int[]{ nr, nc });
                 }
@@ -55,24 +56,24 @@ class _994
     {
         int[] time = new int[]{ 0 };
         Queue<int[]> q = new LinkedList<>();
+        int[] fresh = new int[]{0};
 
         for (int r = 0; r < grid.length; r++) {
             for (int c = 0; c < grid[0].length; c++) {
+                if (grid[r][c] == 1) {
+                    fresh[0]++;
+                }
+
                 if (grid[r][c] == 2) {
                     q.add(new int[]{ r, c });
                 }
             }
         }
 
-        bfs(grid, q, time);
+        bfs(grid, q, time, fresh);
 
-        for (int r = 0; r < grid.length; r++) {
-            for (int c = 0; c < grid[0].length; c++) {
-                if (grid[r][c] == 1) {
-                    return -1;
-                }
-            }
-        }
+        if (fresh[0] > 0)
+            return -1;
 
         return time[0];
     }

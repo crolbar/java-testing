@@ -2,8 +2,9 @@ package leetcode.Matrix;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Queue;
 
 public
 class _417
@@ -16,36 +17,35 @@ class _417
     };
 
   private
-    void dfs(int[][] heights, int r, int c, boolean[] reached, int prev)
+    void bfs(int[][] heights, Queue<int[]> q, boolean[][] seen) 
     {
-        // reached pacific
-        if (r < 0 || c < 0) {
-            reached[0] = true;
-            return;
-        }
+        while (!q.isEmpty()) {
+            int[] currPoint = q.poll();
+            int r = currPoint[0];
+            int c = currPoint[1];
 
-        // reached atlantic
-        if (r >= heights.length || c >= heights[0].length) {
-            reached[1] = true;
-            return;
-        }
+            seen[r][c] = true;
 
-        if (prev < heights[r][c])
-            return;
+            for (int i = 0; i < dirs.length; i++) {
+                int[] dir = dirs[i];
+                int nr = r + dir[0];
+                int nc = c + dir[1];
 
-        int tmp = heights[r][c];
-        heights[r][c] = Integer.MAX_VALUE;
+                if (nr < 0 || nr >= heights.length)
+                    continue;
 
-        for (int i = 0; i < dirs.length; i++) {
-            int[] dir = dirs[i];
+                if (nc < 0 || nc >= heights[0].length)
+                    continue;
 
-            dfs(heights, r + dir[0], c + dir[1], reached, tmp);
-            if (reached[0] && reached[1]) {
-                break;
+                if (seen[nr][nc])
+                    continue;
+
+                if (heights[r][c] > heights[nr][nc])
+                    continue;
+
+                q.add(new int[]{nr, nc});
             }
         }
-
-        heights[r][c] = tmp;
     }
 
   public
@@ -53,15 +53,29 @@ class _417
     {
         List<List<Integer>> res = new ArrayList<>();
 
+        boolean[][] pacSeen = new boolean[heights.length][heights[0].length];
+        boolean[][] atlSeen = new boolean[heights.length][heights[0].length];
+
+        Queue<int[]> pacQ = new LinkedList<>();
+        Queue<int[]> atlQ = new LinkedList<>();
+
+        for (int c = 0; c < heights[0].length; c++) {
+            pacQ.add(new int[]{0, c});
+            atlQ.add(new int[]{heights.length - 1, c});
+        }
+
+        for (int r = 0; r < heights.length; r++) {
+            pacQ.add(new int[]{r, 0});
+            atlQ.add(new int[]{r, heights[0].length - 1});
+        }
+
+        bfs(heights, pacQ, pacSeen);
+        bfs(heights, atlQ, atlSeen);
+
         for (int r = 0; r < heights.length; r++) {
             for (int c = 0; c < heights[0].length; c++) {
-                int[] currPoint = new int[]{ r, c };
-                boolean[] reached = new boolean[2];
-
-                dfs(heights, r, c, reached, Integer.MAX_VALUE);
-                if (reached[0] && reached[1]) {
-                    res.add(Arrays.stream(currPoint).boxed().collect(
-                      Collectors.toList()));
+                if (pacSeen[r][c] && atlSeen[r][c]) {
+                    res.add(Arrays.asList(r, c));
                 }
             }
         }

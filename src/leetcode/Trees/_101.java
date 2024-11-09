@@ -1,54 +1,24 @@
 package leetcode.Trees;
 
-import java.util.LinkedList;
-
 import leetcode.lib.*;
 
 public
 class _101
 {
-    boolean bfs(LinkedList<TreeNode> ll)
+    boolean dfs(TreeNode l, TreeNode r)
     {
-        if (ll.isEmpty())
+        if (l == null && r == null)
             return true;
 
-        LinkedList<TreeNode> llClone = new LinkedList<>(ll);
-        ll.clear();
-
-        while (!llClone.isEmpty()) {
-            TreeNode first = llClone.pollFirst();
-            TreeNode last = llClone.pollLast();
-
-            if (first == null && last == null) {
-                continue;
-            }
-
-            if (first == null || last == null) {
-                return false;
-            }
-
-            if (first.val != last.val)
-                return false;
-
-            ll.addFirst(first.left);
-            ll.addFirst(first.right);
-
-            ll.addLast(last.right);
-            ll.addLast(last.left);
-        }
-
-        if (!bfs(ll))
+        if (l == null || r == null)
             return false;
-        return true;
+
+        if (l.val != r.val)
+            return false;
+
+        return dfs(l.left, r.right) && dfs(l.right, r.left);
     }
 
   public
-    boolean isSymmetric(TreeNode root)
-    {
-        LinkedList<TreeNode> ll = new LinkedList<>();
-        ll.add(root.left);
-        ll.add(root.right);
-
-        return bfs(ll);
-    }
+    boolean isSymmetric(TreeNode root) { return dfs(root.left, root.right); }
 }

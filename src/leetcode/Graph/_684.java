@@ -1,46 +1,47 @@
 package leetcode.Graph;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-
 public
 class _684
 {
-    boolean dfs(HashMap<Integer, ArrayList<Integer>> ed,
-                HashSet<Integer> seen,
-                int i,
-                int p)
-    {
-        if (seen.contains(i))
-            return true;
+    int find(int[] par, int v) {
+        if (v != par[v])
+            par[v] = find(par, par[v]);
+        return par[v];
+    }
 
-        seen.add(i);
 
-        for (Integer nei : ed.get(i)) {
-            if (p == nei)
-                continue;
+    boolean union(int[] par, int[] rank, int u, int v) {
+        int parU = find(par, u);
+        int parV = find(par, v);
 
-            if (dfs(ed, seen, nei, i))
-                return true;
+        if (parU == parV)
+            return false;
+
+        if (rank[parU] > rank[parV]) {
+            par[parV] = parU;
+        } else if (rank[parU] < rank[parV]) {
+            par[parU] = parV;
+        } else {
+            par[parV] = parU;
+            rank[parU]++;
         }
 
-        return false;
+        return true;
     }
 
   public
     int[] findRedundantConnection(int[][] edges)
     {
-        HashMap<Integer, ArrayList<Integer>> ed = new HashMap<>();
+        int[] par   = new int[edges.length + 1];
+        int[] rank  = new int[edges.length + 1];
+
+        for (int i = 1; i < par.length; i++) {
+            par[i]  = i;
+            rank[i] = 1;
+        }
 
         for (int[] edge : edges) {
-            ed.putIfAbsent(edge[0], new ArrayList<>());
-            ed.putIfAbsent(edge[1], new ArrayList<>());
-
-            ed.get(edge[0]).add(edge[1]);
-            ed.get(edge[1]).add(edge[0]);
-
-            if (dfs(ed, new HashSet<>(), edge[0], 0))
+            if (!union(par, rank, edge[0], edge[1]))
                 return edge;
         }
 

@@ -1,50 +1,39 @@
 package leetcode.String;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 public
 class _127
 {
-    int getDiff(String str1, String str2)
+    int bfs(Queue<String> q,
+            HashMap<String, List<String>> adj,
+            HashSet<String> visited,
+            String endWord)
     {
-        int diff = 0;
+        int c = 0;
 
-        for (int i = 0; i < str1.length(); i++) {
-            char c1 = str1.charAt(i);
-            char c2 = str2.charAt(i);
-
-            if (c1 != c2)
-                diff++;
-        }
-
-        return diff;
-    }
-
-    int bfs(Queue<Integer> q,
-            List<List<Integer>> adj,
-            HashSet<Integer> visited,
-            int c,
-            String endWord,
-            List<String> wordList)
-    {
         while (!q.isEmpty()) {
             c++;
             for (int i = 0, size = q.size(); i < size; i++) {
-                Integer curr = q.poll();
-                visited.add(curr);
+                String curr = q.poll();
 
-                if (wordList.get(curr).equals(endWord))
-                    return c + 1;
+                if (curr.equals(endWord))
+                    return c;
 
-                for (Integer nei : adj.get(curr)) {
-                    if (visited.contains(nei))
-                        continue;
+                for (int j = 0; j < curr.length(); j++) {
+                    String pattern =
+                      curr.substring(0, j) + "*" + curr.substring(j + 1);
 
-                    q.add(nei);
+                    List<String> neis =
+                      adj.getOrDefault(pattern, Collections.emptyList());
+
+                    for (String nei : neis) {
+                        if (visited.contains(nei))
+                            continue;
+
+                        visited.add(nei);
+                        q.add(nei);
+                    }
                 }
             }
         }
@@ -55,43 +44,24 @@ class _127
   public
     int ladderLength(String beginWord, String endWord, List<String> wordList)
     {
-        List<List<Integer>> adj = new ArrayList<>();
-        HashSet<Integer> visited = new HashSet<>();
+        if (!wordList.contains(endWord))
+            return 0;
 
-        for (int i = 0; i < wordList.size(); i++) {
-            adj.add(new ArrayList<>());
-        }
+        HashMap<String, List<String>> adj = new HashMap<>();
 
-        for (int i = 0; i < wordList.size(); i++) {
-            String word = wordList.get(i);
-
-            for (int j = i + 1; j < wordList.size(); j++) {
-                String word2 = wordList.get(j);
-
-                int diff = getDiff(word, word2);
-
-                if (diff == 1) {
-                    adj.get(i).add(j);
-                    adj.get(j).add(i);
-                }
+        wordList.add(beginWord);
+        for (String word : wordList) {
+            for (int i = 0; i < word.length(); i++) {
+                String p = word.substring(0, i) + '*' + word.substring(i + 1);
+                adj.computeIfAbsent(p, k->new ArrayList<>()).add(word);
             }
         }
 
-        Queue<Integer> q = new LinkedList<>();
+        HashSet<String> visited = new HashSet<>();
+        Queue<String> q = new LinkedList<>();
+        q.offer(beginWord);
+        visited.add(beginWord);
 
-        for (int i = 0; i < wordList.size(); i++) {
-            String word = wordList.get(i);
-
-            int diff = getDiff(beginWord, word);
-
-            if (diff == 1) {
-                q.add(i);
-            }
-        }
-
-        System.out.println(adj);
-        System.out.println(q);
-
-        return bfs(q, adj, visited, 0, endWord, wordList);
+        return bfs(q, adj, visited, endWord);
     }
 }

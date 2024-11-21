@@ -1,50 +1,42 @@
 package leetcode.Graph;
 
-import java.util.List;
 import java.util.PriorityQueue;
-import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.HashMap;
-import java.util.HashSet;
 
 public
 class _1584
 {
-    int bfs(HashSet<Integer> visited,
-            PriorityQueue<int[]> mh,
-            HashMap<Integer, List<int[]>> adj,
-            int n)
+    int find(int[] par, int v)
     {
-        int cost = 0;
+        if (v != par[v])
+            par[v] = find(par, par[v]);
+        return par[v];
+    }
 
-        while (visited.size() < n) {
-            int[] curr = mh.poll();
+    boolean unite(int[] par, int[] rank, int v, int u) {
+        int pV = find(par, v);
+        int pU = find(par, u);
 
-            int dist = curr[0];
-            int i = curr[1];
+        if (pV == pU)
+            return false;
 
-            if (visited.contains(i))
-                continue;
-
-            cost += dist;
-            visited.add(i);
-
-            if (!adj.containsKey(i))
-                continue;
-
-            for (int[] nei : adj.get(i)) {
-                if (!visited.contains(nei[1])) {
-                    mh.offer(new int[]{ nei[0], nei[1] });
-                }
-            }
+        if (rank[pV] > rank[pU]) {
+            par[pU] = pV;
+        } else if (rank[pV] < rank[pU]) {
+            par[pV] = pU;
+        } else {
+            par[pV] = pU;
+            rank[pU]++;
         }
 
-        return cost;
+        return true;
     }
+
   public
     int minCostConnectPoints(int[][] points)
     {
-        HashMap<Integer, List<int[]>> adj = new HashMap<>();
+        PriorityQueue<int[]> minHeap =
+          new PriorityQueue<>(Comparator.comparingInt(a->a[0]));
 
         for (int i = 0; i < points.length; i++) {
             int[] p1 = points[i];
@@ -54,20 +46,30 @@ class _1584
 
                 int dist = Math.abs(p1[0] - p2[0]) + Math.abs(p1[1] - p2[1]);
 
-                adj.putIfAbsent(i, new ArrayList<>());
-                adj.putIfAbsent(j, new ArrayList<>());
-
-                adj.get(i).add(new int[]{ dist, j });
-                adj.get(j).add(new int[]{ dist, i });
+                minHeap.add(new int[]{ dist, j, i });
             }
         }
 
-        HashSet<Integer> visited = new HashSet<>();
+        int[] par = new int[points.length + 1];
+        int[] rank = new int[points.length + 1];
 
-        PriorityQueue<int[]> minHeap =
-          new PriorityQueue<>(Comparator.comparingInt(a->a[0]));
-        minHeap.offer(new int[]{ 0, 0 });
+        for (int i = 0; i <= points.length; i++) {
+            rank[i] = 1;
+            par[i] = i;
+        }
 
-        return bfs(visited, minHeap, adj, points.length);
+
+        int cost = 0;
+        while (!minHeap.isEmpty()) {
+            int[] p = minHeap.poll();
+
+            if (!unite(par, rank, p[1], p[2])) {
+                continue;
+            }
+
+            cost += p[0];
+        }
+
+        return cost;
     }
 }

@@ -20,4 +20,11 @@ class _5Test
         System.out.println(res);
         assertEquals("bb", res);
     }
+
+    @Test void test3()
+    {
+        var res = o.longestPalindrome("ababd");
+        System.out.println(res);
+        assertEquals("aba", res);
+    }
 }

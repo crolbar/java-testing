@@ -3,21 +3,21 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public
-class _198Test
+class _647Test
 {
-    _198 o = new _198();
+    _647 o = new _647();
 
     @Test void test()
     {
-        var res = o.rob(new int[]{ 1, 2, 3, 1 });
+        var res = o.countSubstrings("abc");
         System.out.println(res);
-        assertEquals(4, res);
+        assertEquals(3, res);
     }
 
     @Test void test2()
     {
-        var res = o.rob(new int[]{ 2, 9, 8, 3, 6 });
+        var res = o.countSubstrings("aaa");
         System.out.println(res);
-        assertEquals(16, res);
+        assertEquals(6, res);
     }
 }

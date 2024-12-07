@@ -3,35 +3,35 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public
-class _322Test
+class _152Test
 {
-    _322 o = new _322();
+    _152 o = new _152();
 
     @Test void test()
     {
-        var res = o.coinChange(new int[]{ 1, 2, 5 }, 11);
+        var res = o.maxProduct(new int[]{2,3,-2,4});
         System.out.println(res);
-        assertEquals(3, res);
+        assertEquals(6, res);
     }
 
     @Test void test2()
     {
-        var res = o.coinChange(new int[]{ 2 }, 3);
+        var res = o.maxProduct(new int[]{-2, 0, -1});
         System.out.println(res);
-        assertEquals(-1, res);
+        assertEquals(0, res);
     }
 
     @Test void test3()
     {
-        var res = o.coinChange(new int[]{ 1, 5, 10 }, 12);
+        var res = o.maxProduct(new int[]{1,2,-3,4});
         System.out.println(res);
-        assertEquals(3, res);
+        assertEquals(4, res);
     }
 
     @Test void test4()
     {
-        var res = o.coinChange(new int[]{ 186, 419, 83, 408 }, 6249);
+        var res = o.maxProduct(new int[]{-2,3,-4});
         System.out.println(res);
-        assertEquals(20, res);
+        assertEquals(24, res);
     }
 }

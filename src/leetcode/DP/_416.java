@@ -1,16 +1,6 @@
 package leetcode.DP;
 
 public class _416 {
-    private boolean r(int[] nums, int target, int i) {
-        if (i == nums.length)
-            return target == 0;
-
-        if (target < 0)
-            return false;
-
-        return r(nums, target, i + 1) || r(nums, target - nums[i], i + 1);
-    }
-
     public boolean canPartition(int[] nums) {
         int sum = 0;
         for (int i = 0; i < nums.length; i++)
@@ -21,6 +11,15 @@ public class _416 {
 
         int target = sum / 2;
 
-        return r(nums, target, 0);
+        boolean[] dp = new boolean[target + 1];
+        dp[0] = true;
+
+        for (int i = nums.length - 1; i >= 0; i--) {
+            for (int j = target; j >= nums[i]; j--) {
+                dp[j] = dp[j] || dp[j - nums[i]];
+            }
+        }
+
+        return dp[target];
     }
 }

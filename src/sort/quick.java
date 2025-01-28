@@ -1,13 +1,10 @@
 package sort;
 
-public
-class quick
+public class quick
 {
-  public
-    static void sort(int[] data) { qs(data, 0, data.length - 1); }
+    public static void sort(int[] data) { qs(data, 0, data.length - 1); }
 
-  private
-    static void qs(int[] data, int l, int r)
+    private static void qs(int[] data, int l, int r)
     {
         if (l >= r)
             return;
@@ -18,27 +15,24 @@ class quick
         qs(data, pi + 1, r);
     }
 
-  private
-    static int pivot(int[] data, int l, int r)
+    private static int pivot(int[] data, int l, int r)
     {
         int pivot = data[r];
 
-        int idx = l - 1;
+        int i = l;
 
-        for (int i = l; i < r; i++) {
-            if (data[i] < pivot) {
-                idx++;
+        for (int j = l; j < r; j++) {
+            if (data[j] >= pivot)
+                continue;
 
-                int tmp = data[i];
-                data[i] = data[idx];
-                data[idx] = tmp;
-            }
+            int tmp = data[j];
+            data[j] = data[i];
+            data[i] = tmp;
         }
 
-        idx++;
-        data[r] = data[idx];
-        data[idx] = pivot;
+        data[r] = data[i];
+        data[i] = pivot;
 
-        return idx;
+        return i;
     }
 }

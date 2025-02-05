@@ -1,10 +1,10 @@
 package leetcode.DP;
 
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public
-class _1143Test
+import org.junit.jupiter.api.Test;
+
+public class _1143Test
 {
     _1143 o = new _1143();
 
@@ -34,5 +34,13 @@ class _1143Test
         var res = o.longestCommonSubsequence("ezupkr", "ubmrapg");
         System.out.println(res);
         assertEquals(2, res);
+    }
+
+    @Test void test5()
+    {
+        var res =
+          o.longestCommonSubsequence("pmjghexybyrgzczy", "hafcdqbgncrcbihkd");
+        System.out.println(res);
+        assertEquals(4, res);
     }
 }
